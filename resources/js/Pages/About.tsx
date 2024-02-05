@@ -1,3 +1,4 @@
+import Layout from '@/Layouts/Layout'
 import { PageProps } from '@/types'
 
 interface Props extends PageProps {
@@ -7,11 +8,12 @@ interface Props extends PageProps {
   }
 }
 
-const About = () => {
+const About = (props: Props) => {
   return (
-    <>
+    <Layout widgets={props.widgets}>
       {/* kerjakan di sini */}
-    </>
+      asd
+    </Layout>
   )
 }
 
