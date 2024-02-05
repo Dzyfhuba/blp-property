@@ -29,9 +29,9 @@ class Post extends Model
         'tags',
     ];
 
-    public function getShortContentAttribute()
-    {
-        return Str::limit($this->content, 100);
-    }
-
+    // cast
+    protected $casts = [
+        'images' => 'array',
+        'tags' => 'array'
+    ];
 }

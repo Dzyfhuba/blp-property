@@ -6,6 +6,7 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,8 +27,8 @@ class PostResource extends Resource
                 TextInput::make('subtitle')->placeholder('Subjudul Postingan')->label('Subjudul Postingan'),
                 RichEditor::make('content')->placeholder('Konten Postingan')->label('Konten Postingan')->columnSpanFull(),
                 FileUpload::make('thumbnail')->placeholder('Thumbnail Postingan')->label('Thumbnail Postingan'),
-                FileUpload::make('images')->placeholder('Gambar Postingan')->label('Gambar Postingan'),
-                TextInput::make('tags')->placeholder('Tag Postingan')->label('Tag Postingan'),
+                FileUpload::make('images')->placeholder('Gambar Postingan')->label('Gambar Postingan')->image()->multiple(),
+                TagsInput::make('tags')->placeholder('Tag Postingan')->label('Tag Postingan'),
             ]);
     }
 
