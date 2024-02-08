@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Widget;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -30,11 +31,13 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $widgets = Widget::all();
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
+            'widgets' => $widgets,
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

@@ -33,4 +33,9 @@ class Post extends Model
     //     return Str::limit($this->content, 100);
     // }
 
+    // cast
+    protected $casts = [
+        'images' => 'array',
+        'tags' => 'array',
+    ];
 }
