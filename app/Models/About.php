@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class About extends Model
 {
     use HasFactory;
 
@@ -21,16 +21,7 @@ class Post extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'subtitle',
         'content',
-        'thumbnail',
-        'images',
-        'tags',
+        'gambar',
     ];
-
-    // public function getShortContentAttribute()
-    // {
-    //     return Str::limit($this->content, 100);
-    // }
-
 }
