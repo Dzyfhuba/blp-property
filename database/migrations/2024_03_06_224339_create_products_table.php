@@ -1,6 +1,10 @@
 <?php
 
 use App\Models\Category;
+use App\Models\DesignOption;
+use App\Models\FacilityOption;
+use App\Models\LocationOption;
+use App\Models\PublicFacilityOption;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,9 +26,10 @@ return new class extends Migration {
             $table->float('bedroom')->unsigned()->nullable();
             $table->float('bathroom')->unsigned()->nullable();
             $table->float('land_size')->unsigned()->nullable();
-            $table->float('facilities')->unsigned()->nullable();
-            $table->float('design')->unsigned()->nullable();
-            $table->float('location')->unsigned()->nullable();
+            $table->foreignIdFor(PublicFacilityOption::class)->nullable();
+            $table->foreignIdFor(FacilityOption::class)->nullable();
+            $table->foreignIdFor(DesignOption::class)->nullable();
+            $table->foreignIdFor(LocationOption::class)->nullable();
             $table->float('floors')->unsigned()->nullable();
             $table->float('building_size')->unsigned()->nullable();
 
