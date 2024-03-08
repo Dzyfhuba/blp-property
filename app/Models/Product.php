@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,19 +17,20 @@ class Product extends Model
         'description',
         'category_id',
         'price',
-        'bedrooms',
-        'bathrooms',
+        'bedroom',
+        'bathroom',
         'land_size',
-        'facility_id',
-        'public_facility_id',
-        'design_id',
-        'location_id',
+        'facility_option_id',
+        'public_facility_option_id',
+        'design_option_id',
+        'location_option_id',
         'floors',
-        'building_size'
+        'building_sioption_ze'
     ];
     
-    public function category(): HasOne
+    public function category(): BelongsTo
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
+
 }
