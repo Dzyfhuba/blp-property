@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import useAxios from '@/hooks/Axios';
 
 export default function Login({ status, canResetPassword }: { status?: string, canResetPassword: boolean }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -20,10 +21,18 @@ export default function Login({ status, canResetPassword }: { status?: string, c
         };
     }, []);
 
+    const {axiosCsrf} = useAxios()
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('login'));
+        // post(route('login'));
+        axiosCsrf.post(route('login'), data)
+            .then(res => {
+                if (res.status === 200) {
+                    window.location.href = '/admin'
+                }
+            })
     };
 
     return (
