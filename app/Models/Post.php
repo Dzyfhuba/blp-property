@@ -12,5 +12,15 @@ class Post extends Model
     protected $fillable = [
         'title',
         'subtitle',
+        'user_id',
+        'thumbnail',
+        'images',
+        'tags',
+        'content'
     ];
+    protected $casts = [
+        'tags' => 'array',
+        'images' => 'array'
+    ];
+
 }
