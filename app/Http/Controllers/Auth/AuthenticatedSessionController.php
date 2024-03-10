@@ -34,10 +34,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // return response([
-        //     'message' => 'Login Success',
-        // ], 200);
-        return redirect('/admin');
+        return response([
+            'message' => 'Login Success',
+        ]);
     }
 
     /**
