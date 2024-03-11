@@ -12,7 +12,7 @@ const About = (props: Props) => {
   return (
     <Layout widgets={props.widgets}>
       {/* kerjakan di sini */}
-      asd
+      <div className='pt-20'>about</div>
     </Layout>
   )
 }

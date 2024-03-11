@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FaMoon, FaSun } from 'react-icons/fa'
-import { MdOutlineComputer, MdSunny } from 'react-icons/md'
+import { MdOutlineComputer } from 'react-icons/md'
 
-type Props = {
-  className?: string
-  size?: number
-}
+// type Props = {
+//   className?: string
+//   size?: number
+// }
 
 type Mode = 'dark' | 'light' | 'default'
 
-const DarkToggle = (props: Props) => {
+const DarkToggle = () => {
   const mode = window ? localStorage.getItem('mode') as 'dark' | 'light' : 'default'
   const [currentMode, setCurrentMode] = useState(mode)
   if (typeof window !== 'undefined' && mode) document.querySelector('html')?.setAttribute('data-theme', mode)
@@ -26,7 +26,7 @@ const DarkToggle = (props: Props) => {
   }
 
   return (
-    <div className="join rounded-full p-1 bg-base-300">
+    <div className="join rounded-full p-1 bg-base-200 w-max">
       {/* <input type="radio" name="theme-buttons" className="btn theme-controller join-item" aria-label="Default" value="default" /> */}
       <button className={`btn btn-sm join-item !rounded-full btn-ghost ${currentMode == 'light' ? ' bg-base-100':''}`} onClick={() => handleMode('light')}>
         <FaSun />

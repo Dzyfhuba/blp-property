@@ -10,7 +10,7 @@ export default function Layout({ user, children, ...props }: PropsWithChildren<{
   return (
     <>
       <Navbar />
-      <main className='p-3 min-h-[150vh]'>
+      <main className='min-h-[150vh]'>
         {children}
       </main>
 

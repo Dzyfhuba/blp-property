@@ -23,13 +23,20 @@ const Navbar = (props: Props) => {
   }
 
   const [isScrolled, setIsScrolled] = useState(false)
+  const [prevScrollPos, setPrevScrollPos] = useState(0)
 
   const handleScroll = () => {
-    if (window.scrollY > 10) {
+    const currentScrollPos = window.scrollY
+
+    if (currentScrollPos > prevScrollPos) {
+      // Scrolling down
       setIsScrolled(true)
     } else {
+      // Scrolling up
       setIsScrolled(false)
     }
+
+    setPrevScrollPos(currentScrollPos)
   }
 
   useEffect(() => {
@@ -37,7 +44,7 @@ const Navbar = (props: Props) => {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [prevScrollPos])
 
   return (
     <nav
@@ -54,6 +61,21 @@ const Navbar = (props: Props) => {
           {/* <h1>{import.meta.env.VITE_APP_NAME}</h1> */}
           <img src={ImageBrand2} alt={import.meta.env.VITE_APP_NAME} className="h-full" />
         </Link>
+
+        <div className='hidden sm:block'>
+          <Link href='/' className={styles.navItem}>
+            Home
+          </Link>
+          <Link href='/projects' className={styles.navItem}>
+            Project Kami
+          </Link>
+          <Link href='/posts' className={styles.navItem}>
+            Blog
+          </Link>
+          <Link href='/about' className={styles.navItem}>
+            Tentang Kami
+          </Link>
+        </div>
 
         {/* <details className="dropdown hidden sm:block dropdown-end">
           <summary className="btn btn-sm btn-ghost">
@@ -123,9 +145,6 @@ const Navbar = (props: Props) => {
                   )}
                 </ul>
               </details>
-            </li>
-            <li>
-              <DarkToggle className="absolute bottom-3 left-3" size={24} />
             </li>
           </ul>
         </div>

@@ -9,3 +9,7 @@
 .topContact {
   @apply bg-base-100 flex justify-center items-center gap-3
 }
+
+.navItem {
+  @apply btn btn-ghost
+}

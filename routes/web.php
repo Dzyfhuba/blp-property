@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,7 +21,8 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [DashboardController::class, 'index']);
-
+Route::get('/projects', [ProjectController::class, 'index']);
+Route::get('/posts', [PostController::class, 'index']);
 Route::get('/about', [AboutController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
