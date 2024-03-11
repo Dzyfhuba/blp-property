@@ -75,6 +75,7 @@ const config: Config & {
   },
   plugins: [
     // forms,
+    require('@tailwindcss/typography'),
     require('daisyui')
   ],
 }
