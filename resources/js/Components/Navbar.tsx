@@ -1,11 +1,10 @@
+import ImageBrand2 from '@/Images/brand2.png'
 import { User } from '@/types'
 import { Link, router } from '@inertiajs/react'
 import { useEffect, useState } from 'react'
-import { MdAccountCircle, MdClose, MdMenu } from 'react-icons/md'
-import DarkToggle from './DarkToggle'
-import styles from './Navbar.module.css'
-import ImageBrand2 from '@/Images/brand2.png'
 import { FaPhoneAlt } from 'react-icons/fa'
+import { MdAccountCircle, MdClose, MdMenu } from 'react-icons/md'
+import styles from './Navbar.module.css'
 
 type Props = {
   user?: User

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import defaultTheme from 'tailwindcss/defaultTheme'
 import forms from '@tailwindcss/forms'
 import { Config } from 'tailwindcss'
@@ -7,7 +8,7 @@ import { Config as DaisyUIConfig } from 'daisyui'
 /** @type {import('tailwindcss').Config} */
 
 const config: Config & {
-    daisyui: DaisyUIConfig
+  daisyui: DaisyUIConfig
 } = {
   content: [
     // './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
@@ -38,7 +39,20 @@ const config: Config & {
   //   ],
   // },
   daisyui: {
-    themes: ['light', 'dark']
+    themes: [
+      {
+        light: {
+          ...require('daisyui/src/theming/themes')['light'],
+          primary: '#F2B84D',
+        },
+      },
+      {
+        dark: {
+          ...require('daisyui/src/theming/themes')['dark'],
+          primary: '#F2B84D',
+        },
+      },
+    ]
   },
   theme: {
     extend: {
