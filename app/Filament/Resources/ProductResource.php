@@ -33,6 +33,8 @@ class ProductResource extends Resource
                 TextInput::make('name')->string()->required(),
                 Select::make('category')->label('cluster')->options(Category::all()->pluck('name', 'id')),
                 MarkdownEditor::make('description')->columnSpanFull(),
+                TextInput::make("occupied")->label('Jumlah Terisi')->integer(),
+                TextInput::make("capacity")->label('Kapasitas')->integer(),
                 TextInput::make("price")->label('Price (Rp)')->integer(),
                 TextInput::make("bedrooms")->integer(),
                 TextInput::make("bathrooms")->integer(),

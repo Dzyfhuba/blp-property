@@ -6,7 +6,9 @@ use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -27,7 +29,21 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
-                MarkdownEditor::make('description')->columnSpanFull()
+                MarkdownEditor::make('description')->columnSpanFull(),
+                FileUpload::make('images_top')
+                    ->multiple()
+                    ->image(),
+                FileUpload::make('images_bottom')
+                    ->multiple()
+                    ->image(),
+                Repeater::make('details')
+                    ->cloneable()
+                    ->schema([
+                        TextInput::make('title')->required(),
+                        TextInput::make('description'),
+                        FileUpload::make('images')->image()
+                            ->multiple(),
+                    ]),
             ]);
     }
 

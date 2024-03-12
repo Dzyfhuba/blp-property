@@ -91,14 +91,16 @@ const SearchProducts = () => {
               ))}
             </ReactSortable>
           </div>
-          <select className='btn btn-sm text-start block mx-auto' onChange={(e) => handleFilterChange(e.target.value, 'add')}>
-            <option value="">Tambah Filter</option>
-            {unlist.filter(u => !list.includes(u)).map(item => (
-              <option value={item.id} key={item.id}>{item.text}</option>
-            ))}
-          </select>
+          {list.length >= 10 ? <></> : (
+            <select className='btn btn-sm text-start block mx-auto' onChange={(e) => handleFilterChange(e.target.value, 'add')}>
+              <option value="">Tambah Filter {`${list.length}/10`}</option>
+              {unlist.filter(u => !list.includes(u)).map(item => (
+                <option value={item.id} key={item.id}>{item.text}</option>
+              ))}
+            </select>
+          )}
           {list.length ? (
-            <button className='btn btn-primary'>
+            <button className='btn btn-primary' disabled={list.length < 10}>
               Search
             </button>
           ) : <></>}

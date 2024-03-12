@@ -12,5 +12,14 @@ class Category extends Model
     protected $fillable = [
         'name',
         'description',
+        'images_top',
+        'images_bottom',
+        'details'
+    ];
+
+    protected $casts = [
+        'images_top' => 'array',
+        'images_bottom' => 'array',
+        'details' => 'array',
     ];
 }

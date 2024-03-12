@@ -25,7 +25,9 @@ class Product extends Model
         'design_option_id',
         'location_option_id',
         'floors',
-        'building_option_id'
+        'building_option_id',
+        'capacity',
+        'occupied',
     ];
     
     public function category(): BelongsTo
