@@ -1,24 +1,27 @@
 import { ItemInterface, ReactSortable } from 'react-sortablejs'
 import SearchInput from './SearchInput'
-import { SyntheticEvent, useEffect, useState } from 'react'
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react'
 import axios from 'axios'
 import { AllSelectOption, Column } from '@/types/search-option'
 import Swal from 'sweetalert2'
 import { GoGrabber } from 'react-icons/go'
+import { MdClose, MdDelete } from 'react-icons/md'
 
 const SearchProducts = () => {
-  const [list, setList] = useState<(ItemInterface & { column: Column })[]>([
-    { id: 'price', column: 'price' },
-    { id: 'bedrooms', column: 'bedrooms' },
-    { id: 'bathrooms', column: 'bathrooms' },
-    { id: 'land_size', column: 'land_size' },
-    { id: 'facility', column: 'facility' },
-    { id: 'public_facility', column: 'public_facility' },
-    { id: 'design', column: 'design' },
-    { id: 'location', column: 'location' },
-    { id: 'floors', column: 'floors' },
-    { id: 'building_size', column: 'building_size' },
+  const [unlist, setUnlist] = useState<(ItemInterface & { column: Column, text?: string })[]>([
+    { id: 'price', column: 'price', text: 'Harga' },
+    { id: 'bedrooms', column: 'bedrooms', text: 'Kamar Tidur' },
+    { id: 'bathrooms', column: 'bathrooms', text: 'Kamar Mandi' },
+    { id: 'land_size', column: 'land_size', text: 'Luas Tanah' },
+    { id: 'facility', column: 'facility', text: 'Fasilitas' },
+    { id: 'public_facility', column: 'public_facility', text: 'Fasilitas Publik' },
+    { id: 'design', column: 'design', text: 'Desain' },
+    { id: 'location', column: 'location', text: 'Jarak dari Keramaian Umum' },
+    { id: 'floors', column: 'floors', text: 'Harga' },
+    { id: 'building_size', column: 'building_size', text: 'Luas Bangunan' },
   ])
+
+  const [list, setList] = useState<(ItemInterface & { column: Column, text?: string })[]>([])
 
   const [options, setOptions] = useState<AllSelectOption>()
 
@@ -46,6 +49,17 @@ const SearchProducts = () => {
     console.log(list)
   }
 
+  const handleFilterChange = (value: string, action: 'add' | 'delete') => {
+    console.log(value)
+    if (action === 'add') {
+      setList([...list, { id:value, column: value as Column }])
+      setUnlist(unlist.filter(u => u.id !== value))
+    } else if(action === 'delete') {
+      setUnlist([...unlist, { id:value, column: value as Column }])
+      setList(list.filter(u => u.id !== value))
+    }
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -70,10 +84,19 @@ const SearchProducts = () => {
                   <div className='flex-1 justify-self-stretch' draggable={false}>
                     <SearchInput column={item.column} options={options} />
                   </div>
+                  <button type='button' className='btn btn-ghost text-red-500 px-0' onClick={() => handleFilterChange(item.column, 'delete')}>
+                    <MdClose size={24} />
+                  </button>
                 </div>
               ))}
             </ReactSortable>
           </div>
+          <select className='btn btn-sm text-start block mx-auto' onChange={(e) => handleFilterChange(e.target.value, 'add')}>
+            <option value="">Tambah Filter</option>
+            {unlist.filter(u => !list.includes(u)).map(item => (
+              <option value={item.id} key={item.id}>{item.text}</option>
+            ))}
+          </select>
           <button className='btn btn-primary'>
             Search
           </button>
