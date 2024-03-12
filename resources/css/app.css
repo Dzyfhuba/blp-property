@@ -8,3 +8,7 @@
     @apply bg-base-100
   }
 }
+
+.swal2-popup {
+  @apply !bg-base-100 !text-base-content
+}

@@ -17,15 +17,15 @@ class Product extends Model
         'description',
         'category_id',
         'price',
-        'bedroom',
-        'bathroom',
+        'bedrooms',
+        'bathrooms',
         'land_size',
         'facility_option_id',
         'public_facility_option_id',
         'design_option_id',
         'location_option_id',
         'floors',
-        'building_sioption_ze'
+        'building_option_id'
     ];
     
     public function category(): BelongsTo

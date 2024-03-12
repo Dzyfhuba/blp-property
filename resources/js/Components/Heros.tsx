@@ -6,18 +6,26 @@ import 'swiper/css/pagination'
 import { Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import styles from './Heros.module.css'
-import { createRef, useRef } from 'react'
+import { createRef, useEffect, useRef } from 'react'
 import Modal from './Modal'
 import SearchProducts from './ProductsSearch'
+import withReactContent from 'sweetalert2-react-content'
+import Swal from 'sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 const Heros = () => {
-  const searchProductRef = useRef<HTMLDialogElement>(null)
+  const ReactSwal = withReactContent(Swal)
+
+  const handleSearchModal = () => {
+    ReactSwal.fire({
+      html: <SearchProducts />,
+      showConfirmButton: false,
+      showCloseButton: true
+    })
+  }
 
   return (
     <>
-      <Modal ref={searchProductRef}>
-        <SearchProducts />
-      </Modal>
       <Swiper
         pagination={{
           clickable: true
@@ -28,7 +36,7 @@ const Heros = () => {
       >
         <SwiperSlide>
           <div className={styles.mainContainer}>
-            <button className='btn btn-primary' onClick={() => searchProductRef.current?.showModal()}>
+            <button className='btn btn-primary' onClick={() => handleSearchModal()}>
               Cari Rumah Terbaik Untuk Anda
             </button>
           </div>
