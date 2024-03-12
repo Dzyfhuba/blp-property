@@ -1,11 +1,11 @@
-import { ItemInterface, ReactSortable } from 'react-sortablejs'
-import SearchInput from './SearchInput'
-import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react'
-import axios from 'axios'
 import { AllSelectOption, Column } from '@/types/search-option'
-import Swal from 'sweetalert2'
+import axios from 'axios'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import { GoGrabber } from 'react-icons/go'
-import { MdClose, MdDelete } from 'react-icons/md'
+import { MdClose } from 'react-icons/md'
+import { ItemInterface, ReactSortable } from 'react-sortablejs'
+import Swal from 'sweetalert2'
+import SearchInput from './SearchInput'
 
 const SearchProducts = () => {
   const [unlist, setUnlist] = useState<(ItemInterface & { column: Column, text?: string })[]>([
@@ -52,10 +52,10 @@ const SearchProducts = () => {
   const handleFilterChange = (value: string, action: 'add' | 'delete') => {
     console.log(value)
     if (action === 'add') {
-      setList([...list, { id:value, column: value as Column }])
+      setList([...list, unlist.filter(l => l.id === value)[0]])
       setUnlist(unlist.filter(u => u.id !== value))
-    } else if(action === 'delete') {
-      setUnlist([...unlist, { id:value, column: value as Column }])
+    } else if (action === 'delete') {
+      setUnlist([...unlist, list.filter(l => l.id === value)[0]])
       setList(list.filter(u => u.id !== value))
     }
   }
@@ -97,9 +97,11 @@ const SearchProducts = () => {
               <option value={item.id} key={item.id}>{item.text}</option>
             ))}
           </select>
-          <button className='btn btn-primary'>
-            Search
-          </button>
+          {list.length ? (
+            <button className='btn btn-primary'>
+              Search
+            </button>
+          ) : <></>}
         </>
       ) : (
         <></>
