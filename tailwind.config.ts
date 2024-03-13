@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import defaultTheme from 'tailwindcss/defaultTheme'
 import forms from '@tailwindcss/forms'
 import { Config } from 'tailwindcss'
@@ -7,12 +8,12 @@ import { Config as DaisyUIConfig } from 'daisyui'
 /** @type {import('tailwindcss').Config} */
 
 const config: Config & {
-    daisyui: DaisyUIConfig
+  daisyui: DaisyUIConfig
 } = {
   content: [
-    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-    './storage/framework/views/*.php',
-    './resources/views/**/*.blade.php',
+    // './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+    // './storage/framework/views/*.php',
+    // './resources/views/**/*.blade.php',
     './resources/js/**/*.tsx',
   ],
   // daisyui: {
@@ -37,7 +38,22 @@ const config: Config & {
   //     // },
   //   ],
   // },
-  daisyui: {},
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require('daisyui/src/theming/themes')['light'],
+          primary: '#F2B84D',
+        },
+      },
+      {
+        dark: {
+          ...require('daisyui/src/theming/themes')['dark'],
+          primary: '#F2B84D',
+        },
+      },
+    ]
+  },
   theme: {
     extend: {
       fontFamily: {
@@ -46,10 +62,6 @@ const config: Config & {
       backgroundColor: {
         'dark': '#1d232a',
         'light': '#ffffff',
-      },
-      textColor: {
-        'dark': '#ffffff',
-        'light': '#000000',
       },
       boxShadow: {
         normal: '4.0px 8.0px 8.0px rgba(0,0,0,0.38)'
@@ -62,7 +74,8 @@ const config: Config & {
     },
   },
   plugins: [
-    forms,
+    // forms,
+    require('@tailwindcss/typography'),
     require('daisyui')
   ],
 }

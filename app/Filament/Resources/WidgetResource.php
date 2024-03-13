@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -27,13 +28,20 @@ class WidgetResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function canViewAny(): bool
+    {
+        return false;
+    }
+
     public static function form(Form $form): Form
     {
+        $layouts = Widget::query()->distinct('layout')->pluck('layout');
         return $form
             ->schema([
                 TextInput::make('title')->placeholder('Judul')->label('Judul'),
                 FileUpload::make('image')->image(),
                 TextInput::make('link'),
+                TagsInput::make('layout')->suggestions($layouts),
                 RichEditor::make('content')->columnSpanFull(),
                 TagsInput::make('layout')
             ]);

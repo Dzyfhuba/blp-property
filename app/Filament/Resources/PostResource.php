@@ -3,15 +3,23 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
+use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
+use App\Models\User;
+use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PostResource extends Resource
 {
@@ -23,12 +31,22 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')->placeholder('Judul Postingan')->label('Judul Postingan'),
-                TextInput::make('subtitle')->placeholder('Subjudul Postingan')->label('Subjudul Postingan'),
-                RichEditor::make('content')->placeholder('Konten Postingan')->label('Konten Postingan')->columnSpanFull(),
-                FileUpload::make('thumbnail')->placeholder('Thumbnail Postingan')->label('Thumbnail Postingan'),
-                FileUpload::make('images')->placeholder('Gambar Postingan')->label('Gambar Postingan')->image()->multiple(),
-                TagsInput::make('tags')->placeholder('Tag Postingan')->label('Tag Postingan'),
+                TextInput::make('title'),
+                TextInput::make('subtitle'),
+                MarkdownEditor::make('content')->columnSpanFull(),
+                Select::make('user_id')
+                    ->label('Author')
+                    ->options(User::all()->pluck('name', 'id'))
+                    ->searchable()->default(auth()->user()->id),
+                FileUpload::make('thumbnail')
+                    ->image(),
+                FileUpload::make('images')
+                    ->image()
+                    ->multiple(),
+                TagsInput::make('tags'),
+
+
+
             ]);
     }
 
@@ -36,17 +54,14 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('subtitle'),
-                // Tables\Columns\TextColumn::make('content')->limit(50),
-                Tables\Columns\ImageColumn::make('thumbnail'),
-                Tables\Columns\TextColumn::make('tags'),
+                TextColumn::make('title'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
