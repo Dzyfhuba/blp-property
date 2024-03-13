@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Livewire\WeightProductCriterionWidget;
 use Filament\Pages\Page;
 
 class Setting extends Page
@@ -11,4 +12,11 @@ class Setting extends Page
     protected static string $view = 'filament.pages.setting';
 
     protected static ?int $navigationSort = 99;
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            WeightProductCriterionWidget::class
+        ];
+    }
 }
