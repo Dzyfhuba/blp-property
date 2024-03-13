@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->json('weight_product_criterion');
-            $table->json('contacts');
-            $table->json('marketing_executives');
+            $table->json('weight_product_criterion')->nullable();
+            $table->json('contacts')->nullable();
+            $table->json('marketing_executives')->nullable();
             $table->timestamps();
         });
     }

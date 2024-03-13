@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->integer('capacity')->default(0)->nullable();
             $table->integer('occupied')->default(0)->nullable();
+            $table->renameColumn('building_s_optionize', 'building_size');
             $table->dropColumn('products');
         });
     }
@@ -25,6 +26,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->dropColumn(['capacity', 'occupied']);
+            $table->renameColumn('building_size', 'building_s_optionize');
             $table->text('products')->nullable();
         });
     }
