@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class About extends Model
 {
     use HasFactory;
+    protected $table = 'abouts';
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::creating(function ($post) {
-            $post->user_id = auth()->id();
-        });
-    }
-
+    //     static::creating(function ($post) {
+    //         $post->user_id = auth()->id();
+    //     });
+    // }
     protected $fillable = [
         'user_id',
         'title',
         'content',
-        'gambar',
+        'image',
     ];
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_abouts', function (Blueprint $table) {
+        Schema::create('abouts', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('title');
             $table->text('content');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_abouts');
+        Schema::dropIfExists('abouts');
     }
 };

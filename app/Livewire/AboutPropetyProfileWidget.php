@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Setting;
+use App\Models\About;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -24,9 +24,9 @@ class AboutPropetyProfileWidget extends Widget implements HasForms
 
     public function mount(): void
     {
-        $setting = Setting::first();
-        if ($setting)
-            $this->form->fill($setting->toArray());
+        $about = About::first();
+        if ($about)
+            $this->form->fill($about->toArray());
     }
 
     public function form(Form $form): Form
@@ -34,8 +34,8 @@ class AboutPropetyProfileWidget extends Widget implements HasForms
         return $form
             ->schema([
                 TextInput::make('title')->label('Title'),
-                TextInput::make('description')->label('Description'),
-                FileUpload::make('gambar')->label('Upload Gambar')
+                TextInput::make('content')->label('Content'),
+                FileUpload::make('image')->label('Upload Image')
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif']) // Tipe file yang diizinkan
                     ->rules('image|max:1024'),
             ])
@@ -44,8 +44,11 @@ class AboutPropetyProfileWidget extends Widget implements HasForms
 
     public function submit(): void
     {
-        Setting::updateOrCreate([
-            'id' => 1
+        About::updateOrCreate([
+            'id' => 1,
+            'title'=> 'title',
+            'content'=> 'content',
+            'image'=> 'image',
         ], $this->form->getState());
 
         $this->dispatch('close-modal', id: 'confirm');
@@ -55,7 +58,7 @@ class AboutPropetyProfileWidget extends Widget implements HasForms
             ->success()
             ->send();
     }
-
+    
     public function closeModal()
     {
         $this->dispatch('close-modal', id: 'confirm');
