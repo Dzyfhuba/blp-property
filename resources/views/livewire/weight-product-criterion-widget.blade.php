@@ -9,10 +9,11 @@
                     Jadi disimpan?
                 </x-slot>
                 <x-slot name="trigger">
-                    <x-filament::button>
+                    <x-filament::button class="mt-3">
                         Save
                     </x-filament::button>
                 </x-slot>
+                <span></span>
 
                 {{-- Modal content --}}
                 <div class="flex gap-3">
@@ -24,7 +25,6 @@
                     </x-filament::button>
                 </div>
             </x-filament::modal>
-
         </form>
     </x-filament::section>
 </x-filament-widgets::widget>
