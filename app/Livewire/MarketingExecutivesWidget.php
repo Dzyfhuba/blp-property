@@ -4,8 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Setting;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -13,42 +11,33 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Widgets\Widget;
 
-class ContactsWidget extends Widget implements HasForms
+class MarketingExecutivesWidget extends Widget implements HasForms
 {
     use InteractsWithForms;
-    protected static string $view = 'livewire.contacts-widget';
+
+    protected static string $view = 'livewire.marketing-executives-widget';
 
     public ?array $data = [];
-    
+
     public function mount(): void
     {
         $setting = Setting::first();
         if ($setting)
             $this->form->fill($setting->toArray());
     }
-    
+
     public function form(Form $form): Form
     {
-        $contacts = [
-            'email' => 'Email',
-            'whatsapp' => 'Whatsapp',
-            'phone' => 'Phone'
-        ];
-
         return $form
             ->schema([
-                Repeater::make('contacts')        
+                Repeater::make('marketing_executives')
                     ->hiddenLabel()
-                    ->maxItems(count($contacts))
                     ->cloneable()
                     ->schema([
-                        Select::make('type')
-                            ->label('Tipe')
-                            ->options($contacts)
+                        TextInput::make('name')
                             ->required(),
-                        TextInput::make('label')
-                            ->required(),
-                        TextInput::make('url')
+                        TextInput::make('phone')
+                            ->tel()
                             ->required(),
                     ])
             ])
