@@ -3,7 +3,7 @@
 }
 
 .title {
-  @apply uppercase font-bold text-2xl
+  @apply uppercase font-bold text-2xl whitespace-normal text-center sm:whitespace-nowrap
 }
 
 .gridContainer {
