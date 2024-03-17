@@ -44,27 +44,22 @@ class WeightProductCriterionWidget extends Widget implements HasForms
         ];
         return $form
             ->schema([
-                Section::make('Bobot setiap kriteria produk')
+                Repeater::make('weight_product_criterion')
+                    ->hiddenLabel()
+                    ->cloneable()
+                    ->columns()
+                    ->maxItems(count($tableColumns))
                     ->schema([
-                        Repeater::make('weight_product_criterion')
-                            ->label('Bobot Kriteria Produk')
-                            ->cloneable()
-                            ->columns()
-                            ->maxItems(count($tableColumns))
-                            ->schema([
-                                Select::make('criteria')->options($tableColumns),
-                                TextInput::make('weight')->label('Bobot')->numeric()
-                            ])
+                        Select::make('criteria')->options($tableColumns),
+                        TextInput::make('weight')->label('Bobot')->numeric()
                     ])
-                    ->collapsible()
-                    ->collapsed()
             ])
             ->statePath('data');
     }
 
     public function submit(): void
     {
-        dd($this->form->getState());
+        // dd($this->form->getState());
         Setting::updateOrCreate([
             'id' => 1
         ], $this->form->getState());
@@ -85,6 +80,7 @@ class WeightProductCriterionWidget extends Widget implements HasForms
 
     public function total()
     {
-        // print_r($this->form);
+        $total = array_sum(array_map(fn($e)=>$e['weight'], $this->form->getState()['weight_product_criterion']));
+        return $total;
     }
 }

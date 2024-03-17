@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Livewire\ContactsWidget;
 use App\Livewire\WeightProductCriterionWidget;
 use Filament\Pages\Page;
 
@@ -16,7 +17,8 @@ class Setting extends Page
     protected function getHeaderWidgets(): array
     {
         return [
-            WeightProductCriterionWidget::class
+            ContactsWidget::class,
+            WeightProductCriterionWidget::class,
         ];
     }
 }

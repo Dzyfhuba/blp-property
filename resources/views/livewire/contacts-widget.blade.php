@@ -1,14 +1,13 @@
 <x-filament-widgets::widget>
-    <x-filament::section 
+    <x-filament::section
     collapsible
     collapsed
     persist-collapsed
-    id="weight-product-criterion"
+    id="contacts"
     >
         <x-slot name="heading">
-            Bobot setiap kriteria produk
+            Atur Kontak
         </x-slot>
-
         {{-- Widget content --}}
         <form wire:submit="submit">
             {{$this->form}}
@@ -22,18 +21,18 @@
                         Save
                     </x-filament::button>
                 </x-slot>
+                <span></span>
 
                 {{-- Modal content --}}
                 <div class="flex gap-3">
                     <x-filament::button wire:click="closeModal" color="gray">
                         Cancel
                     </x-filament::button>
-                    <x-filament::button type="submit" class="grow" disabled>
+                    <x-filament::button type="submit" class="grow">
                         Save
                     </x-filament::button>
                 </div>
             </x-filament::modal>
-            <span>Total weight: {{$this->total()}}</span>
         </form>
     </x-filament::section>
 </x-filament-widgets::widget>
