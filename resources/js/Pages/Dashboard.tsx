@@ -1,3 +1,4 @@
+import Advantages from '@/Components/Advantages'
 import Heros from '@/Components/Heros'
 import ProductsDisplay from '@/Components/ProductsDisplay'
 import Layout from '@/Layouts/Layout'
@@ -9,6 +10,7 @@ export default function Dashboard(props: PageProps) {
     <Layout widgets={props.widgets}>
       <Heros />
       <ProductsDisplay />
+      <Advantages />
     </Layout>
   )
 }
