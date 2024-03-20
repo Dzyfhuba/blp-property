@@ -5,8 +5,13 @@ import { PropsWithChildren } from 'react'
 import Brand from '../Images/brand.png'
 import Navbar from '@/Components/Navbar'
 import Footer from '@/Components/Footer'
+import FooterI from '@/types/setting'
 
-export default function Layout({ user, children, ...props }: PropsWithChildren<{ user?: User, widgets?: Widget[] }>) {
+export default function Layout({ user, children, ...props }: PropsWithChildren<{
+  user?: User
+  widgets?: Widget[]
+  footer?: FooterI
+}>) {
   return (
     <>
       <Navbar />
@@ -14,7 +19,7 @@ export default function Layout({ user, children, ...props }: PropsWithChildren<{
         {children}
       </main>
 
-      <Footer />
+      <Footer {...props.footer} />
     </>
   )
 }
