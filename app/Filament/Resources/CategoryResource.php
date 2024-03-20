@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,6 +27,11 @@ class CategoryResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $statuses = [
+            'complete' => 'Complete',
+            'progress' => 'Progress',
+        ];
+
         return $form
             ->schema([
                 TextInput::make('name')->required(),
@@ -38,12 +44,17 @@ class CategoryResource extends Resource
                     ->image(),
                 Repeater::make('details')
                     ->cloneable()
+                    ->collapsible()
+                    ->collapsed()
                     ->schema([
                         TextInput::make('title')->required(),
                         TextInput::make('description'),
                         FileUpload::make('images')->image()
                             ->multiple(),
                     ]),
+                Select::make('status')->options($statuses)
+                    ->default('complete')
+                    ->required()
             ]);
     }
 

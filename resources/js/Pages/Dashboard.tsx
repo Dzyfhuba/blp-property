@@ -1,16 +1,25 @@
-import Advantages from '@/Components/Advantages'
-import Heros from '@/Components/Heros'
-import ProductsDisplay from '@/Components/ProductsDisplay'
+import Advantages from '@/Components/Dashboard/Advantages'
+import Categories from '@/Components/Dashboard/Categories'
+import Heros from '@/Components/Dashboard/Heros'
+import ProductsDisplay from '@/Components/Dashboard/ProductsDisplay'
 import Layout from '@/Layouts/Layout'
 import { PageProps } from '@/types'
+import Category from '@/types/categories'
 
-export default function Dashboard(props: PageProps) {
-  console.log(props.widgets.filter(a => a.layout?.includes('header')))
+interface Props extends PageProps {
+  categories: Category[]
+}
+
+export default function Dashboard(props: Props) {
+  console.log(props)
   return (
     <Layout widgets={props.widgets}>
       <Heros />
-      <ProductsDisplay />
-      <Advantages />
+      <div className='container mx-auto'>
+        <ProductsDisplay />
+        <Advantages />
+        <Categories categories={props.categories} />
+      </div>
     </Layout>
   )
 }

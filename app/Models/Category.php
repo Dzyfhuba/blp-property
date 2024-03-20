@@ -14,7 +14,8 @@ class Category extends Model
         'description',
         'images_top',
         'images_bottom',
-        'details'
+        'details',
+        'status',
     ];
 
     protected $casts = [
