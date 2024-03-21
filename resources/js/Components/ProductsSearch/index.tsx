@@ -1,115 +1,108 @@
 import { AllSelectOption, Column } from '@/types/search-option'
-import axios from 'axios'
-import { SyntheticEvent, useEffect, useState } from 'react'
-import { GoGrabber } from 'react-icons/go'
-import { MdClose } from 'react-icons/md'
-import { ItemInterface, ReactSortable } from 'react-sortablejs'
-import Swal from 'sweetalert2'
+import { createRef, useEffect, useState } from 'react'
+import 'swiper/css'
+import 'swiper/css/virtual'
+import data from './data.json'
+import { Swiper, SwiperClass, SwiperRef, SwiperSlide, useSwiper } from 'swiper/react'
 import SearchInput from './SearchInput'
+import { FaCaretLeft, FaCaretRight } from 'react-icons/fa6'
+import { Virtual } from 'swiper/modules'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import { useStoreState } from '@/State/hooks'
 
-const SearchProducts = () => {
-  const [unlist, setUnlist] = useState<(ItemInterface & { column: Column, text?: string })[]>([
-    { id: 'price', column: 'price', text: 'Harga' },
-    { id: 'bedrooms', column: 'bedrooms', text: 'Kamar Tidur' },
-    { id: 'bathrooms', column: 'bathrooms', text: 'Kamar Mandi' },
-    { id: 'land_size', column: 'land_size', text: 'Luas Tanah' },
-    { id: 'facility', column: 'facility', text: 'Fasilitas' },
-    { id: 'public_facility', column: 'public_facility', text: 'Fasilitas Publik' },
-    { id: 'design', column: 'design', text: 'Desain' },
-    { id: 'location', column: 'location', text: 'Jarak dari Keramaian Umum' },
-    { id: 'floors', column: 'floors', text: 'Harga' },
-    { id: 'building_size', column: 'building_size', text: 'Luas Bangunan' },
-  ])
-
-  const [list, setList] = useState<(ItemInterface & { column: Column, text?: string })[]>([])
-
+const ProductsSearch = () => {
+  const [list, setList] = useState<({ column: Column, text?: string })[]>(data as never)
   const [options, setOptions] = useState<AllSelectOption>()
+  const [index, setIndex] = useState(0)
+  // const {} = useStoreState(states => states)
 
-  const getSelectOptions = async () => {
-    Swal.showLoading()
+  const [swiperRef, setSwiperRef] = useState<SwiperClass>()
+
+  const getData = async () => {
     const res = await axios.get('/api/search')
 
-    if (res.status !== 200) {
-      console.error()
-      return
+    if (res.status === 200) {
+      setOptions(res.data)
+    } else {
+      Swal.fire({
+        title: `Error ${res.status} ${res.statusText}`,
+        icon: 'error',
+        text: res.data.message || 'Something went wrong'
+      })
+      setOptions({})
     }
-
-    console.log(res.data)
-
-    setOptions(res.data)
-    Swal.hideLoading()
   }
 
   useEffect(() => {
-    getSelectOptions()
+    getData()
   }, [])
 
-  const handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault()
-    console.log(list)
-  }
-
-  const handleFilterChange = (value: string, action: 'add' | 'delete') => {
-    console.log(value)
-    if (action === 'add') {
-      setList([...list, unlist.filter(l => l.id === value)[0]])
-      setUnlist(unlist.filter(u => u.id !== value))
-    } else if (action === 'delete') {
-      setUnlist([...unlist, list.filter(l => l.id === value)[0]])
-      setList(list.filter(u => u.id !== value))
-    }
-  }
-
   return (
-    <form
-      onSubmit={handleSubmit}
-    >
-      <h1 className="text-xl font-black">
-        Cari Rumah
-      </h1>
-      {options ? (
-        <>
-          <div className="flex flex-col gap-3">
-            <ReactSortable
-              list={list}
-              setList={setList}
-              handle='.handle-sort'
-              className='flex flex-col gap-3'
-            >
-              {list.map(item => (
-                <div key={item.id} className='gap-1 grid grid-cols-[auto,minmax(0,1fr)] grid-flow-col auto-rows-auto justify-start'>
-                  <div className='btn px-0 btn-ghost handle-sort !h-full w-max'>
-                    <GoGrabber size={24} />
-                  </div>
-                  <div className='flex-1 justify-self-stretch' draggable={false}>
-                    <SearchInput column={item.column} options={options} />
-                  </div>
-                  <button type='button' className='btn btn-ghost text-red-500 px-0' onClick={() => handleFilterChange(item.column, 'delete')}>
-                    <MdClose size={24} />
-                  </button>
-                </div>
-              ))}
-            </ReactSortable>
+    <section id="productsSearch">
+      <Swiper
+        allowTouchMove={false}
+        modules={[Virtual]}
+        onSwiper={(swiper) => setSwiperRef(swiper)}
+        onSlideChange={(swiper) => {
+          console.log(swiper.realIndex)
+          setIndex(swiper.realIndex)
+        }}
+      >
+        {list.map((item, idx) => (
+          <SwiperSlide key={item.column} className='h-full flex flex-col grow' virtualIndex={idx}>
+            <label>
+              {item.text}
+              {options ? <SearchInput column={item.column} options={options} /> : <></>}
+            </label>
+          </SwiperSlide>
+        ))}
+        <div className='join self-end flex justify-end'>
+          <button
+            onClick={() => swiperRef?.slidePrev()}
+            className='btn btn-square btn-primary join-item'
+            disabled={index === 0}
+          >
+            <FaCaretLeft size={24} />
+          </button>
+          <div className='btn btn-square btn-primary join-item'>
+            {`${index+1}/${list.length}`}
           </div>
-          {list.length >= 10 ? <></> : (
-            <select className='btn btn-sm text-start block mx-auto' onChange={(e) => handleFilterChange(e.target.value, 'add')}>
-              <option value="">Tambah Filter {`${list.length}/10`}</option>
-              {unlist.filter(u => !list.includes(u)).map(item => (
-                <option value={item.id} key={item.id}>{item.text}</option>
-              ))}
-            </select>
-          )}
-          {list.length ? (
-            <button className='btn btn-primary' disabled={list.length < 10}>
-              Search
-            </button>
-          ) : <></>}
-        </>
-      ) : (
-        <></>
-      )}
-    </form>
+          <button
+            onClick={() => swiperRef?.slideNext()}
+            className='btn btn-square btn-primary join-item'
+            disabled={index === list.length - 1}
+          >
+            <FaCaretRight size={24} />
+          </button>
+        </div>
+        {/* <Controller /> */}
+      </Swiper>
+    </section>
   )
 }
 
-export default SearchProducts
+// const Controller = () => {
+//   const swiper = useSwiper()
+//   useEffect(() => {
+//     console.log(swiper.activeIndex)
+//   }, [swiper.activeIndex])
+//   return (
+//     <div className='join'>
+//       <button
+//         onClick={() => swiper.slidePrev()}
+//         className='btn btn-square btn-primary join-item'
+//       >
+//         <FaCaretLeft size={24} />
+//       </button>
+//       <button
+//         onClick={() => swiper.slideNext()}
+//         className='btn btn-square btn-primary join-item'
+//       >
+//         <FaCaretRight size={24} />
+//       </button>
+//     </div>
+//   )
+// }
+
+export default ProductsSearch

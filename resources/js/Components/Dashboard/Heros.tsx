@@ -12,15 +12,21 @@ import SearchProducts from '../ProductsSearch'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
+import Client from '../Client'
 
 const Heros = () => {
   const ReactSwal = withReactContent(Swal)
 
   const handleSearchModal = () => {
     ReactSwal.fire({
-      html: <SearchProducts />,
+      html: (
+        <Client>
+          <SearchProducts />
+        </Client>
+      ),
       showConfirmButton: false,
-      showCloseButton: true
+      showCloseButton: true,
+      title: 'Cari Hunian Terbaik Anda',
     })
   }
 

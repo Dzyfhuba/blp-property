@@ -118,6 +118,26 @@ const Navbar = (props: Props) => {
               </label>
             </li>
             <li>
+              <Link href='/'>
+                      Home
+              </Link>
+            </li>
+            <li>
+              <Link href='/projects'>
+                      Project Kami
+              </Link>
+            </li>
+            <li>
+              <Link href='/posts'>
+                      Blog
+              </Link>
+            </li>
+            <li>
+              <Link href='/about'>
+                      Tentang Kami
+              </Link>
+            </li>
+            <li>
               <details className="">
                 <summary className="">
                   {props.user?.name || 'Account'} <MdAccountCircle size={24} />

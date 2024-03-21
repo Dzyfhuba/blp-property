@@ -13,7 +13,11 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended"
     ],
-    "ignorePatterns": ["!resources/js/**", "tailwind.config.js", "public"],
+    "ignorePatterns": [
+        "!resources/js/**",
+        "tailwind.config.js",
+        "public"
+    ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -36,16 +40,38 @@
             "error",
             "never"
         ],
-        "quotes": ["warn", "single"],
-        "indent": ["warn", 2],
+        "quotes": [
+            "warn",
+            "single"
+        ],
+        "indent": [
+            "warn",
+            2
+        ],
         "@typescript-eslint/no-unused-vars": [
             "warn", // or "error"
             {
-              "argsIgnorePattern": "^_",
-              "varsIgnorePattern": "^_",
-              "caughtErrorsIgnorePattern": "^_"
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
             }
         ],
-        "object-curly-spacing": ["warn", "always"]
+        "object-curly-spacing": [
+            "warn",
+            "always"
+        ],
+        "react/jsx-max-props-per-line": [
+            1,
+            {
+                "maximum": 1
+            }
+        ],
+        "react/jsx-tag-spacing": [
+            1,
+            {
+                "beforeSelfClosing": "proportional-always",
+                "beforeClosing": "proportional-always"
+            }
+        ]
     }
 }

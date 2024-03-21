@@ -21,7 +21,7 @@
         "axios": "^1.6.4",
         "daisyui": "^4.6.1",
         "eslint": "^8.57.0",
-        "eslint-plugin-react": "^7.33.2",
+        "eslint-plugin-react": "^7.34.1",
         "laravel-vite-plugin": "^1.0.0",
         "postcss": "^8.4.31",
         "react": "^18.2.0",
@@ -31,8 +31,10 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "@react-input/number-format": "^1.0.22",
         "@tailwindcss/container-queries": "^0.1.1",
         "@tailwindcss/typography": "^0.5.10",
+        "easy-peasy": "^6.0.4",
         "lodash": "^4.17.21",
         "react-icons": "^5.0.1",
         "react-sortablejs": "^6.1.4",

@@ -1,8 +1,8 @@
-import { FaCopyright, FaPhoneAlt } from 'react-icons/fa'
-import DarkToggle from './DarkToggle'
-import { MdCopyright, MdEmail } from 'react-icons/md'
 import FooterI from '@/types/setting'
+import { FaPhoneAlt } from 'react-icons/fa'
 import { FaFacebook, FaInstagram, FaLocationDot, FaWhatsapp, FaYoutube } from 'react-icons/fa6'
+import { MdCopyright, MdEmail } from 'react-icons/md'
+import DarkToggle from './DarkToggle'
 
 const Footer = (props: FooterI) => {
   const icons = {
@@ -54,7 +54,7 @@ const Footer = (props: FooterI) => {
       <div id='marketing-executives' className='flex flex-col'>
         {props.marketing_executives ? props.marketing_executives.map(me => (
           <a href={`https://wa.me/${me.phone?.replace('0', '+62')}`} target='_blank' key={me.phone} className='btn btn-sm btn-ghost justify-start' rel="noreferrer">
-            <span className='w-14 text-start'>{me.name}</span> <FaWhatsapp /> {me.phone.replace('0', '+62')}
+            <span className='w-14 text-start'>{me.name}</span> <FaWhatsapp /> {me.phone?.replace('0', '+62')}
           </a>
         )) : <></>}
       </div>
