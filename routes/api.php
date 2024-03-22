@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\SearchController;
+use App\Http\Controllers\API\SMARTERController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/search', [SearchController::class, 'index']);
+
+Route::post('/smarter', [SMARTERController::class, 'calculate']);

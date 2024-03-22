@@ -19,8 +19,6 @@ const Input = (props:Props) => {
     locales: 'id',
     maximumFractionDigits: 0,
     currency: 'IDR',
-    format: 'currency',
-    currencyDisplay: 'symbol',
   })
 
   return (
@@ -32,10 +30,10 @@ const Input = (props:Props) => {
         type={type} className={`peer ${styles.inputField}${props.className ? ` ${props.className}` : ''}`} {...restProps} />
       <label
         htmlFor={htmlFor}
-        className={`${styles.labelBox} 
-        peer-placeholder-shown:translate-y-2.5 peer-placeholder-shown:text-base 
+        className={`${styles.labelBox}
+        peer-placeholder-shown:translate-y-2.5 peer-placeholder-shown:text-base
          text-base
-        peer-placeholder-shown:text-gray-500 peer-focus:ml-1 peer-focus:-translate-y-3 
+        peer-placeholder-shown:text-gray-500 peer-focus:ml-1 peer-focus:-translate-y-3
         peer-focus:px-1${labelClassName ? ` ${labelClassName}` : ''}
         ${props.required ? ` ${styles.required}` : ''}`}
       >

@@ -16,15 +16,16 @@ const SearchInput = (props: Props) => {
     return (
       <div className='flex flex-col py-6'>
         <Input
+          type='number'
           currency
           htmlFor='price'
-          label='Rp. 100.000.000 - 500.000.000'
+          label='Rp. 300 juta - 1 miliar'
           placeholder='Kisaran Harga'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
-          })} 
+          })}
         />
       </div>
     )
@@ -36,7 +37,6 @@ const SearchInput = (props: Props) => {
           key={props.column}
           id="bedrooms"
           className='select grow select-bordered'
-          required
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
@@ -60,12 +60,11 @@ const SearchInput = (props: Props) => {
           key={props.column}
           id="bathrooms"
           className='select grow select-bordered'
-          required
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
-          })} 
+          })}
         >
           <option value="">Pilih Jumlah Kamar Mandi...</option>
           {props.options.bathrooms?.map(item => (
@@ -81,15 +80,15 @@ const SearchInput = (props: Props) => {
     return (
       <div className='w-full py-6'>
         <Input
+          type='number'
           htmlFor='price'
           label='Luas tanah'
-          placeholder='Luas tanah' 
+          placeholder='Luas tanah'
           defaultValue={searchValue[props.column]}
-          required
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
-          })} 
+          })}
         />
       </div>
     )
@@ -101,12 +100,11 @@ const SearchInput = (props: Props) => {
           key={props.column}
           id="facility_id"
           className='select grow select-bordered capitalize'
-          required
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
-          })} 
+          })}
         >
           <option value="">Pilih fasilitas...</option>
           {props.options.facilityOptions?.map(item => (
@@ -126,12 +124,11 @@ const SearchInput = (props: Props) => {
           key={props.column}
           id="public_facility_id"
           className='select grow select-bordered capitalize'
-          required
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
-          })} 
+          })}
         >
           <option value="">Pilih fasilitas publik...</option>
           {props.options.publicFacilityOptions?.map(item => (
@@ -151,12 +148,11 @@ const SearchInput = (props: Props) => {
           key={props.column}
           id="design_id"
           className='select grow select-bordered capitalize'
-          required
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
-          })} 
+          })}
         >
           <option value="">Pilih desain...</option>
           {props.options.designOptions?.map(item => (
@@ -172,15 +168,15 @@ const SearchInput = (props: Props) => {
     return (
       <div className='flex flex-col py-6'>
         <Input
+          type='number'
           htmlFor='location'
           label='Jarak dari keramaian umum'
-          placeholder='Jarak dari keramaian umum' 
-          required
+          placeholder='Jarak dari keramaian umum'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
-          })} 
+          })}
         />
       </div>
     )
@@ -192,12 +188,11 @@ const SearchInput = (props: Props) => {
           key={props.column}
           id="floors"
           className='select grow select-bordered'
-          required
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
-          })} 
+          })}
         >
           <option value="">Pilih Jumlah lantai...</option>
           {props.options.floors?.map(item => (
@@ -213,15 +208,15 @@ const SearchInput = (props: Props) => {
     return (
       <div className='w-full py-6'>
         <Input
+          type='number'
           htmlFor='building_size'
           label='Luas bangunan'
           placeholder='Luas bangunan'
-          required
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
-          })}  
+          })}
         />
       </div>
     )

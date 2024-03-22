@@ -7,6 +7,6 @@
   { "id": "public_facility", "column": "public_facility", "text": "Fasilitas Publik" },
   { "id": "design", "column": "design", "text": "Desain" },
   { "id": "location", "column": "location", "text": "Jarak dari Keramaian Umum" },
-  { "id": "floors", "column": "floors", "text": "Harga" },
+  { "id": "floors", "column": "floors", "text": "Jumlah Lantai" },
   { "id": "building_size", "column": "building_size", "text": "Luas Bangunan" }
 ]

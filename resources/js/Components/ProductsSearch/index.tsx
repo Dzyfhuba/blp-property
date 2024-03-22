@@ -7,7 +7,7 @@ import { Swiper, SwiperClass, SwiperRef, SwiperSlide, useSwiper } from 'swiper/r
 import SearchInput from './SearchInput'
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa6'
 import { Virtual } from 'swiper/modules'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import Swal from 'sweetalert2'
 import { useStoreState } from '@/State/hooks'
 
@@ -16,8 +16,10 @@ const ProductsSearch = () => {
   const [options, setOptions] = useState<AllSelectOption>()
   const [index, setIndex] = useState(0)
   const { searchValue } = useStoreState(states => states)
+  const [error, setError] = useState<string>()
 
   const [swiperRef, setSwiperRef] = useState<SwiperClass>()
+  const formRef = createRef<HTMLFormElement>()
 
   const getData = async () => {
     const res = await axios.get('/api/search')
@@ -34,7 +36,7 @@ const ProductsSearch = () => {
     }
   }
 
-  const filled = Object.keys(searchValue).filter((key) => searchValue[key as Column]).length
+  const filled = Object.keys(searchValue).filter((key) => !!searchValue[key as Column]).length
   const allowedToSubmit = filled===list.length && index === list.length - 1
   console.log(filled)
 
@@ -42,12 +44,34 @@ const ProductsSearch = () => {
     getData()
   }, [])
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
+    console.log('send')
+
+    const data = await axios.post<{
+        error?: object
+        data?: unknown[]
+        item?: object
+    }>('/api/smarter', searchValue)
+      .then(res => res.data)
+      .catch((error) => {
+        const keys = Object.keys(error.response?.data.error)
+        setError(keys.map(key => error.response?.data.error[key]).join('<br/>'))
+        if (error.response?.status === 400 && error.response?.data) {
+          console.log(error.response?.data)
+          console.log(list.filter(e => Object.keys(error.response?.data['error'] as object).includes(e.column))[0])
+          const errorIndex = list.indexOf(list.filter(e => Object.keys(error.response?.data['error'] as object).includes(e.column))[0])
+          console.log('indexOf', errorIndex)
+          swiperRef?.slideTo(errorIndex)
+        }
+      })
+
+    console.log(data)
   }
 
   return (
     <form id="productsSearch"
+      ref={formRef}
       onSubmit={handleSubmit}
     >
       <Swiper
@@ -67,11 +91,12 @@ const ProductsSearch = () => {
             <label>
               {item.text}
               {options ? <SearchInput column={item.column}
-                options={options} 
+                options={options}
               /> : <></>}
             </label>
           </SwiperSlide>
         ))}
+        <SwiperSlide></SwiperSlide>
       </Swiper>
       <div className='join self-end flex justify-end'>
         <button
@@ -87,38 +112,18 @@ const ProductsSearch = () => {
         </div>
         <button
           className={`btn ${allowedToSubmit || index+1 === list.length ? '' : 'btn-square'} btn-primary join-item`}
-          disabled={filled < index + 1}
-          type={filled === index + 1 ? 'submit' : 'button'}
-          onClick={allowedToSubmit ? undefined : () => {swiperRef?.slideNext()}}
+          //   disabled={filled < index + 1}
+          type={allowedToSubmit || index === list.length ? 'submit' : 'button'}
+          onClick={list.length === index ? undefined : () => {swiperRef?.slideNext()}}
         >
           {allowedToSubmit || index+1 === list.length  ? 'Search' : <FaCaretRight size={24} />}
         </button>
       </div>
+      {error ? (
+        <span>{error}</span>
+      ) : <></>}
     </form>
   )
 }
-
-// const Controller = () => {
-//   const swiper = useSwiper()
-//   useEffect(() => {
-//     console.log(swiper.activeIndex)
-//   }, [swiper.activeIndex])
-//   return (
-//     <div className='join'>
-//       <button
-//         onClick={() => swiper.slidePrev()}
-//         className='btn btn-square btn-primary join-item'
-//       >
-//         <FaCaretLeft size={24} />
-//       </button>
-//       <button
-//         onClick={() => swiper.slideNext()}
-//         className='btn btn-square btn-primary join-item'
-//       >
-//         <FaCaretRight size={24} />
-//       </button>
-//     </div>
-//   )
-// }
 
 export default ProductsSearch
