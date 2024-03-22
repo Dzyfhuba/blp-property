@@ -1,5 +1,5 @@
 import { AllSelectOption, Column } from '@/types/search-option'
-import { createRef, useEffect, useState } from 'react'
+import { SyntheticEvent, createRef, useEffect, useState } from 'react'
 import 'swiper/css'
 import 'swiper/css/virtual'
 import data from './data.json'
@@ -15,7 +15,7 @@ const ProductsSearch = () => {
   const [list, setList] = useState<({ column: Column, text?: string })[]>(data as never)
   const [options, setOptions] = useState<AllSelectOption>()
   const [index, setIndex] = useState(0)
-  // const {} = useStoreState(states => states)
+  const { searchValue } = useStoreState(states => states)
 
   const [swiperRef, setSwiperRef] = useState<SwiperClass>()
 
@@ -34,12 +34,22 @@ const ProductsSearch = () => {
     }
   }
 
+  const filled = Object.keys(searchValue).filter((key) => searchValue[key as Column]).length
+  const allowedToSubmit = filled===list.length && index === list.length - 1
+  console.log(filled)
+
   useEffect(() => {
     getData()
   }, [])
 
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault()
+  }
+
   return (
-    <section id="productsSearch">
+    <form id="productsSearch"
+      onSubmit={handleSubmit}
+    >
       <Swiper
         allowTouchMove={false}
         modules={[Virtual]}
@@ -50,35 +60,41 @@ const ProductsSearch = () => {
         }}
       >
         {list.map((item, idx) => (
-          <SwiperSlide key={item.column} className='h-full flex flex-col grow' virtualIndex={idx}>
+          <SwiperSlide key={item.column}
+            className='h-full flex flex-col grow'
+            virtualIndex={idx}
+          >
             <label>
               {item.text}
-              {options ? <SearchInput column={item.column} options={options} /> : <></>}
+              {options ? <SearchInput column={item.column}
+                options={options} 
+              /> : <></>}
             </label>
           </SwiperSlide>
         ))}
-        <div className='join self-end flex justify-end'>
-          <button
-            onClick={() => swiperRef?.slidePrev()}
-            className='btn btn-square btn-primary join-item'
-            disabled={index === 0}
-          >
-            <FaCaretLeft size={24} />
-          </button>
-          <div className='btn btn-square btn-primary join-item'>
-            {`${index+1}/${list.length}`}
-          </div>
-          <button
-            onClick={() => swiperRef?.slideNext()}
-            className='btn btn-square btn-primary join-item'
-            disabled={index === list.length - 1}
-          >
-            <FaCaretRight size={24} />
-          </button>
-        </div>
-        {/* <Controller /> */}
       </Swiper>
-    </section>
+      <div className='join self-end flex justify-end'>
+        <button
+          onClick={() => swiperRef?.slidePrev()}
+          className='btn btn-square btn-primary join-item'
+          disabled={index === 0}
+          type='button'
+        >
+          <FaCaretLeft size={24} />
+        </button>
+        <div className='btn btn-square btn-primary join-item'>
+          {`${index+1}/${list.length}`}
+        </div>
+        <button
+          className={`btn ${allowedToSubmit || index+1 === list.length ? '' : 'btn-square'} btn-primary join-item`}
+          disabled={filled < index + 1}
+          type={filled === index + 1 ? 'submit' : 'button'}
+          onClick={allowedToSubmit ? undefined : () => {swiperRef?.slideNext()}}
+        >
+          {allowedToSubmit || index+1 === list.length  ? 'Search' : <FaCaretRight size={24} />}
+        </button>
+      </div>
+    </form>
   )
 }
 

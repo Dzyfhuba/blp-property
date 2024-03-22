@@ -85,6 +85,7 @@ const SearchInput = (props: Props) => {
           label='Luas tanah'
           placeholder='Luas tanah' 
           defaultValue={searchValue[props.column]}
+          required
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
