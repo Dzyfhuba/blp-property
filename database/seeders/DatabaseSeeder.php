@@ -22,26 +22,33 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Role::create([
-            'name' => 'admin',
-            'guard_name' => 'web'
-        ]);
-        Role::create([
-            'name' => 'user',
-            'guard_name' => 'web'
+        $this->call([
+            // SettingSeeder::class,
+            // OptionsSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
         ]);
 
-        $admin = User::create([
-            'name' => 'Admin 1',
-            'email' => 'admin@mail.com',
-            'password' => Hash::make('12345678')
-        ]);
-        $admin->assignRole('user');
-        $user = User::create([
-            'name' => 'User 1',
-            'email' => 'user@mail.com',
-            'password' => Hash::make('12345678')
-        ]);
-        $user->assignRole('user');
+        // Role::create([
+        //     'name' => 'admin',
+        //     'guard_name' => 'web'
+        // ]);
+        // Role::create([
+        //     'name' => 'user',
+        //     'guard_name' => 'web'
+        // ]);
+
+        // $admin = User::create([
+        //     'name' => 'Admin 1',
+        //     'email' => 'admin@mail.com',
+        //     'password' => Hash::make('12345678')
+        // ]);
+        // $admin->assignRole('user');
+        // $user = User::create([
+        //     'name' => 'User 1',
+        //     'email' => 'user@mail.com',
+        //     'password' => Hash::make('12345678')
+        // ]);
+        // $user->assignRole('user');
     }
 }
