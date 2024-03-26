@@ -29,10 +29,29 @@ class Product extends Model
         'capacity',
         'occupied',
     ];
-    
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
+    public function facility(): BelongsTo
+    {
+        return $this->belongsTo(FacilityOption::class, 'facility_option_id');
+    }
+
+    public function publicFacility(): BelongsTo
+    {
+        return $this->belongsTo(PublicFacilityOption::class, 'public_facility_option_id');
+    }
+
+    public function location(): BelongsTo
+    {
+        return $this->belongsTo(LocationOption::class, 'location_option_id');
+    }
+
+    public function design(): BelongsTo
+    {
+        return $this->belongsTo(LocationOption::class, 'design_option_id');
+    }
 }

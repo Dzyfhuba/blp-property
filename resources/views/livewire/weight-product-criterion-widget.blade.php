@@ -1,5 +1,5 @@
 <x-filament-widgets::widget>
-    <x-filament::section 
+    <x-filament::section
     collapsible
     collapsed
     persist-collapsed
@@ -28,7 +28,7 @@
                     <x-filament::button wire:click="closeModal" color="gray">
                         Cancel
                     </x-filament::button>
-                    <x-filament::button type="submit" class="grow" disabled>
+                    <x-filament::button type="submit" class="grow">
                         Save
                     </x-filament::button>
                 </div>

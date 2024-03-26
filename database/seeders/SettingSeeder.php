@@ -15,46 +15,16 @@ class SettingSeeder extends Seeder
     {
         Setting::create([
             'weight_product_criterion' => [
-                [
-                    'criteria' => 'price',
-                    'weight' => 0.127
-                ],
-                [
-                    'criteria' => 'bedrooms',
-                    'weight' => 0.106
-                ],
-                [
-                    'criteria' => 'bathrooms',
-                    'weight' => 0.048
-                ],
-                [
-                    'criteria' => 'land_size',
-                    'weight' => 0.188
-                ],
-                [
-                    'criteria' => 'facility_option_id',
-                    'weight' => 0.157
-                ],
-                [
-                    'criteria' => 'public_facility_option_id',
-                    'weight' => 0.028
-                ],
-                [
-                    'criteria' => 'design_option_id',
-                    'weight' => 0.039
-                ],
-                [
-                    'criteria' => 'location_option_id',
-                    'weight' => 0.139
-                ],
-                [
-                    'criteria' => 'floors',
-                    'weight' => 0.021
-                ],
-                [
-                    'criteria' => 'building_size',
-                    'weight' => 0.147
-                ],
+                'price' => 0.127,
+                'bedrooms' => 0.106,
+                'bathrooms' => 0.048,
+                'land_size' => 0.188,
+                'facility_option_id' => 0.157,
+                'public_facility_option_id' => 0.028,
+                'design_option_id' => 0.039,
+                'location_option_id' => 0.139,
+                'floors' => 0.021,
+                'building_size' => 0.147,
             ],
             'contacts' => [],
             'marketing_executives' => [],

@@ -3,9 +3,11 @@
 namespace App\Livewire;
 
 use App\Models\Setting;
+use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -24,42 +26,44 @@ class WeightProductCriterionWidget extends Widget implements HasForms
     public function mount(): void
     {
         $setting = Setting::first();
-        if ($setting)
+        // dd($setting->toArray()['weight_product_criterion']);
+        if ($setting->weight_product_criterion)
             $this->form->fill($setting->toArray());
+        else {
+            $data = [
+                "price" => null,
+                "floors" => null,
+                "bedrooms" => null,
+                "bathrooms" => null,
+                "land_size" => null,
+                "building_size" => null,
+                "design_option_id" => null,
+                "facility_option_id" => null,
+                "location_option_id" => null,
+                "public_facility_option_id" => null
+            ];
+            $this->form->fill([
+                'weight_product_criterion' => $data
+            ]);
+        }
     }
 
     public function form(Form $form): Form
     {
-        $tableColumns = [
-            'price' => 'Harga',
-            'bedrooms' => 'Jumlah Kamar Tidur',
-            'bathrooms' => 'Jumlah Kamar Mandi',
-            'land_size' => 'Luas Tanah',
-            'facility_option_id' => 'Fasilitas',
-            'public_facility_option_id' => 'Fasilitas Publik',
-            'design_option_id' => 'Desain',
-            'location_option_id' => 'Lokasi',
-            'floors' => 'Jumlah Lantai',
-            'building_size' => 'Luas Bangunan',
-        ];
         return $form
             ->schema([
-                Repeater::make('weight_product_criterion')
-                    ->hiddenLabel()
-                    ->cloneable()
-                    ->columns()
-                    ->maxItems(count($tableColumns))
-                    ->schema([
-                        Select::make('criteria')->options($tableColumns),
-                        TextInput::make('weight')->label('Bobot')->numeric()
-                    ])
+                KeyValue::make('weight_product_criterion')
+                    ->keyLabel('Criteria')
+                    ->valueLabel('Weight')
+                    ->addable(false)
+                    ->deletable(false)
+                    ->editableKeys(false)
             ])
             ->statePath('data');
     }
 
     public function submit(): void
     {
-        // dd($this->form->getState());
         Setting::updateOrCreate([
             'id' => 1
         ], $this->form->getState());
@@ -80,7 +84,8 @@ class WeightProductCriterionWidget extends Widget implements HasForms
 
     public function total()
     {
-        $total = array_sum(array_map(fn($e)=>$e['weight'], $this->form->getState()['weight_product_criterion']));
+        // dd(array_values($this->form->getState()['weight_product_criterion']));
+        $total = array_sum(array_values($this->form->getState()['weight_product_criterion']));
         return $total;
     }
 }
