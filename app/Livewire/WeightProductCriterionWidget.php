@@ -32,15 +32,15 @@ class WeightProductCriterionWidget extends Widget implements HasForms
         else {
             $data = [
                 "price" => null,
-                "floors" => null,
                 "bedrooms" => null,
                 "bathrooms" => null,
+                "floors" => null,
+                "facility" => null,
+                "public_facility" => null,
                 "land_size" => null,
                 "building_size" => null,
-                "design_option_id" => null,
-                "facility_option_id" => null,
-                "location_option_id" => null,
-                "public_facility_option_id" => null
+                "location" => null,
+                "design" => null
             ];
             $this->form->fill([
                 'weight_product_criterion' => $data
