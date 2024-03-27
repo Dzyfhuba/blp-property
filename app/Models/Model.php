@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as ModelElo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Model extends ModelElo
 {
@@ -19,4 +20,10 @@ class Model extends ModelElo
     protected $casts = [
         'criterion' => 'array'
     ];
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
 }

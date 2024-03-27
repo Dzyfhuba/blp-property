@@ -2,13 +2,16 @@
 
 namespace App\Filament\Pages;
 
+use Illuminate\Support\Facades\Route;
 use App\Algorithms\Smarter;
 use App\Models\Product;
+use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use App\Models\Model as ModelTable;
+use Illuminate\Support\Facades\Cache;
 
 class Model extends Page
 {
@@ -36,5 +39,37 @@ class Model extends Page
         $model = Smarter::generateModel();
 
         $this->model = $model;
+
+        Cache::put('model', $model, now()->addHour());
+    }
+
+    function saveModel()
+    {
+        $model = Cache::get('model', Smarter::generateModel());
+
+        foreach ($model as $item) {
+            ModelTable::create($item);
+        }
+
+        Notification::make()
+            ->title('A New Model Saved')
+            ->success()
+            ->send();
+
+        $this->dispatch('close-modal', id: 'model');
+    }
+
+    function getBatch()
+    {
+        return request()->query('batch', ModelTable::query()->orderBy('id', 'desc')->first()->batch);
+    }
+
+    function getLimitBatch()
+    {
+        $query = ModelTable::query();
+        return [
+            'max' => $query->orderBy('id', 'desc')->first()->batch,
+            'min' => $query->orderBy('id', 'asc')->first()->batch,
+        ];
     }
 }

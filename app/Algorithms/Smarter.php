@@ -27,55 +27,93 @@ class Smarter
             'design' => ['min' => 1, 'max' => 3],
         ]);
 
-        $modelLatest = Model::latest();
-
         $productsWithCriterion = $products->map(function ($product) use ($points, $weights) {
             return [
                 'id' => $product->id,
                 'criterion' => collect([
-                    'price' => $weights['price'] * 100 * (
-                        (self::priceCriteria($product->price) - $points['price']['min']) /
-                        ($points['price']['max'] - $points['price']['min'])),
-                    'bedrooms' => $weights['bedrooms'] * 100 * (
-                        (self::bedroomsCriteria($product->bedrooms) - $points['bedrooms']['min']) /
-                        ($points['bedrooms']['max'] - $points['bedrooms']['min'])),
-                    'bathrooms' => $weights['bathrooms'] * 100 * (
-                        (self::bathroomsCriteria($product->bathrooms) - $points['bathrooms']['min']) /
-                        ($points['bathrooms']['max'] - $points['bathrooms']['min'])),
-                    'floors' => $weights['floors'] * 100 * (
-                        (self::floorsCriteria($product->floors) - $points['floors']['min']) /
-                        ($points['floors']['max'] - $points['floors']['min'])),
-                    'facility' => $weights['facility'] * 100 * (
-                        ($product->facility->value - $points['facility']['min']) /
-                        ($points['facility']['max'] - $points['facility']['min'])),
-                    'public_facility' => $weights['public_facility'] * 100 * (
-                        ($product->publicFacility->value - $points['public_facility']['min']) /
-                        ($points['public_facility']['max'] - $points['public_facility']['min'])),
-                    'land_size' => $weights['land_size'] * 100 * (
-                        (self::landSizeCriteria($product->land_size) - $points['land_size']['min']) /
-                        ($points['land_size']['max'] - $points['land_size']['min'])),
-                    'building_size' => $weights['building_size'] * 100 * (
-                        (self::buildingSizeCriteria($product->building_size) - $points['building_size']['min']) /
-                        ($points['building_size']['max'] - $points['building_size']['min'])),
-                    'location' => $weights['location'] * 100 * (
-                        ($product->location->value - $points['location']['min']) /
-                        ($points['location']['max'] - $points['location']['min'])),
-                    'design' => $weights['design'] * 100 * (
-                        ($product->design->value - $points['design']['min']) /
-                        ($points['design']['max'] - $points['design']['min'])),
+                    'price' => self::normalizedUtility(
+                        $weights['price'],
+                        self::priceCriteria($product->price),
+                        $points['price']['min'],
+                        $points['price']['max'],
+                    ),
+                    'bedrooms' => self::normalizedUtility(
+                        $weights['bedrooms'],
+                        self::bedroomsCriteria($product->bedrooms),
+                        $points['bedrooms']['min'],
+                        $points['bedrooms']['max'],
+                    ),
+                    'bathrooms' => self::normalizedUtility(
+                        $weights['bathrooms'],
+                        self::bathroomsCriteria($product->bathrooms),
+                        $points['bathrooms']['min'],
+                        $points['bathrooms']['max'],
+                    ),
+                    'floors' => self::normalizedUtility(
+                        $weights['floors'],
+                        self::floorsCriteria($product->floors),
+                        $points['floors']['min'],
+                        $points['floors']['max'],
+                    ),
+                    'facility' => self::normalizedUtility(
+                        $weights['facility'],
+                        $product->facility->value,
+                        $points['facility']['min'],
+                        $points['facility']['max'],
+                    ),
+                    'public_facility' => self::normalizedUtility(
+                        $weights['public_facility'],
+                        $product->publicFacility->value,
+                        $points['public_facility']['min'],
+                        $points['public_facility']['max'],
+                    ),
+                    'land_size' => self::normalizedUtility(
+                        $weights['land_size'],
+                        self::landSizeCriteria($product->land_size),
+                        $points['land_size']['min'],
+                        $points['land_size']['max'],
+                    ),
+                    'building_size' => self::normalizedUtility(
+                        $weights['building_size'],
+                        self::buildingSizeCriteria($product->building_size),
+                        $points['building_size']['min'],
+                        $points['building_size']['max'],
+                    ),
+                    'location' => self::normalizedUtility(
+                        $weights['location'],
+                        $product->location->value,
+                        $points['location']['min'],
+                        $points['location']['max'],
+                    ),
+                    'design' => self::normalizedUtility(
+                        $weights['design'],
+                        $product->design->value,
+                        $points['design']['min'],
+                        $points['design']['max'],
+                    ),
                 ])
             ];
         });
-        $model = $productsWithCriterion->map(function($product) use ($modelLatest) {
+        $modelLatest = Model::query()->orderBy('id', 'desc');
+        // dd($modelLatest->first()->batch);
+        $model = $productsWithCriterion->map(function ($product) use ($modelLatest) {
             return [
                 'product_id' => $product['id'],
-                'batch' => ($modelLatest->count() ? $modelLatest->batch : 0) + 1,
+                'batch' => ($modelLatest->count() ? $modelLatest->first()->batch : 0) + 1,
                 'criterion' => $product['criterion']->toArray(),
                 'total' => $product['criterion']->sum()
             ];
         });
 
         return $model->toArray();
+    }
+
+    public static function normalizedUtility(float $weight, float $value, int $min = 1, int $max = 3)
+    {
+        return $weight * 100 * (
+            ($value - $min) /
+            ($max - $min)
+        );
     }
 
     public static function priceCriteria(int $price)
