@@ -24,8 +24,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         FilamentAsset::register([
-            Js::make('pairwise-comparison', resource_path('js/filament/pairwise-comparison.js'))->loadedOnRequest(),
+            // Js::make('pairwise-comparison', resource_path('js/filament/pairwise-comparison.js'))->loadedOnRequest(),
             Js::make('tailwindcss', 'https://cdn.tailwindcss.com'),
+            Css::make('tailwindcss', resource_path('css/custom-filament.css')),
         ]);
     }
 }

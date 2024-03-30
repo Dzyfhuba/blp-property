@@ -1,7 +1,7 @@
 <x-filament-widgets::widget>
     <x-filament::section>
         <form id="pairwise-comparison" wire:submit="submit">
-            <div class="overflow-x-auto pt-16 pr-1 !bg-transparent">
+            <div class="overflow-x-auto scrollbar-hide pt-16 pr-1 !bg-transparent">
                 <div class="grid grid-cols-{{ count($this->criterion) + 1 }} gap-1 min-w-[1000px]" {{-- x-data="{}"
                     x-load-js="[@js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('pairwise-comparison'))]" --}}>
                     <div></div>
