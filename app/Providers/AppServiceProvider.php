@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Filament\Http\Responses\Auth\LogoutResponse;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Js;
+use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        FilamentAsset::register([
+            Js::make('pairwise-comparison', resource_path('js/filament/pairwise-comparison.js'))->loadedOnRequest(),
+            Js::make('tailwindcss', 'https://cdn.tailwindcss.com'),
+        ]);
     }
 }

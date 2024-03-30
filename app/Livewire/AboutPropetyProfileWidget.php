@@ -42,6 +42,7 @@ class AboutPropetyProfileWidget extends Widget implements HasForms
             ->statePath('data');
     }
 
+
     public function submit(): void
     {
         About::updateOrCreate([
@@ -58,7 +59,7 @@ class AboutPropetyProfileWidget extends Widget implements HasForms
             ->success()
             ->send();
     }
-    
+
     public function closeModal()
     {
         $this->dispatch('close-modal', id: 'confirm');

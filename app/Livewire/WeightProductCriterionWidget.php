@@ -52,12 +52,15 @@ class WeightProductCriterionWidget extends Widget implements HasForms
     {
         return $form
             ->schema([
-                KeyValue::make('weight_product_criterion')
-                    ->keyLabel('Criteria')
-                    ->valueLabel('Weight')
-                    ->addable(false)
-                    ->deletable(false)
-                    ->editableKeys(false)
+                // Repeater::make('weight_product_criterion')
+                //     ->schema([
+                        KeyValue::make('weight_product_criterion')
+                            ->keyLabel('Criteria')
+                            ->valueLabel('Weight')
+                            ->addable(false)
+                            ->deletable(false)
+                            ->editableKeys(false)
+                    // ])
             ])
             ->statePath('data');
     }
@@ -85,7 +88,7 @@ class WeightProductCriterionWidget extends Widget implements HasForms
     public function total()
     {
         // dd(array_values($this->form->getState()['weight_product_criterion']));
-        $total = array_sum(array_values($this->form->getState()['weight_product_criterion']));
-        return $total;
+        // $total = array_sum(array_values($this->form->getState()['weight_product_criterion']));
+        return 0;
     }
 }

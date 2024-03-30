@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use App\Livewire\ContactsWidget;
 use App\Livewire\MarketingExecutivesWidget;
+use App\Livewire\PairwiseComparisonWidget;
 use App\Livewire\SettingOthersWidget;
 use App\Livewire\WeightProductCriterionWidget;
 use Filament\Pages\Page;
@@ -21,7 +22,8 @@ class Setting extends Page
         return [
             ContactsWidget::class,
             MarketingExecutivesWidget::class,
-            WeightProductCriterionWidget::class,
+            // WeightProductCriterionWidget::class,
+            PairwiseComparisonWidget::class,
             SettingOthersWidget::class,
         ];
     }

@@ -15,6 +15,7 @@ class Setting extends Model
         'social_medias',
         'address',
         'google_maps_url',
+        'pairwise_comparison'
     ];
 
     protected $casts = [

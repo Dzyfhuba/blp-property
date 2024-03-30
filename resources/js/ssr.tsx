@@ -14,14 +14,14 @@ createServer((page) =>
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.tsx`, import.meta.glob('./Pages/**/*.tsx')),
     setup: ({ App, props }) => {
+            // @ts-expect-error not found
             global.route<RouteName> = (name, params, absolute) =>
               route(name, params, absolute, {
-                // @ts-expect-error  Ziggy is not typed yet
+                // @ts-expect-error not found
                 ...page.props.ziggy,
-                // @ts-expect-error  We don't know what the user will pass as a parameter here so we have to allow it
+                // @ts-expect-error not found
                 location: new URL(page.props.ziggy.location),
               })
-
             return <App {...props} />
     },
   })
