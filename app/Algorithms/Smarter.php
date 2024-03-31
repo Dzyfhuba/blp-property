@@ -10,6 +10,7 @@ class Smarter
 {
     public static function generateModel()
     {
+        dd('asd');
         $products = Product::all();
 
         $weights = Setting::first()->weight_product_criterion;

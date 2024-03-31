@@ -12,17 +12,23 @@
                         <div class="rotate-[30deg] flex justify-end -translate-y-4">{{ $criteriaVertical }}</div>
                         @foreach ($this->criterion as $key2 => $criteriaHorizontal)
                             <div>
-                                @if ($key1 >= $key2)
+                                {{-- @if ($key1 >= $key2)
                                 <x-filament::input.wrapper class="h-full px-3 py-[6px]" disabled>
                                     {{ $this->pairwiseComparison->$criteriaVertical->$criteriaHorizontal }}
                                 </x-filament::input.wrapper>
-                                @else
-                                    <x-filament::input.wrapper disabled="{{ $key1 >= $key2 }}">
-                                        <x-filament::input type="number" step="0.001" min="0" max="10" :name="$criteriaHorizontal . $criteriaVertical" :id="$criteriaHorizontal . $criteriaHorizontal . $criteriaVertical"
-                                            wire:model.blur.number="pairwiseComparison.{{ $criteriaVertical }}.{{ $criteriaHorizontal }}"
-                                            :criteria1="$criteriaVertical" :criteria2="$criteriaHorizontal" :readonly="$key1 >= $key2" />
+                                @else --}}
+                                    <x-filament::input.wrapper
+                                    disabled="{{ $key1 == $key2 }}"
+                                    {{-- $this->pairwiseComparison->$criteriaVertical->$criteriaHorizontal < 1 --}}
+                                    >
+                                        <x-filament::input min="0" max="10" :name="$criteriaHorizontal . $criteriaVertical" :id="$criteriaHorizontal . $criteriaHorizontal . $criteriaVertical"
+                                            wire:model.live.number.debounce="pairwiseComparison.{{ $criteriaVertical }}.{{ $criteriaHorizontal }}"
+                                            :criteria1="$criteriaVertical" :criteria2="$criteriaHorizontal"
+                                            {{-- :readonly="$key1 >= $key2"  --}}
+                                            :readonly="$key1 == $key2"
+                                            />
                                     </x-filament::input.wrapper>
-                                @endif
+                                {{-- @endif --}}
                             </div>
                         @endforeach
                     @endforeach

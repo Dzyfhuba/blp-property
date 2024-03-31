@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Algorithms\AHP;
 use Illuminate\Support\Facades\Route;
 use App\Algorithms\Smarter;
 use App\Models\Product;
@@ -36,6 +37,10 @@ class Model extends Page
 
     function generateModel()
     {
+        $ahp = AHP::calculatePairwiseComparison();
+
+        dd($ahp);
+
         $model = Smarter::generateModel();
 
         $this->model = $model;

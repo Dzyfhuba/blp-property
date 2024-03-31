@@ -35,7 +35,7 @@ class PairwiseComparisonWidget extends Widget
 
     public function mount(): void
     {
-        $pairwiseComparison = json_decode(Cookie::get('pairwise_comparison', Setting::first()->pairwise_comparison));
+        $pairwiseComparison = json_decode(Cookie::get('pairwise_comparison', json_encode(Setting::first()->pairwise_comparison)));
         // dd(self::fillIfSameKeyWithValue($pairwiseComparison, 1));
         // dd($pairwiseComparison);
         if ($pairwiseComparison) {
@@ -44,7 +44,7 @@ class PairwiseComparisonWidget extends Widget
             foreach ($this->criterion as $criteria1) {
                 $criterionRow = [];
                 foreach ($this->criterion as $criteria2) {
-                    $criterionRow[$criteria2] = $criteria1 == $criteria2 ? 1 : null;
+                    $criterionRow[$criteria2] = $criteria1 == $criteria2 ? 1 : 0;
                 }
                 $this->pairwiseComparison[$criteria1] = $criterionRow;
             }
@@ -72,9 +72,11 @@ class PairwiseComparisonWidget extends Widget
         $key1 = $properties[1];
         $key2 = $properties[2];
         // dd($this->pairwiseComparison->$properties[2]);
-        // dd($this->pairwiseComparison->$key1->$key2, $value);
+        // dd($this->pairwiseComparison[$key2][$key1]);
         if ($value > 0) {
-            $this->pairwiseComparison->$key2->$key1 = number_format(1 / $value, 3);
+            // $this->pairwiseComparison->$key2->$key1 = rtrim(number_format(1 / $value, 3), '.0');
+            $this->pairwiseComparison[$key2][$key1] = 1 / $value;
+            // $this->pairwiseComparison->$key2->$key1 = $this->findClosestInteger2($value);
         }
         // dd($this->pairwiseComparison);
         Cookie::queue(
@@ -105,7 +107,7 @@ class PairwiseComparisonWidget extends Widget
         Setting::updateOrCreate([
             'id' => 1
         ], [
-            'pairwise_comparison' => json_encode($this->pairwiseComparison)
+            'pairwise_comparison' => $this->pairwiseComparison
         ]);
 
         Notification::make()
@@ -122,11 +124,25 @@ class PairwiseComparisonWidget extends Widget
                 if ($key1 == $key2) {
                     // dd($arrayDoubleDimension->$key1->$key2);
                     $arrayDoubleDimension->$key1->$key2 = $desiredValue;
-                };
+                }
+                ;
             }
         }
 
         return $arrayDoubleDimension;
+    }
+
+    function findClosestInteger2(float $value): int
+    {
+        $closerInteger = round($value);
+
+        if ($value != $closerInteger) {
+            $distanceToCeiling = $value - $closerInteger;
+            $distanceToFloor = $closerInteger - $value;
+            $closerInteger += $distanceToCeiling < $distanceToFloor ? 1 : -1;
+        }
+
+        return $closerInteger;
     }
 
 }
