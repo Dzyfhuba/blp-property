@@ -14,11 +14,18 @@ class Model extends ModelElo
         'batch',
         'product_id',
         'criterion',
-        'total'
+        'total',
+        'pairwise_comparison_normalized',
+        'pairwise_comparison_priority',
+        'pairwise_comparison_line_quality',
+        'pairwise_comparison_consistency_ratio',
     ];
 
     protected $casts = [
-        'criterion' => 'array'
+        'criterion' => 'array',
+        'pairwise_comparison_normalized' => 'array',
+        'pairwise_comparison_priority' => 'array',
+        'pairwise_comparison_line_quality' => 'array',
     ];
 
     public function product(): BelongsTo

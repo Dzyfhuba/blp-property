@@ -37,20 +37,40 @@ class Model extends Page
 
     function generateModel()
     {
+        // $ahp = AHP::calculatePairwiseComparison();
+
+        // $smarter = Smarter::generateModel($ahp['priority']->toArray());
+
+        $this->model = $this->calculate();
+
+        Cache::put('smarter', $this->model, now()->addHour());
+    }
+
+    function calculate()
+    {
         $ahp = AHP::calculatePairwiseComparison();
 
-        dd($ahp);
+        $weights = Smarter::generateWeights($ahp['priority']->toArray());
 
-        $model = Smarter::generateModel();
-
-        $this->model = $model;
-
-        Cache::put('model', $model, now()->addHour());
+        $modelLatest = ModelTable::query()->orderBy('id', 'desc');
+        return $weights->map(function ($weight) use ($ahp, $modelLatest) {
+            return [
+                'product_id' => $weight['product_id'],
+                'batch' => ($modelLatest->count() ? $modelLatest->first()->batch : 0) + 1,
+                'criterion' => $weight['criterion']->toArray(),
+                'total' => $weight['criterion']->sum(),
+                'pairwise_comparison_normalized' => $ahp['normalized']->toArray(),
+                'pairwise_comparison_priority' => $ahp['priority']->toArray(),
+                'pairwise_comparison_line_quality' => $ahp['line_quality']->toArray(),
+                'pairwise_comparison_consistency_ratio' => $ahp['consistency_ratio'],
+            ];
+        });
     }
 
     function saveModel()
     {
-        $model = Cache::get('model', Smarter::generateModel());
+        $model = Cache::get('model', $this->calculate());
+        // $model = $this->calculate();
 
         foreach ($model as $item) {
             ModelTable::create($item);

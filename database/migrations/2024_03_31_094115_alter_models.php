@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->json('pairwise_comparison_normalized')->nullable();
             $table->json('pairwise_comparison_priority')->nullable();
             $table->json('pairwise_comparison_line_quality')->nullable();
-            $table->json('pairwise_comparison_consistency_ratio')->nullable();
+            $table->decimal('pairwise_comparison_consistency_ratio')->nullable();
         });
     }
 

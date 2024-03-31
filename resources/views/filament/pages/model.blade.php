@@ -1,5 +1,5 @@
 <x-filament-panels::page>
-    <x-filament::modal width="7xl" :close-button="true" id="model">
+    <x-filament::modal width="7xl" :close-button="true" id="model" slide-over>
         <x-slot name="trigger">
             <x-filament::button wire:click="generateModel">
                 Generate Model
@@ -28,7 +28,10 @@
                             <tr>
                                 <td class="px-1">{{ \App\Models\Product::find($model['product_id'])->name }}</td>
                                 @foreach ($model['criterion'] as $criteria)
-                                    <td class="px-1">{{ $criteria }}</td>
+                                    <td class="px-1">
+                                        {{-- {{\App\Helper::formatAndTrimZeros($criteria, 3)}} --}}
+                                        {{$criteria}}
+                                    </td>
                                 @endforeach
                                 <td class="px-1">{{ $model['total'] }}</td>
                             </tr>

@@ -8,12 +8,11 @@ use App\Models\Setting;
 
 class Smarter
 {
-    public static function generateModel()
+    public static function generateWeights(array $weights)
     {
-        dd('asd');
         $products = Product::all();
 
-        $weights = Setting::first()->weight_product_criterion;
+        // $weights = Setting::first()->weight_product_criterion;
 
         $points = collect([
             'price' => ['min' => 1, 'max' => 3],
@@ -30,7 +29,7 @@ class Smarter
 
         $productsWithCriterion = $products->map(function ($product) use ($points, $weights) {
             return [
-                'id' => $product->id,
+                'product_id' => $product->id,
                 'criterion' => collect([
                     'price' => self::normalizedUtility(
                         $weights['price'],
@@ -95,18 +94,18 @@ class Smarter
                 ])
             ];
         });
-        $modelLatest = Model::query()->orderBy('id', 'desc');
-        // dd($modelLatest->first()->batch);
-        $model = $productsWithCriterion->map(function ($product) use ($modelLatest) {
-            return [
-                'product_id' => $product['id'],
-                'batch' => ($modelLatest->count() ? $modelLatest->first()->batch : 0) + 1,
-                'criterion' => $product['criterion']->toArray(),
-                'total' => $product['criterion']->sum()
-            ];
-        });
+        // $modelLatest = Model::query()->orderBy('id', 'desc');
+        // // dd($modelLatest->first()->batch);
+        // $model = $productsWithCriterion->map(function ($product) use ($modelLatest) {
+        //     return [
+        //         'product_id' => $product['id'],
+        //         'batch' => ($modelLatest->count() ? $modelLatest->first()->batch : 0) + 1,
+        //         'criterion' => $product['criterion']->toArray(),
+        //         'total' => $product['criterion']->sum()
+        //     ];
+        // });
 
-        return $model->toArray();
+        return $productsWithCriterion;
     }
 
     public static function normalizedUtility(float $weight, float $value, int $min = 1, int $max = 3)

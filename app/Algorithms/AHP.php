@@ -8,6 +8,8 @@ use Illuminate\Support\Collection;
 
 class AHP
 {
+    protected static float $randomConsistency = 1.49;
+
     public static function calculatePairwiseComparison()
     {
         $pairwiseComparison = Setting::first()->pairwise_comparison;
@@ -19,11 +21,27 @@ class AHP
 
         $lineQuality = self::getLineQuality($normalized, $priority);
 
+        $consistencyRatio = self::getConsistencyRatio($lineQuality, $priority);
+
         return [
             'normalized' => $normalized,
             'priority' => $priority,
             'line_quality' => $lineQuality,
+            'consistency_ratio' => $consistencyRatio,
         ];
+    }
+
+    public static function getConsistencyRatio(Collection $lineQuality, Collection $priority)
+    {
+        $total = $lineQuality->map(function ($item, $key) use ($priority) {
+            return $item * $priority[$key];
+        })->sum();
+
+        $n = count(Variables::$criterion);
+
+        $consistencyIndex = ($total - $n) / ($n - 1);
+
+        return $consistencyIndex / self::$randomConsistency;
     }
 
     public static function getLineQuality(Collection $normalized, Collection $priority)
@@ -31,7 +49,7 @@ class AHP
         return collect($normalized)->map(function ($row, $key1) use ($priority) {
             return collect($row)->map(function ($item) use ($key1, $priority) {
                 return $item * $priority[$key1];
-            });
+            })->sum();
         });
     }
 
