@@ -1,0 +1,122 @@
+{
+  "price": {
+    "price": 1,
+    "design": "5",
+    "floors": 3,
+    "bedrooms": 5,
+    "facility": "2",
+    "location": "1",
+    "bathrooms": 5,
+    "land_size": 0.167,
+    "building_size": "2",
+    "public_facility": "4"
+  },
+  "design": {
+    "price": 0.2,
+    "design": 1,
+    "floors": 5,
+    "bedrooms": "0.333",
+    "facility": "0.2",
+    "location": "0.2",
+    "bathrooms": 0.5,
+    "land_size": "0.2",
+    "building_size": "0.2",
+    "public_facility": 4
+  },
+  "floors": {
+    "price": "0.333",
+    "design": "0.2",
+    "floors": 1,
+    "bedrooms": "0.333",
+    "facility": "0.2",
+    "location": "0.111",
+    "bathrooms": 0.5,
+    "land_size": "0.111",
+    "building_size": 0.333,
+    "public_facility": 0.5
+  },
+  "bedrooms": {
+    "price": "0.200",
+    "design": 3,
+    "floors": 3,
+    "bedrooms": 1,
+    "facility": "2",
+    "location": "1",
+    "bathrooms": 7,
+    "land_size": "0.200",
+    "building_size": "0.5",
+    "public_facility": "5"
+  },
+  "facility": {
+    "price": 0.5,
+    "design": 5,
+    "floors": 5,
+    "bedrooms": 0.5,
+    "facility": 1,
+    "location": 1,
+    "bathrooms": 1,
+    "land_size": 6,
+    "building_size": 0.5,
+    "public_facility": 9
+  },
+  "location": {
+    "price": 1,
+    "design": 5,
+    "floors": 9,
+    "bedrooms": 1,
+    "facility": "1",
+    "location": 1,
+    "bathrooms": 7,
+    "land_size": "1",
+    "building_size": "1",
+    "public_facility": 4
+  },
+  "bathrooms": {
+    "price": "0.200",
+    "design": "2",
+    "floors": "2",
+    "bedrooms": "0.143",
+    "facility": "1",
+    "location": 0.143,
+    "bathrooms": 1,
+    "land_size": "0.111",
+    "building_size": 0.5,
+    "public_facility": "3.003"
+  },
+  "land_size": {
+    "price": 6,
+    "design": 5,
+    "floors": 9,
+    "bedrooms": 5,
+    "facility": "0.167",
+    "location": 1,
+    "bathrooms": 9,
+    "land_size": 1,
+    "building_size": 1,
+    "public_facility": 4
+  },
+  "building_size": {
+    "price": 0.5,
+    "design": 5,
+    "floors": 4,
+    "bedrooms": 2,
+    "facility": "2",
+    "location": 1,
+    "bathrooms": 2,
+    "land_size": "1",
+    "building_size": 1,
+    "public_facility": 4
+  },
+  "public_facility": {
+    "price": 0.25,
+    "design": 0.333,
+    "floors": "2",
+    "bedrooms": 0.2,
+    "facility": "0.111",
+    "location": 0.333,
+    "bathrooms": 0.333,
+    "land_size": 0.333,
+    "building_size": 0.333,
+    "public_facility": 1
+  }
+}

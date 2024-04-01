@@ -13,6 +13,11 @@ class Widget extends Model
         'title',
         'image',
         'content',
-        'link'
+        'link',
+        'layout'
+    ];
+
+    protected $casts = [
+        'layout' => 'array'
     ];
 }

@@ -1,0 +1,12 @@
+[
+  { "id": "price", "column": "price", "text": "Harga" },
+  { "id": "bedrooms", "column": "bedrooms", "text": "Kamar Tidur" },
+  { "id": "bathrooms", "column": "bathrooms", "text": "Kamar Mandi" },
+  { "id": "land_size", "column": "land_size", "text": "Luas Tanah" },
+  { "id": "facility", "column": "facility", "text": "Fasilitas" },
+  { "id": "public_facility", "column": "public_facility", "text": "Fasilitas Publik" },
+  { "id": "design", "column": "design", "text": "Desain" },
+  { "id": "location", "column": "location", "text": "Jarak dari Keramaian Umum" },
+  { "id": "floors", "column": "floors", "text": "Jumlah Lantai" },
+  { "id": "building_size", "column": "building_size", "text": "Luas Bangunan" }
+]

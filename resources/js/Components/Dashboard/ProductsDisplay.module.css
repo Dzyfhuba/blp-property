@@ -1,0 +1,19 @@
+.section {
+  @apply p-3
+}
+
+.title {
+  @apply uppercase font-bold text-2xl whitespace-normal text-center sm:whitespace-nowrap
+}
+
+.gridContainer {
+  @apply grid text-center gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4
+}
+
+.gridContainer > * {
+  @apply flex flex-col
+}
+
+.gridContainer h3 {
+  @apply font-bold text-lg
+}

@@ -38,8 +38,12 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
+                // Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
+            ])
+            ->userMenuItems([
+                'logout' => MenuItem::make()->label('Log out')->url("/logout"),
+                // ...
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -51,7 +55,6 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                // 'role:admin'
             ])
             ->authMiddleware([
                 Authenticate::class,

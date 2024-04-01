@@ -1,0 +1,77 @@
+{
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended"
+    ],
+    "ignorePatterns": [
+        "!resources/js/**",
+        "tailwind.config.js",
+        "public"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "react"
+    ],
+    "rules": {
+        "camelcase": [
+            "warn",
+            {
+                "properties": "never"
+            }
+        ],
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
+        "semi": [
+            "error",
+            "never"
+        ],
+        "quotes": [
+            "warn",
+            "single"
+        ],
+        "indent": [
+            "warn",
+            2
+        ],
+        "@typescript-eslint/no-unused-vars": [
+            "warn", // or "error"
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ],
+        "object-curly-spacing": [
+            "warn",
+            "always"
+        ],
+        "react/jsx-max-props-per-line": [
+            1,
+            {
+                "maximum": 1
+            }
+        ],
+        "react/jsx-tag-spacing": [
+            1,
+            {
+                "beforeSelfClosing": "proportional-always",
+                "beforeClosing": "proportional-always"
+            }
+        ]
+    }
+}

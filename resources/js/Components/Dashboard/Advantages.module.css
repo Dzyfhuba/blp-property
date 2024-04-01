@@ -1,0 +1,39 @@
+.container {
+  @apply flex flex-col
+}
+
+.background {
+  @apply absolute top-0 left-0 w-full h-full -z-10 object-cover brightness-50 blur-sm
+}
+
+.sloganContainer {
+  @apply relative p-3 py-8
+}
+
+.slogan {
+  @apply font-bold text-white sm:text-xl
+}
+
+.advantages {
+  @apply bg-base-100 p-3
+}
+
+.advantages h2 {
+  @apply text-2xl font-black mb-3
+}
+
+.gridList {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-3
+}
+
+.gridItem {
+  @apply grid grid-cols-[auto,minmax(auto,1fr)] gap-1
+}
+
+.gridItem > * {
+  @apply first:row-span-2
+}
+
+.gridItem > h3 {
+  @apply text-xl font-bold
+}
