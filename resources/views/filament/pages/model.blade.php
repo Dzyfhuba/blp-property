@@ -29,12 +29,14 @@
                     <tbody>
                         @foreach ($this->model[0]['pairwise_comparison_normalized'] as $key => $row)
                             <tr>
-                                <td class="px-1 font-black">{{$key}}</td>
+                                <td class="px-1 font-black">{{ $key }}</td>
                                 @foreach ($row as $item)
-                                    <td class="px-1">{{$item}}</td>
+                                    <td class="px-1">{{ $item }}</td>
                                 @endforeach
-                                <td class="px-1 font-black">{{$this->model[0]['pairwise_comparison_priority'][$key]}}</td>
-                                <td class="px-1 font-black">{{$this->model[0]['pairwise_comparison_line_quality'][$key]}}</td>
+                                <td class="px-1 font-black">{{ $this->model[0]['pairwise_comparison_priority'][$key] }}
+                                </td>
+                                <td class="px-1 font-black">
+                                    {{ $this->model[0]['pairwise_comparison_line_quality'][$key] }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -46,7 +48,11 @@
                 @php
                     $cr = $this->model[0]['pairwise_comparison_consistency_ratio'];
                 @endphp
-                <h2 class="text-xl font-black">Consistency Ratio: {{$cr}} @if ($cr<=0.1) (<span class="text-green-500">Consistent</span>) @else(<span class="text-red-500">Inconsistent</span>)@endif</h2>
+                <h2 class="text-xl font-black">Consistency Ratio: {{ $cr }} @if ($cr <= 0.1)
+                        (<span class="text-green-500">Consistent</span>)
+                    @else(<span class="text-red-500">Inconsistent</span>)
+                    @endif
+                </h2>
                 <small>Consistency Ratio must be below 0.1</small>
             </div>
 
@@ -66,7 +72,8 @@
                     <tbody>
                         @foreach ($this->model as $model)
                             <tr>
-                                <td class="px-1 whitespace-nowrap">{{ \App\Models\Product::find($model['product_id'])->name }}</td>
+                                <td class="px-1 whitespace-nowrap">
+                                    {{ \App\Models\Product::find($model['product_id'])->name }}</td>
                                 @foreach ($model['criterion'] as $key => $criteria)
                                     <td class="px-1">
                                         {{-- {{\App\Helper::formatAndTrimZeros($criteria, 3)}} --}}
@@ -86,16 +93,33 @@
         </x-filament::button>
     </x-filament::modal>
 
-    {{-- @dd($this->getLimitBatch()) --}}
-    <div>
-        <x-filament::button tag="a"
-            href="{{ route('filament.admin.pages.model', ['batch' => $this->getBatch() - 1]) }}" {{-- @disabled($this->getBatch() == $this->getLimitBatch()) --}}>
+    {{-- @dd($this->getPreviousBatch()) --}}
+    <div class="flex">
+        <x-filament::button tag="a" :disabled="!$this->getPreviousBatch()" class="rounded-r-none w-[84px]"
+            href="{{ route('filament.admin.pages.model', ['batch' => $this->getPreviousBatch()]) }}"
+            {{-- @disabled($this->getBatch() == $this->getLimitBatch()) --}}>
             Previous
         </x-filament::button>
-        <x-filament::button tag="a"
-            href="{{ route('filament.admin.pages.model', ['batch' => $this->getBatch() + 1]) }}">
+        <x-filament::input.wrapper class="w-max rounded-none">
+            <x-filament::input.select onchange="" id="select-batch">
+                @foreach ($this->getAllBatchs() as $value)
+                    <option value="{{ $value }}" @selected($this->getBatch() == $value)>{{ $value }}</option>
+                @endforeach
+            </x-filament::input.select>
+        </x-filament::input.wrapper>
+        <x-filament::button tag="a" :disabled="!$this->getNextBatch()" class="rounded-l-none w-[84px]"
+            href="{{ route('filament.admin.pages.model', ['batch' => $this->getNextBatch()]) }}">
             Next
         </x-filament::button>
     </div>
     @livewire(\App\Livewire\ModelList::class)
 </x-filament-panels::page>
+
+
+@script
+<script>
+    document.querySelector('select#select-batch').addEventListener('change', (e) => {
+        window.location.href = window.location.href.split('?')[0] + `?query=${e.target.value}`
+    })
+</script>
+@endscript

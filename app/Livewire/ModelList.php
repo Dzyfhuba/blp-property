@@ -33,17 +33,22 @@ class ModelList extends BaseWidget
             )
             ->columns([
                 TextColumn::make('product.name'),
-                TextColumn::make('batch'),
                 TextColumn::make('total')->numeric(3),
             ])
+            ->heading("Batch: ".self::getBatch()." ")
             ->actions([
-                Action::make('asd')
+                Action::make('Show')
+                ->modalHeading('Calculation Detail')
+                    ->slideOver()
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Close')
                     ->modalContent(
                         fn($record) =>
                         view(
                             'livewire.model-show',
                             [
-                                'columns' => $this->criterion
+                                'criterion' => $this->criterion,
+                                'model' => $record,
                             ]
                         )
                     )

@@ -86,7 +86,22 @@ class Model extends Page
 
     function getBatch()
     {
-        return request()->query('batch', ModelTable::query()->orderBy('id', 'desc')->first()->batch);
+        return request()->query('batch', request()->query('batch', ModelTable::query()->orderBy('id', 'desc')->first()->batch));
+    }
+
+    function getAllBatchs()
+    {
+        return ModelTable::query()->distinct('batch')->pluck('batch');
+    }
+
+    function getPreviousBatch()
+    {
+        return ModelTable::query()->where('batch', self::getBatch()-1)->count() ? self::getBatch()-1 : null;
+    }
+
+    function getNextBatch()
+    {
+        return ModelTable::query()->where('batch', self::getBatch()+1)->count() ? self::getBatch()+1 : null;
     }
 
     function getLimitBatch()
