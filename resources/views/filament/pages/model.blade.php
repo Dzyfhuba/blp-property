@@ -101,7 +101,7 @@
             Previous
         </x-filament::button>
         <x-filament::input.wrapper class="w-max rounded-none">
-            <x-filament::input.select onchange="" id="select-batch">
+            <x-filament::input.select  id="select-batch">
                 @foreach ($this->getAllBatchs() as $value)
                     <option value="{{ $value }}" @selected($this->getBatch() == $value)>{{ $value }}</option>
                 @endforeach
@@ -111,6 +111,12 @@
             href="{{ route('filament.admin.pages.model', ['batch' => $this->getNextBatch()]) }}">
             Next
         </x-filament::button>
+
+        <x-filament::button tag="a" class="ml-3"
+        :disabled="$this->getActiveBatch() == $this->getBatch()"
+            href="{{ route('filament.admin.pages.model', ['batch' => $this->getActiveBatch()]) }}">
+            Active Model
+        </x-filament::button>
     </div>
     @livewire(\App\Livewire\ModelList::class)
 </x-filament-panels::page>
@@ -119,7 +125,7 @@
 @script
 <script>
     document.querySelector('select#select-batch').addEventListener('change', (e) => {
-        window.location.href = window.location.href.split('?')[0] + `?query=${e.target.value}`
+        window.location.href = window.location.href.split('?')[0] + `?batch=${e.target.value}`
     })
 </script>
 @endscript

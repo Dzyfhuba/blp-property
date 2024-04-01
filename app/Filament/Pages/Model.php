@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Algorithms\AHP;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 use App\Algorithms\Smarter;
 use App\Models\Product;
@@ -86,7 +87,12 @@ class Model extends Page
 
     function getBatch()
     {
-        return request()->query('batch', request()->query('batch', ModelTable::query()->orderBy('id', 'desc')->first()->batch));
+        return request()->query('batch', request()->query('batch', Setting::first()->model_id));
+    }
+
+    function getActiveBatch()
+    {
+        return Setting::first()->model_id;
     }
 
     function getAllBatchs()

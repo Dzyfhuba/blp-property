@@ -3,12 +3,13 @@
 namespace App\Livewire;
 
 use App\Models\Model;
+use App\Models\Setting;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
-use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\HtmlString;
 
 class ModelList extends BaseWidget
 {
@@ -35,7 +36,9 @@ class ModelList extends BaseWidget
                 TextColumn::make('product.name'),
                 TextColumn::make('total')->numeric(3),
             ])
-            ->heading("Batch: ".self::getBatch()." ")
+            ->heading("Batch: ".self::getBatch()." ".(Setting::first()->model_id == self::getBatch() ? 'Active': ''))
+            ->description('Consistency Ratio: '. Model::query()->where('batch', self::getBatch())->first()->pairwise_comparison_consistency_ratio)
+            ->striped()
             ->actions([
                 Action::make('Show')
                 ->modalHeading('Calculation Detail')
@@ -58,6 +61,6 @@ class ModelList extends BaseWidget
 
     static function getBatch()
     {
-        return request()->query('batch', Model::query()->orderBy('id', 'desc')->first()->batch);
+        return request()->query('batch', Setting::first()->model_id);
     }
 }
