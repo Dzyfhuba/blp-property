@@ -5,6 +5,8 @@ namespace App\Algorithms;
 use App\Models\Model;
 use App\Models\Product;
 use App\Models\Setting;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class Smarter
 {
@@ -94,6 +96,22 @@ class Smarter
             'criterion' => $criterion,
             'total' => $utilities->sum(),
         ];
+    }
+
+    public static function getClosestProductQuery(Builder $productQuery, $search)
+    {
+        ['total' => $total] = Smarter::single($search);
+
+        $products = $productQuery
+            ->join('models', 'models.product_id', '=', 'products.id')
+            ->where('models.batch', Setting::first()->batch)
+            ->select(['products.*'])
+            ->selectRaw('(ABS(models.total - ?)) as total_delta', [$total])
+            ->withCasts([
+                'total_delta' => 'float'
+            ])
+            ->orderByRaw('(ABS(models.total - ?))', [$total]);
+        return $products;
     }
 
     public static function generateWeights(array $weights)

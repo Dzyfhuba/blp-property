@@ -36,7 +36,7 @@ class ModelList extends BaseWidget
                 TextColumn::make('product.name'),
                 TextColumn::make('total')->numeric(3),
             ])
-            ->heading("Batch: ".self::getBatch()." ".(Setting::first()->model_id == self::getBatch() ? 'Active': ''))
+            ->heading("Batch: ".self::getBatch()." ".(Setting::first()->batch == self::getBatch() ? 'Active': ''))
             ->description('Consistency Ratio: '. Model::query()->where('batch', self::getBatch())->first()->pairwise_comparison_consistency_ratio)
             ->striped()
             ->actions([
@@ -61,6 +61,6 @@ class ModelList extends BaseWidget
 
     static function getBatch()
     {
-        return request()->query('batch', Setting::first()->model_id);
+        return request()->query('batch', Setting::first()->batch);
     }
 }

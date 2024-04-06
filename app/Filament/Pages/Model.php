@@ -87,12 +87,12 @@ class Model extends Page
 
     function getBatch()
     {
-        return request()->query('batch', request()->query('batch', Setting::first()->model_id));
+        return request()->query('batch', request()->query('batch', Setting::first()->batch));
     }
 
     function getActiveBatch()
     {
-        return Setting::first()->model_id;
+        return Setting::first()->batch;
     }
 
     function getAllBatchs()

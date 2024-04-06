@@ -10,9 +10,13 @@ import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import Client from '@/Components/Client'
 import SearchProducts from '@/Components/ProductsSearch'
+import { formatNumber } from '@/Helpers'
+import { TbDelta } from 'react-icons/tb'
 
 interface Props extends PageProps {
-    data: Product[]
+    data: (Product & {
+      total_delta?: number
+    })[]
 }
 
 const Products = (props: Props) => {
@@ -49,7 +53,7 @@ const Products = (props: Props) => {
         <div className="grid p-3 justify-center gap-3 sm:grid-cols-2">
           {props.data.map((item) => (
             <article key={item.id}
-              className='card overflow-hidden shadow-md bg-base-200 hover:cursor-pointer group'
+              className='card overflow-hidden shadow-md bg-base-200 hover:cursor-pointer group relative'
             >
               <Link href={`/categories/${item.category?.name}`}>
                 <Image src={item.images ? item.images[0] : ImageNotFound}
@@ -63,6 +67,7 @@ const Products = (props: Props) => {
                   <p className='line-clamp-2 text-xs'>{item.description || lorem}</p>
                 </div>
               </Link>
+              <span className='absolute top-0 left-0 bg-base-200 p-1 rounded-br-[1rem] inline-flex items-center'><TbDelta />Total: {item.total_delta?.toPrecision(4)}</span>
             </article>
           ))}
         </div>

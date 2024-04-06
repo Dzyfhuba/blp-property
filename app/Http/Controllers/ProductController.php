@@ -24,16 +24,18 @@ class ProductController extends Controller
   public function index(Request $request)
   {
     $search = $request->query('search');
-    if ($this->checkIfAllColumnsInSearch($search)) {
-        ['total' => $total] = Smarter::single($search);
-        dd($total);
-    }
+    $data = [];
 
     $query = Product::query();
+    if ($this->checkIfAllColumnsInSearch($search)) {
+        $data = Smarter::getClosestProductQuery($query, $search);
+    }
 
     $query->with('category');
+    $data = $query->get();
+
     return inertia('Products', [
-      'data' => $query->get()
+      'data' => $data
     ]);
   }
 
