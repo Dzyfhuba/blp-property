@@ -42,7 +42,9 @@ const Heros = () => {
       >
         <SwiperSlide>
           <div className={styles.mainContainer}>
-            <button className='btn btn-primary' onClick={() => handleSearchModal()}>
+            <button className='btn btn-primary'
+              onClick={() => handleSearchModal()}
+            >
               Cari Rumah Terbaik Untuk Anda
             </button>
           </div>

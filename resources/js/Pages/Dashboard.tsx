@@ -13,7 +13,6 @@ interface Props extends PageProps {
 }
 
 export default function Dashboard(props: Props) {
-  console.log(props)
   return (
     <Layout widgets={props.widgets}
       footer={props.setting}

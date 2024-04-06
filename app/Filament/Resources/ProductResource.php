@@ -31,7 +31,7 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->string()->required(),
-                Select::make('category')->label('cluster')->options(Category::all()->pluck('name', 'id')),
+                Select::make('category')->label('cluster')->options(Category::all()->pluck('name', 'id'))->relationship('category', 'name'),
                 MarkdownEditor::make('description')->columnSpanFull(),
                 TextInput::make("occupied")->label('Jumlah Terisi')->integer(),
                 TextInput::make("capacity")->label('Kapasitas')->integer(),

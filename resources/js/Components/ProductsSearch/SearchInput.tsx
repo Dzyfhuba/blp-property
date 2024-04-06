@@ -16,10 +16,10 @@ const SearchInput = (props: Props) => {
     return (
       <div className='flex flex-col py-6'>
         <Input
-          type='number'
+          type='text'
           currency
           htmlFor='price'
-          label='Rp. 300 juta - 1 miliar'
+          label='Rp. 300 juta - 1000 juta'
           placeholder='Kisaran Harga'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({

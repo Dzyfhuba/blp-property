@@ -28,6 +28,7 @@ class Product extends Model
         'building_size',
         'capacity',
         'occupied',
+        'images'
     ];
 
     public function category(): BelongsTo
