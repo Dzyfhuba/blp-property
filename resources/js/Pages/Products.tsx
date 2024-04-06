@@ -67,7 +67,14 @@ const Products = (props: Props) => {
                   <p className='line-clamp-2 text-xs'>{item.description || lorem}</p>
                 </div>
               </Link>
-              <span className='absolute top-0 left-0 bg-base-200 p-1 rounded-br-[1rem] inline-flex items-center'><TbDelta />Total: {item.total_delta?.toPrecision(4)}</span>
+              <button
+                className={`absolute top-0 left-0 bg-base-200 p-1 rounded-br-[1rem] inline-flex items-center
+                  hover:before:content-['lihat_perhitungan'] hover:before:absolute hover:before:bg-base-200
+                  hover:before:whitespace-nowrap hover:before:p-1 hover:before:rounded-br-[1rem]
+                  hover:before:active:tracking-wide hover:before:transition-all hover:before:duration-100`}
+              >
+                <TbDelta />Total: {item.total_delta?.toPrecision(4)}
+              </button>
             </article>
           ))}
         </div>
