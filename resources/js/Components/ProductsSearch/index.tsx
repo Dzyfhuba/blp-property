@@ -37,8 +37,6 @@ const ProductsSearch = () => {
     }
   }
 
-  const filled = Object.keys(searchValue).filter((key) => !!searchValue[key as Column]).length
-  const allowedToSubmit = filled === list.length && index === list.length - 1
 
   useEffect(() => {
     getData()
@@ -47,7 +45,7 @@ const ProductsSearch = () => {
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
 
-    router.get('/projects', {
+    router.get('/products', {
       search: searchValue
     })
     Swal.close()

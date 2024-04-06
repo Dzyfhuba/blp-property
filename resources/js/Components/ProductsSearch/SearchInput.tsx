@@ -167,17 +167,36 @@ const SearchInput = (props: Props) => {
   case 'location':
     return (
       <div className='flex flex-col py-6'>
-        <Input
+        {/* <Input
           type='number'
           htmlFor='location'
-          label='Jarak dari keramaian umum'
-          placeholder='Jarak dari keramaian umum'
+          label='Jarak dari keramaian umum (km)'
+          placeholder='Jarak dari keramaian umum (km)'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
           })}
-        />
+        /> */}
+        <select
+          name="design_id"
+          key={props.column}
+          id="design_id"
+          className='select grow select-bordered capitalize'
+          defaultValue={searchValue[props.column]}
+          onChange={(e) => setSearchValue({
+            column: props.column,
+            value: e.target.value
+          })}
+        >
+          <option value="">Lokasi Strategis</option>
+          {props.options.locationOptions?.map(item => (
+            <option
+              value={item.value}
+              key={item.value}
+            >{item.label}</option>
+          ))}
+        </select>
       </div>
     )
   case 'floors':

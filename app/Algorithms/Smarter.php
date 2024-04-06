@@ -8,6 +8,94 @@ use App\Models\Setting;
 
 class Smarter
 {
+
+    public static function single(array $criterion)
+    {
+        $weights = Setting::first()->model->pairwise_comparison_priority;
+        // dd($weights->model->pairwise_comparison_priority);
+
+        $points = collect([
+            'price' => ['min' => 1, 'max' => 3],
+            'bedrooms' => ['min' => 1, 'max' => 3],
+            'bathrooms' => ['min' => 1, 'max' => 2],
+            'floors' => ['min' => 1, 'max' => 2],
+            'facility' => ['min' => 1, 'max' => 3],
+            'public_facility' => ['min' => 1, 'max' => 3],
+            'land_size' => ['min' => 1, 'max' => 3],
+            'building_size' => ['min' => 1, 'max' => 3],
+            'location' => ['min' => 1, 'max' => 3],
+            'design' => ['min' => 1, 'max' => 3],
+        ]);
+
+        $utilities = collect([
+            'price' => self::normalizedUtility(
+                $weights['price'],
+                self::priceCriteria($criterion['price']),
+                $points['price']['min'],
+                $points['price']['max'],
+            ),
+            'bedrooms' => self::normalizedUtility(
+                $weights['bedrooms'],
+                self::bedroomsCriteria($criterion['bedrooms']),
+                $points['bedrooms']['min'],
+                $points['bedrooms']['max'],
+            ),
+            'bathrooms' => self::normalizedUtility(
+                $weights['bathrooms'],
+                self::bathroomsCriteria($criterion['bathrooms']),
+                $points['bathrooms']['min'],
+                $points['bathrooms']['max'],
+            ),
+            'floors' => self::normalizedUtility(
+                $weights['floors'],
+                self::floorsCriteria($criterion['floors']),
+                $points['floors']['min'],
+                $points['floors']['max'],
+            ),
+            'facility' => self::normalizedUtility(
+                $weights['facility'],
+                $criterion['facility'],
+                $points['facility']['min'],
+                $points['facility']['max'],
+            ),
+            'public_facility' => self::normalizedUtility(
+                $weights['public_facility'],
+                $criterion['public_facility'],
+                $points['public_facility']['min'],
+                $points['public_facility']['max'],
+            ),
+            'land_size' => self::normalizedUtility(
+                $weights['land_size'],
+                self::landSizeCriteria($criterion['land_size']),
+                $points['land_size']['min'],
+                $points['land_size']['max'],
+            ),
+            'building_size' => self::normalizedUtility(
+                $weights['building_size'],
+                self::buildingSizeCriteria($criterion['building_size']),
+                $points['building_size']['min'],
+                $points['building_size']['max'],
+            ),
+            'location' => self::normalizedUtility(
+                $weights['location'],
+                $criterion['location'],
+                $points['location']['min'],
+                $points['location']['max'],
+            ),
+            'design' => self::normalizedUtility(
+                $weights['design'],
+                $criterion['design'],
+                $points['design']['min'],
+                $points['design']['max'],
+            ),
+        ]);
+
+        return [
+            'criterion' => $criterion,
+            'total' => $utilities->sum(),
+        ];
+    }
+
     public static function generateWeights(array $weights)
     {
         $products = Product::all();
@@ -173,4 +261,11 @@ class Smarter
             $buildingSize < 50 ? 2 : 3
         );
     }
+
+    // public static function locationSizeCriteria(int $buildingSize)
+    // {
+    //     return $buildingSize < 2 ? 3 : (
+    //         $buildingSize <= 5 ? 2 : 1
+    //     );
+    // }
 }

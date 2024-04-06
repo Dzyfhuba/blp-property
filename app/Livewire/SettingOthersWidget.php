@@ -38,7 +38,7 @@ class SettingOthersWidget extends Widget implements HasForms
             ->schema([
                 Select::make('model_id')
                     ->label('Model')
-                    ->options(Model::query()->where('pairwise_comparison_consistency_ratio', '<', 0.1)->distinct('batch')->pluck('batch', 'batch'))
+                    ->options(Model::query()->where('pairwise_comparison_consistency_ratio', '<', 0.1)->groupBy('batch')->selectRaw('batch, max(id) as id')->pluck('batch', 'id'))
                     ->suffix(new HtmlString("<a href='".route('filament.admin.pages.model')."' target='_blank'>Check</a>")),
                 KeyValue::make('social_medias')
                     ->keyLabel('Social Media')

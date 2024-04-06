@@ -4,7 +4,8 @@ namespace App\Models;
 
 use App\Casts\ArrayInArrayDecimal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Model as ModelTable;
 
 class Setting extends Model
 {
@@ -26,4 +27,9 @@ class Setting extends Model
         // 'pairwise_comparison' => ArrayInArrayDecimal::class,
         'pairwise_comparison' => 'array',
     ];
+
+    public function model(): BelongsTo
+    {
+        return $this->belongsTo(ModelTable::class);
+    }
 }
