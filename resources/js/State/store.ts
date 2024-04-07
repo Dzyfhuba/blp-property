@@ -3,7 +3,8 @@ import { Action, action, createStore } from 'easy-peasy'
 
 export interface GlobalState {
   searchValue: SearchValue
-  setSearchValue: Action<GlobalState, { column: Column, value: string | number }>
+  setSearchValue: Action<GlobalState, { column: Column, value?: string | number }>
+  resetSearchValue: Action<GlobalState>
 }
 
 const store = createStore<GlobalState>({
@@ -12,7 +13,10 @@ const store = createStore<GlobalState>({
     state.searchValue[payload.column] = payload.value
 
     localStorage.setItem('searchValue', JSON.stringify(state.searchValue))
-  }) 
+  }),
+  resetSearchValue: action((state) => {
+    state.searchValue = {}
+  })
 })
 
 export default store

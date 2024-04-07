@@ -27,7 +27,7 @@ class ProductController extends Controller
     $data = [];
 
     $query = Product::query();
-    if ($this->checkIfAllColumnsInSearch($search)) {
+    if ($search && $this->checkIfAllColumnsInSearch($search)) {
         $data = Smarter::getClosestProductQuery($query, $search);
     }
 

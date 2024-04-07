@@ -27,6 +27,7 @@ const Heros = () => {
       showConfirmButton: false,
       showCloseButton: true,
       title: 'Cari Hunian Terbaik Anda',
+      allowOutsideClick: false,
     })
   }
 

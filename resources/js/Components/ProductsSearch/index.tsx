@@ -9,15 +9,17 @@ import { FaCaretLeft, FaCaretRight } from 'react-icons/fa6'
 import { Virtual } from 'swiper/modules'
 import axios, { AxiosError } from 'axios'
 import Swal from 'sweetalert2'
-import { useStoreState } from '@/State/hooks'
+import { useStoreActions, useStoreState } from '@/State/hooks'
 import { router } from '@inertiajs/react'
+import { GrPowerReset } from 'react-icons/gr'
 
 const ProductsSearch = () => {
   const [list, setList] = useState<({ column: Column, text?: string })[]>(data as never)
   const [options, setOptions] = useState<AllSelectOption>()
   const [index, setIndex] = useState(0)
   const { searchValue } = useStoreState(states => states)
-  const [error, setError] = useState<string>()
+  const { resetSearchValue } = useStoreActions(action => action)
+  const [errors, setErrors] = useState<string[]>()
 
   const [swiperRef, setSwiperRef] = useState<SwiperClass>()
   const formRef = createRef<HTMLFormElement>()
@@ -31,7 +33,7 @@ const ProductsSearch = () => {
       Swal.fire({
         title: `Error ${res.status} ${res.statusText}`,
         icon: 'error',
-        text: res.data.message || 'Something went wrong'
+        text: res.data.message || 'Something went wrong',
       })
       setOptions({})
     }
@@ -40,10 +42,44 @@ const ProductsSearch = () => {
 
   useEffect(() => {
     getData()
-  }, [])
+
+    // swiperRef?.el.querySelectorAll<HTMLInputElement&HTMLSelectElement>('input,select').forEach(element => {
+    //   element.addEventListener('keydown', (e) => {
+    //     console.log('keydown')
+    //     e.preventDefault()
+    //     if (e.key === 'Tab'){
+    //       swiperRef?.slideNext()
+    //     }
+    //   })
+    // })
+
+  }, [swiperRef, window])
+
+  const columns: Column[] = [
+    'price',
+    'bedrooms',
+    'bathrooms',
+    'land_size',
+    'facility',
+    'public_facility',
+    'design',
+    'location',
+    'floors',
+    'building_size',
+  ]
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
+
+    const messages = columns.map((column) => {
+      if (!searchValue[column]) return `${column} belum diisi`
+    }).filter(e => typeof e === 'string') as string[] || []
+
+    if (messages.length) {
+      console.log({ messages })
+      setErrors(messages)
+      return
+    }
 
     router.get('/products', {
       search: searchValue
@@ -58,7 +94,7 @@ const ProductsSearch = () => {
         <>
           <td>Harga</td>
           <td>:</td>
-          <td>{`Rp. ${searchValue[column]} juta`}</td>
+          <td>{searchValue[column] ? `Rp. ${searchValue[column]} juta` : ''}</td>
         </>
       )
     case 'bedrooms':
@@ -66,7 +102,7 @@ const ProductsSearch = () => {
         <>
           <td>Jumlah Kamar</td>
           <td>:</td>
-          <td>{searchValue[column] + ' Kamar tidur'}</td>
+          <td>{searchValue[column] ? searchValue[column] + ' Kamar tidur' : ''}</td>
         </>
       )
     case 'bathrooms':
@@ -74,7 +110,7 @@ const ProductsSearch = () => {
         <>
           <td>Jumlah Kamar Mandi</td>
           <td>:</td>
-          <td>{searchValue[column] + ' Kamar mandi'}</td>
+          <td>{searchValue[column] ? searchValue[column] + ' Kamar mandi' : ''}</td>
         </>
       )
     case 'floors':
@@ -82,7 +118,7 @@ const ProductsSearch = () => {
         <>
           <td>Jumlah Lantai</td>
           <td>:</td>
-          <td>{searchValue[column] + ' Lantai'}</td>
+          <td>{searchValue[column] ? searchValue[column] + ' Lantai' : ''}</td>
         </>
       )
     case 'facility':
@@ -90,7 +126,7 @@ const ProductsSearch = () => {
         <>
           <td>Fasilitas</td>
           <td>:</td>
-          <td>{options?.facilityOptions?.filter(e => e.value == searchValue[column])[0].label}</td>
+          <td>{searchValue[column] ? options?.facilityOptions?.filter(e => e.value == searchValue[column])[0].label : ''}</td>
         </>
       )
     case 'public_facility':
@@ -98,7 +134,7 @@ const ProductsSearch = () => {
         <>
           <td>Fasilitas Publik</td>
           <td>:</td>
-          <td>{searchValue[column] + ' Kamar mandi'}</td>
+          <td>{searchValue[column] ? searchValue[column] + ' Kamar mandi' : ''}</td>
         </>
       )
     case 'land_size':
@@ -106,7 +142,7 @@ const ProductsSearch = () => {
         <>
           <td>Luas Tanah</td>
           <td>:</td>
-          <td>{searchValue[column] + ' m2'}</td>
+          <td>{searchValue[column] ? searchValue[column] + ' m2' : ''}</td>
         </>
       )
     case 'building_size':
@@ -114,7 +150,7 @@ const ProductsSearch = () => {
         <>
           <td>Luas Bangunan</td>
           <td>:</td>
-          <td>{searchValue[column] + ' m2'}</td>
+          <td>{searchValue[column] ? searchValue[column] + ' m2' : ''}</td>
         </>
       )
     case 'location':
@@ -122,7 +158,7 @@ const ProductsSearch = () => {
         <>
           <td>Lokasi</td>
           <td>:</td>
-          <td>{searchValue[column] + ' Kamar mandi'}</td>
+          <td>{searchValue[column] ? searchValue[column] + ' Kamar mandi' : ''}</td>
         </>
       )
     case 'design':
@@ -130,7 +166,7 @@ const ProductsSearch = () => {
         <>
           <td>Desain</td>
           <td>:</td>
-          <td>{searchValue[column] + ' Kamar mandi'}</td>
+          <td>{searchValue[column] ? searchValue[column] + ' Kamar mandi' : ''}</td>
         </>
       )
     default:
@@ -149,6 +185,13 @@ const ProductsSearch = () => {
       ref={formRef}
       onSubmit={handleSubmit}
     >
+      {
+        errors?.length ? <div className='alert alert-error p-2 grid-flow-row grid-cols-1'>
+          {errors?.length ? errors.map((e, idx) => (
+            <span key={idx}>{e}</span>
+          )) : <></>}
+        </div> : <></>
+      }
       <Swiper
         allowTouchMove={false}
         modules={[Virtual]}
@@ -181,19 +224,33 @@ const ProductsSearch = () => {
                 <th className='text-center'>Jawaban</th>
               </tr>
             </thead>
-            {Object.keys(searchValue).map((key) => (
-              <tr key={key}>
-                {getSummaryCriteriaData(key as Column)}
-              </tr>
-            ))}
+            <tbody>
+              {Object.keys(searchValue).map((key) => (
+                <tr key={key}>
+                  {getSummaryCriteriaData(key as Column)}
+                </tr>
+              ))}
+            </tbody>
           </table>
         </SwiperSlide>
       </Swiper>
       <div className='join self-end flex justify-end'>
+        <button type='reset'
+          className='btn btn-error btn-outline mr-auto btn-square'
+          onClick={() => {
+            window.localStorage.removeItem('searchValue')
+            resetSearchValue()
+            router.get('/products', undefined, {
+              preserveScroll: true
+            })
+          }}
+        >
+          <GrPowerReset size={24} />
+        </button>
         {index + 1 <= list.length ? (
           <button
             onClick={() => swiperRef?.slidePrev()}
-            className='btn btn-square btn-primary join-item'
+            className='btn btn-square btn-primary join-item !rounded-l-lg'
             disabled={index === 0}
             type='button'
           >
@@ -201,21 +258,16 @@ const ProductsSearch = () => {
           </button>
         ) : (
           <>
-            <button type='reset'
-              className='btn btn-error mr-auto'
-            >
-              Reset
-            </button>
             <button type='button'
               onClick={() => swiperRef?.slidePrev()}
               className='btn btn-primary btn-outline mr-3'
             >
-              Back
+                            Back
             </button>
             <button type='submit'
               className='btn btn-primary'
             >
-              Search
+                            Search
             </button>
           </>
         )}
@@ -235,9 +287,6 @@ const ProductsSearch = () => {
           </button>
         ) : <></>}
       </div>
-      {error ? (
-        <span>{error}</span>
-      ) : <></>}
     </form>
   )
 }

@@ -4,7 +4,7 @@ import Layout from '@/Layouts/Layout'
 import type { PageProps } from '@/types'
 import type Product from '@/types/product'
 import lorem from '@/Variables/lorem'
-import { Link } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 import withReactContent from 'sweetalert2-react-content'
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
@@ -12,11 +12,12 @@ import Client from '@/Components/Client'
 import SearchProducts from '@/Components/ProductsSearch'
 import { formatNumber } from '@/Helpers'
 import { TbDelta } from 'react-icons/tb'
+import { GrPowerReset } from 'react-icons/gr'
 
 interface Props extends PageProps {
-    data: (Product & {
-      total_delta?: number
-    })[]
+  data: (Product & {
+    total_delta?: number
+  })[]
 }
 
 const Products = (props: Props) => {
@@ -32,6 +33,7 @@ const Products = (props: Props) => {
       showConfirmButton: false,
       showCloseButton: true,
       title: 'Cari Hunian Terbaik Anda',
+      allowOutsideClick: false,
     })
   }
 
@@ -41,11 +43,21 @@ const Products = (props: Props) => {
         className='pt-20 max-w-screen-sm mx-auto'
       >
         {/* filter */}
-        <div>
-          <button className='btn btn-primary'
+        <div className='flex items-center gap-3'>
+          <button id='search'
+            className='btn btn-primary'
             onClick={() => handleSearchModal()}
           >
-                        Cari Rumah Terbaik Untuk Anda
+            Cari Rumah Terbaik Untuk Anda
+          </button>
+          <button id='reset'
+            className='btn btn-outline btn-primary btn-square'
+            onClick={() => {
+              window.localStorage.removeItem('searchValue')
+              router.get('/products')
+            }}
+          >
+            <GrPowerReset size={24} />
           </button>
         </div>
 
@@ -67,14 +79,16 @@ const Products = (props: Props) => {
                   <p className='line-clamp-2 text-xs'>{item.description || lorem}</p>
                 </div>
               </Link>
-              <button
-                className={`absolute top-0 left-0 bg-base-200 p-1 rounded-br-[1rem] inline-flex items-center
+              {item.total_delta ? (
+                <button
+                  className={`absolute top-0 left-0 bg-base-200 p-1 rounded-br-[1rem] inline-flex items-center
                   hover:before:content-['lihat_perhitungan'] hover:before:absolute hover:before:bg-base-200
                   hover:before:whitespace-nowrap hover:before:p-1 hover:before:rounded-br-[1rem]
                   hover:before:active:tracking-wide hover:before:transition-all hover:before:duration-100`}
-              >
-                <TbDelta />Total: {item.total_delta?.toPrecision(4)}
-              </button>
+                >
+                  <TbDelta />Total: {item.total_delta?.toPrecision(4)}
+                </button>
+              ) : <></>}
             </article>
           ))}
         </div>

@@ -4,6 +4,7 @@ namespace App\Algorithms;
 
 use App\Models\Model;
 use App\Models\Product;
+use App\Models\SearchLog;
 use App\Models\Setting;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,26 @@ class Smarter
 
     public static function single(array $criterion)
     {
+        $log = [
+            'user_ip' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+            'model_batch' => Setting::first()->batch,
+            'criterion' => $criterion,
+        ];
+
+        $latestSameSearchIn10Minutes = SearchLog::query()
+            ->where(array_diff_key($log, ['criterion' => '']))
+            ->whereJsonContains('criterion', $criterion)
+            // ->whereDate('updated_at', '>=', now()->subMinutes(10))
+            ->latest()->first();
+        // dd($latestSameSearchIn10Minutes->updated_at->greaterThanOrEqualTo(now()->subMinutes(10)), $latestSameSearchIn10Minutes->updated_at, now()->subMinutes(1));
+
+        if ($latestSameSearchIn10Minutes && $latestSameSearchIn10Minutes->updated_at->greaterThanOrEqualTo(now()->subMinutes(10))) {
+            $latestSameSearchIn10Minutes->updateTimestamps();
+            $latestSameSearchIn10Minutes->save();
+            return $latestSameSearchIn10Minutes;
+        }
+
         $weights = Setting::first()->model->pairwise_comparison_priority;
         // dd($weights->model->pairwise_comparison_priority);
 
@@ -92,10 +113,14 @@ class Smarter
             ),
         ]);
 
-        return [
-            'criterion' => $criterion,
-            'total' => $utilities->sum(),
-        ];
+        $log = array_merge(
+            $log,
+            ['total' => $utilities->sum()]
+        );
+
+        $searchLog = SearchLog::create($log);
+
+        return $searchLog;
     }
 
     public static function getClosestProductQuery(Builder $productQuery, $search)

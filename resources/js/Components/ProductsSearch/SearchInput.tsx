@@ -16,8 +16,11 @@ const SearchInput = (props: Props) => {
     return (
       <div className='flex flex-col py-6'>
         <Input
+          tabIndex={-1}
           type='text'
           currency
+          id='price'
+          name='price'
           htmlFor='price'
           label='Rp. 300 juta - 1000 juta'
           placeholder='Kisaran Harga'
@@ -33,6 +36,7 @@ const SearchInput = (props: Props) => {
     return (
       <div className='flex flex-col py-6'>
         <select
+          tabIndex={-1}
           name="bedrooms"
           key={props.column}
           id="bedrooms"
@@ -57,6 +61,7 @@ const SearchInput = (props: Props) => {
     return (
       <div className='flex flex-col py-6'>
         <select name="bathrooms"
+          tabIndex={-1}
           key={props.column}
           id="bathrooms"
           className='select grow select-bordered'
@@ -80,8 +85,11 @@ const SearchInput = (props: Props) => {
     return (
       <div className='w-full py-6'>
         <Input
+          tabIndex={-1}
           type='number'
-          htmlFor='price'
+          htmlFor='land_size'
+          id='land_size'
+          name='land_size'
           label='Luas tanah'
           placeholder='Luas tanah'
           defaultValue={searchValue[props.column]}
@@ -96,6 +104,7 @@ const SearchInput = (props: Props) => {
     return (
       <div className='flex flex-col py-6'>
         <select
+          tabIndex={-1}
           name="facility_id"
           key={props.column}
           id="facility_id"
@@ -120,6 +129,7 @@ const SearchInput = (props: Props) => {
     return (
       <div className='flex flex-col py-6'>
         <select
+          tabIndex={-1}
           name="public_facility_id"
           key={props.column}
           id="public_facility_id"
@@ -144,6 +154,7 @@ const SearchInput = (props: Props) => {
     return (
       <div className='flex flex-col py-6'>
         <select
+          tabIndex={-1}
           name="design_id"
           key={props.column}
           id="design_id"
@@ -167,18 +178,8 @@ const SearchInput = (props: Props) => {
   case 'location':
     return (
       <div className='flex flex-col py-6'>
-        {/* <Input
-          type='number'
-          htmlFor='location'
-          label='Jarak dari keramaian umum (km)'
-          placeholder='Jarak dari keramaian umum (km)'
-          defaultValue={searchValue[props.column]}
-          onChange={(e) => setSearchValue({
-            column: props.column,
-            value: e.target.value
-          })}
-        /> */}
         <select
+          tabIndex={-1}
           name="design_id"
           key={props.column}
           id="design_id"
@@ -203,6 +204,7 @@ const SearchInput = (props: Props) => {
     return (
       <div className='flex flex-col py-6'>
         <select
+          tabIndex={-1}
           name="floors"
           key={props.column}
           id="floors"
@@ -227,9 +229,10 @@ const SearchInput = (props: Props) => {
     return (
       <div className='w-full py-6'>
         <Input
+          tabIndex={-1}
           type='number'
           htmlFor='building_size'
-          label='Luas bangunan'
+          label='Luas bangunan (m2)'
           placeholder='Luas bangunan'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({

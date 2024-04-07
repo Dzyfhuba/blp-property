@@ -27,7 +27,7 @@ class SearchController extends Controller
             ->selectRaw('bathrooms as value, concat(bathrooms," kamar mandi") as label')->get();
         $floors = Product::query()
             ->distinct('floors')->orderByDesc('floors')
-            ->selectRaw('floors as value, concat(floors," kamar mandi") as label')->get();
+            ->selectRaw('floors as value, concat(floors," lantai") as label')->get();
 
         return response([
             'designOptions' => $designOptions,
