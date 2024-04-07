@@ -26,7 +26,6 @@ class Smarter
             ->whereJsonContains('criterion', $criterion)
             // ->whereDate('updated_at', '>=', now()->subMinutes(10))
             ->latest()->first();
-        // dd($latestSameSearchIn10Minutes->updated_at->greaterThanOrEqualTo(now()->subMinutes(10)), $latestSameSearchIn10Minutes->updated_at, now()->subMinutes(1));
 
         if ($latestSameSearchIn10Minutes && $latestSameSearchIn10Minutes->updated_at->greaterThanOrEqualTo(now()->subMinutes(10))) {
             $latestSameSearchIn10Minutes->updateTimestamps();
@@ -125,9 +124,9 @@ class Smarter
 
     public static function getClosestProductQuery(Builder $productQuery, $search)
     {
-        ['total' => $total] = Smarter::single($search);
+        ['id' => $searchId, 'total' => $total] = Smarter::single($search);
 
-        $products = $productQuery
+        $query = $productQuery
             ->join('models', 'models.product_id', '=', 'products.id')
             ->where('models.batch', Setting::first()->batch)
             ->select(['products.*'])
@@ -136,7 +135,7 @@ class Smarter
                 'total_delta' => 'float'
             ])
             ->orderByRaw('(ABS(models.total - ?))', [$total]);
-        return $products;
+        return ['query' => $query, 'search_id' => $searchId];
     }
 
     public static function generateWeights(array $weights)

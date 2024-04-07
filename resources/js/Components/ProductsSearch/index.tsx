@@ -12,6 +12,7 @@ import Swal from 'sweetalert2'
 import { useStoreActions, useStoreState } from '@/State/hooks'
 import { router } from '@inertiajs/react'
 import { GrPowerReset } from 'react-icons/gr'
+import { columns } from '@/Variables/criterion'
 
 const ProductsSearch = () => {
   const [list, setList] = useState<({ column: Column, text?: string })[]>(data as never)
@@ -55,18 +56,6 @@ const ProductsSearch = () => {
 
   }, [swiperRef, window])
 
-  const columns: Column[] = [
-    'price',
-    'bedrooms',
-    'bathrooms',
-    'land_size',
-    'facility',
-    'public_facility',
-    'design',
-    'location',
-    'floors',
-    'building_size',
-  ]
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()

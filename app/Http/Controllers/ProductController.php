@@ -25,17 +25,19 @@ class ProductController extends Controller
   {
     $search = $request->query('search');
     $data = [];
+    $searchId = null;
 
     $query = Product::query();
     if ($search && $this->checkIfAllColumnsInSearch($search)) {
-        $data = Smarter::getClosestProductQuery($query, $search);
+        ['query' => $query, 'search_id' => $searchId] = Smarter::getClosestProductQuery($query, $search);
     }
 
     $query->with('category');
     $data = $query->get();
 
     return inertia('Products', [
-      'data' => $data
+      'data' => $data,
+      'search_id' => $searchId,
     ]);
   }
 

@@ -13,11 +13,18 @@ import SearchProducts from '@/Components/ProductsSearch'
 import { formatNumber } from '@/Helpers'
 import { TbDelta } from 'react-icons/tb'
 import { GrPowerReset } from 'react-icons/gr'
+import axios from 'axios'
+import type { Column, SearchValue } from '@/types/search-option'
+import { FaEye } from 'react-icons/fa'
+import { columns } from '@/Variables/criterion'
+import Process from '@/Components/Process'
+import type { SmarterResponse } from '@/types/smarter-response'
 
 interface Props extends PageProps {
   data: (Product & {
     total_delta?: number
   })[]
+  search_id?: number
 }
 
 const Products = (props: Props) => {
@@ -34,6 +41,26 @@ const Products = (props: Props) => {
       showCloseButton: true,
       title: 'Cari Hunian Terbaik Anda',
       allowOutsideClick: false,
+    })
+  }
+
+  const handleShowProcess = async () => {
+    const data: SmarterResponse = await axios.get(`/api/smarter/${props.search_id}`)
+      .then(res => res.data)
+      .catch(() => {
+        ReactSwal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Report to us'
+        })
+      })
+    console.log(data)
+
+    ReactSwal.fire({
+      title: 'Proses Perhitungan Pencarian Pengguna',
+      showCloseButton: true,
+      html: <Process data={data} />,
+      width: '80vw'
     })
   }
 
@@ -58,6 +85,12 @@ const Products = (props: Props) => {
             }}
           >
             <GrPowerReset size={24} />
+          </button>
+          <button id='show-progress'
+            className='btn btn-square btn-outline ml-auto'
+            onClick={handleShowProcess}
+          >
+            <FaEye size={24} />
           </button>
         </div>
 
