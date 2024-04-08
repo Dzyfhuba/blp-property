@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Foundation\Application;
@@ -24,6 +25,7 @@ Route::get('/', [DashboardController::class, 'index']);
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/about', [AboutController::class, 'index']);
+Route::get('/products', [ProductController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

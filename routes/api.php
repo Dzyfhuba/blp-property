@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/search', [SearchController::class, 'index']);
 
-Route::post('/smarter', [SMARTERController::class, 'calculate']);
+Route::get('/smarter/{searchId}', [SMARTERController::class, 'showProcess'])->whereNumber('searchId');

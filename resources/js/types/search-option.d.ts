@@ -15,17 +15,17 @@ export type AllSelectOption = {
 }
 
 export type Column =
-  'price' | 
-  'bedrooms' | 
-  'bathrooms' | 
-  'land_size' | 
-  'facility' | 
-  'public_facility' | 
-  'design' | 
-  'location' | 
-  'floors' | 
+  'price' |
+  'bedrooms' |
+  'bathrooms' |
+  'land_size' |
+  'facility' |
+  'public_facility' |
+  'design' |
+  'location' |
+  'floors' |
   'building_size'
 
 export type SearchValue = {
-  [key in Column]: string | number
+  [key in Column]?: string | number
 }

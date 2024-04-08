@@ -55,7 +55,10 @@ const Modal = ({
   }[maxWidth]
 
   return (
-    <Transition show={show} as={Fragment} leave="duration-200">
+    <Transition show={show}
+      as={Fragment}
+      leave="duration-200"
+    >
       <Dialog
         as="div"
         id="modal"
@@ -115,8 +118,6 @@ const Image = ({ className, zoomable, ...props }: Props) => {
       setSrc(undefined)
     }
   }, [props.src])
-
-  console.log(typeof zoomable === 'undefined' ? false : zoomable)
 
   return (
     <>
@@ -199,8 +200,8 @@ const Image = ({ className, zoomable, ...props }: Props) => {
         onError={() => {
           console.log('asd')
           setError(true)
-          // setSrc(ImageNotFound)
-          setSrc('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.8vtlhiG0ozEzXbDlax-91gAAAA%26pid%3DApi&f=1&ipt=4ea06c92a2f53829d641ebed55364a33486d027727ec1a43924f45960d9ac928&ipo=images')
+          setSrc(ImageNotFound)
+        //   setSrc('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.8vtlhiG0ozEzXbDlax-91gAAAA%26pid%3DApi&f=1&ipt=4ea06c92a2f53829d641ebed55364a33486d027727ec1a43924f45960d9ac928&ipo=images')
         }}
       />
     </>
