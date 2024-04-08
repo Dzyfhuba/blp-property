@@ -35,18 +35,24 @@ class PairwiseComparisonWidget extends Widget
 
     public function mount(): void
     {
-        $pairwiseComparison = json_decode(Cookie::get('pairwise_comparison', json_encode(Setting::first()->pairwise_comparison)));
-        // dd(self::fillIfSameKeyWithValue($pairwiseComparison, 1));
-        // dd($pairwiseComparison);
-        if ($pairwiseComparison) {
-            $this->pairwiseComparison = self::fillIfSameKeyWithValue($pairwiseComparison, 1);
+        $setting = Setting::first();
+        $pairwiseComparison = [];
+        if ($setting) {
+            $pairwiseComparison = json_decode(Cookie::get('pairwise_comparison', json_encode(Setting::first()->pairwise_comparison)));
         } else {
-            foreach ($this->criterion as $criteria1) {
-                $criterionRow = [];
-                foreach ($this->criterion as $criteria2) {
-                    $criterionRow[$criteria2] = $criteria1 == $criteria2 ? 1 : 0;
+
+            // dd(self::fillIfSameKeyWithValue($pairwiseComparison, 1));
+            // dd($pairwiseComparison);
+            if ($pairwiseComparison) {
+                $this->pairwiseComparison = self::fillIfSameKeyWithValue($pairwiseComparison, 1);
+            } else {
+                foreach ($this->criterion as $criteria1) {
+                    $criterionRow = [];
+                    foreach ($this->criterion as $criteria2) {
+                        $criterionRow[$criteria2] = $criteria1 == $criteria2 ? 1 : 0;
+                    }
+                    $this->pairwiseComparison[$criteria1] = $criterionRow;
                 }
-                $this->pairwiseComparison[$criteria1] = $criterionRow;
             }
         }
     }
