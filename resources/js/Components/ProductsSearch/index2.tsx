@@ -67,14 +67,23 @@ const SearchProducts = () => {
               className='flex flex-col gap-3'
             >
               {list.map(item => (
-                <div key={item.id} className='gap-1 grid grid-cols-[auto,minmax(0,1fr)] grid-flow-col auto-rows-auto justify-start'>
+                <div key={item.id}
+                  className='gap-1 grid grid-cols-[auto,minmax(0,1fr)] grid-flow-col auto-rows-auto justify-start'
+                >
                   <div className='btn px-0 btn-ghost handle-sort !h-full w-max'>
                     <GoGrabber size={24} />
                   </div>
-                  <div className='flex-1 justify-self-stretch' draggable={false}>
-                    <SearchInput column={item.column} options={options} />
+                  <div className='flex-1 justify-self-stretch'
+                    draggable={false}
+                  >
+                    <SearchInput column={item.column}
+                      options={options}
+                    />
                   </div>
-                  <button type='button' className='btn btn-ghost text-red-500 px-0' onClick={() => handleFilterChange(item.column, 'delete')}>
+                  <button type='button'
+                    className='btn btn-ghost text-red-500 px-0'
+                    onClick={() => handleFilterChange(item.column, 'delete')}
+                  >
                     <MdClose size={24} />
                   </button>
                 </div>
@@ -82,15 +91,21 @@ const SearchProducts = () => {
             </ReactSortable>
           </div>
           {list.length >= 10 ? <></> : (
-            <select className='btn btn-sm text-start block mx-auto' onChange={(e) => handleFilterChange(e.target.value, 'add')}>
+            <select className='btn btn-sm text-start block mx-auto'
+              onChange={(e) => handleFilterChange(e.target.value, 'add')}
+            >
               <option value="">Tambah Filter {`${list.length}/10`}</option>
               {unlist.filter(u => !list.includes(u)).map(item => (
-                <option value={item.id} key={item.id}>{item.text}</option>
+                <option value={item.id}
+                  key={item.id}
+                >{item.text}</option>
               ))}
             </select>
           )}
           {list.length ? (
-            <button className='btn btn-primary' disabled={list.length < 10}>
+            <button className='btn btn-primary'
+              disabled={list.length < 10}
+            >
               Search
             </button>
           ) : <></>}

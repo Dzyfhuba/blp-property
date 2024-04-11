@@ -5,13 +5,7 @@ export type Option = {
 }
 
 export type AllSelectOption = {
-  designOptions?: Option[]
-  facilityOptions?: Option[]
-  locationOptions?: Option[]
-  publicFacilityOptions?: Option[]
-  bedrooms?: Option[]
-  bathrooms?: Option[]
-  floors?: Option[]
+  [key in Column]?: Option[]
 }
 
 export type Column =

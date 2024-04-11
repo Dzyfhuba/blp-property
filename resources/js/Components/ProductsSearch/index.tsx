@@ -29,6 +29,7 @@ const ProductsSearch = () => {
     const res = await axios.get('/api/search')
 
     if (res.status === 200) {
+      console.log(res.data)
       setOptions(res.data)
     } else {
       Swal.fire({
@@ -115,7 +116,7 @@ const ProductsSearch = () => {
         <>
           <td>Fasilitas</td>
           <td>:</td>
-          <td>{searchValue[column] ? options?.facilityOptions?.filter(e => e.value == searchValue[column])[0].label : ''}</td>
+          <td>{searchValue[column] ? options?.facility?.filter(e => e.value == searchValue[column])[0].label : ''}</td>
         </>
       )
     case 'public_facility':

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\CriterionRating;
 use App\Models\DesignOption;
 use App\Models\FacilityOption;
 use App\Models\LocationOption;
@@ -29,14 +30,22 @@ class SearchController extends Controller
             ->distinct('floors')->orderByDesc('floors')
             ->selectRaw('floors as value, concat(floors," lantai") as label')->get();
 
-        return response([
-            'designOptions' => $designOptions,
-            'facilityOptions' => $facilityOptions,
-            'locationOptions' => $locationOptions,
-            'publicFacilityOptions' => $publicFacilityOptions,
-            'bedrooms' => $bedrooms,
-            'bathrooms' => $bathrooms,
-            'floors' => $floors,
+        $criterionRatings = CriterionRating::all()->mapWithKeys(fn($item, $idx) => [
+            $item['criteria'] => array_map(fn ($subitem) => [
+                'label' => "{$subitem['label']}: {$subitem['range']}",
+                'value' => $subitem['value']
+            ], $item['rating'])
         ]);
+
+        // return response([
+        //     'designOptions' => $designOptions,
+        //     'facilityOptions' => $facilityOptions,
+        //     'locationOptions' => $locationOptions,
+        //     'publicFacilityOptions' => $publicFacilityOptions,
+        //     'bedrooms' => $bedrooms,
+        //     'bathrooms' => $bathrooms,
+        //     'floors' => $floors,
+        // ]);
+        return response($criterionRatings);
     }
 }
