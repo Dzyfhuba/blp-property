@@ -44,7 +44,7 @@ const Products = (props: Props) => {
     })
   }
 
-  const handleShowProcess = async () => {
+  const handleShowProcess = async (productId: number | undefined = undefined) => {
     const data: SmarterResponse = await axios.get(`/api/smarter/${props.search_id}`)
       .then(res => res.data)
       .catch(() => {
@@ -59,8 +59,11 @@ const Products = (props: Props) => {
     ReactSwal.fire({
       title: 'Proses Perhitungan Pencarian Pengguna',
       showCloseButton: true,
-      html: <Process data={data} />,
-      width: '80vw'
+      html: <Process data={data}
+        productId={productId}
+      />,
+      grow: 'fullscreen',
+      showConfirmButton: false,
     })
   }
 
@@ -88,7 +91,7 @@ const Products = (props: Props) => {
           </button>
           <button id='show-progress'
             className='btn btn-square btn-outline ml-auto'
-            onClick={handleShowProcess}
+            onClick={() => handleShowProcess()}
           >
             <FaEye size={24} />
           </button>
@@ -118,6 +121,7 @@ const Products = (props: Props) => {
                   hover:before:content-['lihat_perhitungan'] hover:before:absolute hover:before:bg-base-200
                   hover:before:whitespace-nowrap hover:before:p-1 hover:before:rounded-br-[1rem]
                   hover:before:active:tracking-wide hover:before:transition-all hover:before:duration-100`}
+                  onClick={() => handleShowProcess(item.id)}
                 >
                   <TbDelta />Total: {item.total_delta?.toPrecision(4)}
                 </button>

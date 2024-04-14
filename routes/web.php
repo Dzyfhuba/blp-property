@@ -22,6 +22,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [DashboardController::class, 'index']);
+Route::get('/paper', [DashboardController::class, 'paper']);
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/about', [AboutController::class, 'index']);
