@@ -52,25 +52,25 @@ class Smarter
         $utilities = collect([
             'price' => self::normalizedUtility(
                 $weights['price'],
-                self::priceCriteria($criterion['price']),
+                $criterion['price'],
                 $points['price']['min'],
                 $points['price']['max'],
             ),
             'bedrooms' => self::normalizedUtility(
                 $weights['bedrooms'],
-                self::bedroomsCriteria($criterion['bedrooms']),
+                $criterion['bedrooms'],
                 $points['bedrooms']['min'],
                 $points['bedrooms']['max'],
             ),
             'bathrooms' => self::normalizedUtility(
                 $weights['bathrooms'],
-                self::bathroomsCriteria($criterion['bathrooms']),
+                $criterion['bathrooms'],
                 $points['bathrooms']['min'],
                 $points['bathrooms']['max'],
             ),
             'floors' => self::normalizedUtility(
                 $weights['floors'],
-                self::floorsCriteria($criterion['floors']),
+                $criterion['floors'],
                 $points['floors']['min'],
                 $points['floors']['max'],
             ),
@@ -88,13 +88,13 @@ class Smarter
             ),
             'land_size' => self::normalizedUtility(
                 $weights['land_size'],
-                self::landSizeCriteria($criterion['land_size']),
+                $criterion['land_size'],
                 $points['land_size']['min'],
                 $points['land_size']['max'],
             ),
             'building_size' => self::normalizedUtility(
                 $weights['building_size'],
-                self::buildingSizeCriteria($criterion['building_size']),
+                $criterion['building_size'],
                 $points['building_size']['min'],
                 $points['building_size']['max'],
             ),
