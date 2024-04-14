@@ -154,10 +154,10 @@ const Process = (props: Props) => {
                     <span>{column}</span>
                     <span
                       className={`tooltip${idx === 0 ? ' tooltip-bottom' : ''}`}
-                      data-tip={`utility((X - ${minMax[column].min}) / (${minMax[column].max} - ${minMax[column].min}))`}
+                      data-tip={`utility(X) = 100 * ((X - ${minMax[column].min}) / (${minMax[column].max} - ${minMax[column].min}))`}
                     >
                       <button>
-                        {`${props.data.search.criterion[column]} \u008E 100 \u008E utility(${selectedModel.pairwise_comparison_priority![column]})`}
+                        {`utility(${props.data.search.criterion[column]}) \u008E ${selectedModel.pairwise_comparison_priority![column]}`}
                       </button>
                       {/* {parseInt(props.data.search.criterion[column] as string) + parseFloat(selectedModel.pairwise_comparison_priority![column] as string)} */}
                     </span>
