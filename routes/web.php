@@ -27,6 +27,7 @@ Route::get('/', [DashboardController::class, 'index']);
 Route::get('/paper', [DashboardController::class, 'paper']);
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/blogs', [BlogController::class, 'index']);
+Route::get('/blogs/{blog:slug}', [BlogController::class, 'show']);
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
 

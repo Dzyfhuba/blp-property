@@ -1,17 +1,17 @@
 import BlogI from '@/types/blog'
-import Image from './Image'
 import { Link } from '@inertiajs/react'
+import Image from './Image'
 
-const BlogCard = (props: BlogI) => {
+const BlogCard = (props: BlogI & {className?: string}) => {
   const hover = `group-hover:scale-x-90 group-hover:-translate-x-[5%] transition-transform
   group-focus:scale-x-90 group-focus:-translate-x-[5%] transition-transform`
   return (
     <Link
-      className='card hover focus group'
+      className={'card hover focus group' + (props.className ? ` ${props.className}` : '')}
       href={`/blogs/${props.slug}`}
     >
       <Image
-        src={props.thumbnail}
+        src={`/storage/${props.thumbnail}`}
         alt={props.title}
         className='h-40 object-cover group-hover:brightness-50'
       />
