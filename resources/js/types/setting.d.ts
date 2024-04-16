@@ -1,4 +1,4 @@
-export default interface Footer {
+export default interface Setting {
   weight_product_criterion?: {
     weight?: number
     criteria?: string

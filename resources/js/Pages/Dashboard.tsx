@@ -5,17 +5,17 @@ import ProductsDisplay from '@/Components/Dashboard/ProductsDisplay'
 import Layout from '@/Layouts/Layout'
 import { PageProps } from '@/types'
 import Category from '@/types/category'
-import Footer from '@/types/setting'
+import Setting from '@/types/setting'
 
 interface Props extends PageProps {
   categories: Category[]
-  setting: Footer
+  setting: Setting
 }
 
 export default function Dashboard(props: Props) {
   return (
-    <Layout widgets={props.widgets}
-      footer={props.setting}
+    <Layout
+      {...props}
     >
       <Heros />
       <div className='container mx-auto'>

@@ -1,5 +1,6 @@
 import { Config } from 'ziggy-js'
 import { Widget } from './widget'
+import type Setting from './setting'
 
 export interface User {
     id: number;
@@ -14,4 +15,5 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     };
     ziggy: Config & { location: string };
     widgets: Widget[]
+    setting?: Setting
 };

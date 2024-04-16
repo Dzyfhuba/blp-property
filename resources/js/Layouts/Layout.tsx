@@ -1,25 +1,21 @@
-import { getImageUrl } from '@/Helpers/url'
-import { User } from '@/types'
-import { Widget } from '@/types/widget'
-import { PropsWithChildren } from 'react'
-import Brand from '../Images/brand.png'
-import Navbar from '@/Components/Navbar'
 import Footer from '@/Components/Footer'
-import FooterI from '@/types/setting'
+import Navbar from '@/Components/Navbar'
+import type { PageProps } from '@/types'
+import Setting from '@/types/setting'
+import { type HTMLAttributes } from 'react'
 
-export default function Layout({ user, children, ...props }: PropsWithChildren<{
-  user?: User
-  widgets?: Widget[]
-  footer?: FooterI
-}>) {
+export default function Layout({ children, className, ...props }: HTMLAttributes<HTMLElement> & PageProps & {
+//   widgets?: Widget[]
+  setting?: Setting
+}) {
   return (
     <>
       <Navbar />
-      <main className='min-h-[150vh]'>
+      <main className={'min-h-[150vh]' + (className ? ` ${className}` : '')}>
         {children}
       </main>
 
-      <Footer {...props.footer} />
+      <Footer {...props.setting} />
     </>
   )
 }

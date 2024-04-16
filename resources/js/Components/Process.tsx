@@ -73,7 +73,7 @@ const Process = (props: Props) => {
       </article>
 
       <select
-        className='select'
+        className='select select-bordered'
         onChange={(e) => setProductId(parseInt(e.target.value))}
         defaultValue={productId}
       >
