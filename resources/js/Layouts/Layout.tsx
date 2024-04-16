@@ -11,7 +11,7 @@ export default function Layout({ children, className, ...props }: HTMLAttributes
   return (
     <>
       <Navbar />
-      <main className={'min-h-[150vh]' + (className ? ` ${className}` : '')}>
+      <main className={'min-h-[82vh]' + (className ? ` ${className}` : '')}>
         {children}
       </main>
 

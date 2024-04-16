@@ -38,7 +38,7 @@ const CategoriesShow = (props: Props) => {
           <Image
             src={props.item.images_top?.length ? `/storage/${props.item.images_top[0]}` : ''}
             alt={props.item.name}
-            className='brightness-50 blur-sm'
+            className='brightness-50'
           />
           <h1
             className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
