@@ -7,6 +7,8 @@ use App\Filament\Resources\HeroResource\RelationManagers;
 use App\Models\Hero;
 use Filament\Actions\Action;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,7 +29,12 @@ class HeroResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('title'),
+                FileUpload::make('image')
+                    ->image()
+                    ->required(),
+                TextInput::make('order')
+                    ->numeric(),
             ]);
     }
 
@@ -43,6 +50,9 @@ class HeroResource extends Resource
                         ->height(480),
                 ])->collapsible()->collapsed(),
             ])
+            ->reorderable('order')
+            ->heading('first order is overlayed with search button')
+            ->paginated(false)
             ->filters([
                 //
             ])

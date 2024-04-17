@@ -13,6 +13,7 @@ class Hero extends Model
         'title',
         'image',
         'is_active',
+        'order',
     ];
 
     protected $casts = [

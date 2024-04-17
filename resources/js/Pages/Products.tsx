@@ -68,12 +68,12 @@ const Products = (props: Props) => {
   }
 
   return (
-    <Layout>
+    <Layout {...props}>
       <section id="products"
         className='pt-20 max-w-screen-sm mx-auto'
       >
         {/* filter */}
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-3 px-3'>
           <button id='search'
             className='btn btn-primary'
             onClick={() => handleSearchModal()}
@@ -89,12 +89,14 @@ const Products = (props: Props) => {
           >
             <GrPowerReset size={24} />
           </button>
-          <button id='show-progress'
-            className='btn btn-square btn-outline ml-auto'
-            onClick={() => handleShowProcess()}
-          >
-            <FaEye size={24} />
-          </button>
+          {props.search_id ? (
+            <button id='show-progress'
+              className='btn btn-square btn-outline ml-auto'
+              onClick={() => handleShowProcess()}
+            >
+              <FaEye size={24} />
+            </button>
+          ) : <></>}
         </div>
 
         {/* products list */}
