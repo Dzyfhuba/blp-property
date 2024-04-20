@@ -7,7 +7,7 @@ const BlogCard = (props: BlogI & {className?: string}) => {
   group-focus:scale-x-90 group-focus:-translate-x-[5%] transition-transform`
   return (
     <Link
-      className={'card hover focus group' + (props.className ? ` ${props.className}` : '')}
+      className={'card overflow-hidden rounded-md shadow hover focus group' + (props.className ? ` ${props.className}` : '')}
       href={`/blogs/${props.slug}`}
     >
       <Image
@@ -15,8 +15,10 @@ const BlogCard = (props: BlogI & {className?: string}) => {
         alt={props.title}
         className='h-40 object-cover group-hover:brightness-50'
       />
-      <h1 className={'text-xl font-bold ' + hover}>{props.title}</h1>
-      <p className={'line-clamp-2 text-xs opacity-75 ' + hover}>{props.description}</p>
+     <div className="p-3">
+       <h1 className={'text-xl font-bold ' + hover}>{props.title}</h1>
+        <p className={'line-clamp-2 text-xs opacity-75 ' + hover}>{props.description}</p>
+     </div>
     </Link>
   )
 }
