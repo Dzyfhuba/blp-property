@@ -7,7 +7,7 @@ import { MdAccountCircle, MdClose, MdMenu } from 'react-icons/md'
 import styles from './Navbar.module.css'
 
 type Props = {
-  user?: User
+    user?: User
 }
 
 const Navbar = (props: Props) => {
@@ -50,29 +50,52 @@ const Navbar = (props: Props) => {
       className={`${styles.container} ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className={styles.topContact}>
-        <FaPhoneAlt /> <a href={'tel:031-3930777'} target="_blank" rel="noopener noreferrer">{'031-3930777'}</a>
+        <FaPhoneAlt /> <a href={'tel:031-3930777'}
+          target="_blank"
+          rel="noopener noreferrer"
+        >{'031-3930777'}</a>
       </div>
       <div className={styles.topBar}>
-        <label htmlFor="my-drawer" className="btn btn-ghost btn-sm btn-square p-0 drawer-button sm:hidden">
+        <label htmlFor="my-drawer"
+          className="btn btn-ghost btn-sm btn-square p-0 drawer-button sm:hidden"
+        >
           <MdMenu size={24} />
         </label>
-        <Link href='/' className="uppercase font-black h-full">
+        <Link href='/'
+          className="uppercase font-black h-full"
+        >
           {/* <h1>{import.meta.env.VITE_APP_NAME}</h1> */}
-          <img src={ImageBrand2} alt={import.meta.env.VITE_APP_NAME} className="h-full" />
+          <img src={ImageBrand2}
+            alt={import.meta.env.VITE_APP_NAME}
+            className="h-full"
+          />
         </Link>
 
         <div className='hidden sm:block'>
-          <Link href='/' className={styles.navItem}>
-            Home
+          <Link href='/'
+            className={styles.navItem}
+          >
+                        Home
           </Link>
-          <Link href='/projects' className={styles.navItem}>
-            Project Kami
+          <Link href='/products'
+            className={styles.navItem}
+          >
+                        Produk Kami
           </Link>
-          <Link href='/posts' className={styles.navItem}>
-            Blog
+          <Link href='/projects'
+            className={styles.navItem}
+          >
+                        Project Kami
           </Link>
-          <Link href='/about' className={styles.navItem}>
-            Tentang Kami
+          <Link href='/blogs'
+            className={styles.navItem}
+          >
+                        Blog
+          </Link>
+          <Link href='/about'
+            className={styles.navItem}
+          >
+                        Tentang Kami
           </Link>
         </div>
 
@@ -107,34 +130,47 @@ const Navbar = (props: Props) => {
         </details> */}
       </div>
       <div className="drawer sm:hidden">
-        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+        <input id="my-drawer"
+          type="checkbox"
+          className="drawer-toggle"
+        />
         <div className="drawer-side">
-          <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+          <label htmlFor="my-drawer"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+          ></label>
           <ul className="menu p-4 w-full max-w-xs min-h-full bg-base-200 text-base-content">
             {/* Sidebar content here */}
             <li>
-              <label htmlFor="my-drawer" className="ml-auto btn btn-ghost btn-sm btn-square drawer-button">
+              <label htmlFor="my-drawer"
+                className="ml-auto btn btn-ghost btn-sm btn-square drawer-button"
+              >
                 <MdClose size={24} />
               </label>
             </li>
             <li>
               <Link href='/'>
-                      Home
+                                Home
+              </Link>
+            </li>
+            <li>
+              <Link href='/products'>
+                                Produk Kami
               </Link>
             </li>
             <li>
               <Link href='/projects'>
-                      Project Kami
+                                Project Kami
               </Link>
             </li>
             <li>
-              <Link href='/posts'>
-                      Blog
+              <Link href='/blogs'>
+                                Blog
               </Link>
             </li>
             <li>
               <Link href='/about'>
-                      Tentang Kami
+                                Tentang Kami
               </Link>
             </li>
             <li>

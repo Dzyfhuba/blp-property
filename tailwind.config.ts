@@ -59,6 +59,7 @@ const config: Config & {
     extend: {
       fontFamily: {
         sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+        montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
       },
       backgroundColor: {
         'dark': '#1d232a',

@@ -11,7 +11,7 @@ use Filament\Pages\Page;
 
 class Setting extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-m-square-3-stack-3d';
 
     protected static string $view = 'filament.pages.setting';
 

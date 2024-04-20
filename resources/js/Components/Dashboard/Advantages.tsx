@@ -29,16 +29,23 @@ const Advantages = () => {
   ]
 
   return (
-    <section id="advantages" className={styles.container}>
+    <section id="advantages"
+      className={styles.container}
+    >
       <div className={styles.sloganContainer}>
-        <img src={BgImage} alt={`${import.meta.env.VITE_APP_NAME} Advantages`} className={styles.background} />
+        <img src={BgImage}
+          alt={`${import.meta.env.VITE_APP_NAME} Advantages`}
+          className={styles.background}
+        />
         <span className={styles.slogan}>BLP Property, Build For Better Life</span>
       </div>
       <div className={styles.advantages}>
         <h2>Keunggulan Kami</h2>
         <div className={styles.gridList}>
           {advantages.map((item, idx) => (
-            <div key={idx} className={styles.gridItem}>
+            <div key={idx}
+              className={styles.gridItem}
+            >
               {item.icon}
               <h3>{item.title}</h3>
               <p>{item.descrition}</p>

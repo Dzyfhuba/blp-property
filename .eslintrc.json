@@ -14,7 +14,7 @@
         "plugin:react/recommended"
     ],
     "ignorePatterns": [
-        "!resources/js/**",
+        // "resources/js/**",
         "tailwind.config.js",
         "public"
     ],

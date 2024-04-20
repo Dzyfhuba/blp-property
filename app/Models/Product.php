@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Model as ModelTable;
 
 class Product extends Model
 {
@@ -28,6 +30,7 @@ class Product extends Model
         'building_size',
         'capacity',
         'occupied',
+        'images'
     ];
 
     public function category(): BelongsTo
@@ -53,5 +56,10 @@ class Product extends Model
     public function design(): BelongsTo
     {
         return $this->belongsTo(LocationOption::class, 'design_option_id');
+    }
+
+    public function models(): HasMany
+    {
+        return $this->hasMany(ModelTable::class);
     }
 }

@@ -9,21 +9,27 @@ use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationGroup = 'Products';
 
     public static function form(Form $form): Form
     {
@@ -34,8 +40,12 @@ class CategoryResource extends Resource
 
         return $form
             ->schema([
-                TextInput::make('name')->required(),
-                MarkdownEditor::make('description')->columnSpanFull(),
+                TextInput::make('name')->required()
+                    ->debounce()
+                    ->live()
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                TextInput::make('slug')->unique(ignoreRecord:true),
+                RichEditor::make('description')->columnSpanFull(),
                 FileUpload::make('images_top')
                     ->multiple()
                     ->image(),
@@ -48,7 +58,7 @@ class CategoryResource extends Resource
                     ->collapsed()
                     ->schema([
                         TextInput::make('title')->required(),
-                        TextInput::make('description'),
+                        Textarea::make('description'),
                         FileUpload::make('images')->image()
                             ->multiple(),
                     ]),

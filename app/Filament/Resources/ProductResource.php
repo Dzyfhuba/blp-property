@@ -26,12 +26,14 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Products';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('name')->string()->required(),
-                Select::make('category')->label('cluster')->options(Category::all()->pluck('name', 'id')),
+                Select::make('category')->label('cluster')->options(Category::all()->pluck('name', 'id'))->relationship('category', 'name'),
                 MarkdownEditor::make('description')->columnSpanFull(),
                 TextInput::make("occupied")->label('Jumlah Terisi')->integer(),
                 TextInput::make("capacity")->label('Kapasitas')->integer(),

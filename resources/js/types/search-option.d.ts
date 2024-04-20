@@ -5,27 +5,21 @@ export type Option = {
 }
 
 export type AllSelectOption = {
-  designOptions?: Option[]
-  facilityOptions?: Option[]
-  locationOptions?: Option[]
-  publicFacilityOptions?: Option[]
-  bedrooms?: Option[]
-  bathrooms?: Option[]
-  floors?: Option[]
+  [key in Column]?: Option[]
 }
 
 export type Column =
-  'price' | 
-  'bedrooms' | 
-  'bathrooms' | 
-  'land_size' | 
-  'facility' | 
-  'public_facility' | 
-  'design' | 
-  'location' | 
-  'floors' | 
+  'price' |
+  'bedrooms' |
+  'bathrooms' |
+  'land_size' |
+  'facility' |
+  'public_facility' |
+  'design' |
+  'location' |
+  'floors' |
   'building_size'
 
 export type SearchValue = {
-  [key in Column]: string | number
+  [key in Column]?: string | number
 }

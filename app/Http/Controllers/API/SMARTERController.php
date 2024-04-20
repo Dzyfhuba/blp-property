@@ -6,36 +6,38 @@ use App\Http\Controllers\Controller;
 use App\Models\DesignOption;
 use App\Models\FacilityOption;
 use App\Models\LocationOption;
+use App\Models\Model;
 use App\Models\PublicFacilityOption;
+use App\Models\SearchLog;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class SMARTERController extends Controller
 {
-    public function calculate(Request $request){
-        // Validation
-        $validator = Validator::make($request->all(), [
-            'price' => 'required|numeric|min:300|max:1000',
-            'bedrooms' => 'required|numeric',
-            'bathrooms' => 'required|numeric',
-            'land_size' => 'required|numeric',
-            'facility' => 'required|numeric',
-            'public_facility' => 'required',
-            'design' => 'required',
-            'location' => 'required',
-            'floors' => 'required',
-            'building_size' => 'required',
-        ]);
+    public function showProcess(int $searchId)
+    {
+        $setting = Setting::first(['batch', 'pairwise_comparison']);
 
-        if ($validator->fails()) {
-            return response([
-                'error' => $validator->getMessageBag()
-            ], 400);
-        }
+        $models = Model::query()
+            ->where([
+                'batch' => $setting->batch,
+            ])
+            ->whereNotNull([
+                'pairwise_comparison_normalized',
+                'pairwise_comparison_priority',
+                'pairwise_comparison_line_quality',
+                'pairwise_comparison_consistency_ratio',
+            ])
+            ->with(['product', 'product.category'])
+            ->get();
+
+        $search = SearchLog::find($searchId, ['criterion', 'total']);
 
         return response([
-            'request' => $request->all()
+            'models' => $models,
+            'search' => $search,
+            'pairwise_comparison' => $setting->pairwise_comparison,
         ]);
     }
 }

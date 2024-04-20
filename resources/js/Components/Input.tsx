@@ -1,6 +1,5 @@
-import { ForwardedRef, LegacyRef, forwardRef } from 'react'
-import styles from './Input.module.css'
 import { useNumberFormat } from '@react-input/number-format'
+import styles from './Input.module.css'
 
 interface Props extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   htmlFor: string,
@@ -27,7 +26,10 @@ const Input = (props:Props) => {
         ref={currency ? rupiahMask : undefined}
         name={htmlFor || props.id || props.name}
         id={htmlFor || props.id || props.name}
-        type={type} className={`peer ${styles.inputField}${props.className ? ` ${props.className}` : ''}`} {...restProps} />
+        type={type}
+        className={`peer ${styles.inputField}${props.className ? ` ${props.className}` : ''}`}
+        {...restProps}
+      />
       <label
         htmlFor={htmlFor}
         className={`${styles.labelBox}
@@ -43,7 +45,9 @@ const Input = (props:Props) => {
         errorMessages?.length ? (
           <div>
             {errorMessages.map((message, index) => (
-              <p key={index} className={`${styles.error}${errorClassname ? ` ${errorClassname}` : ''}`}>{message}</p>
+              <p key={index}
+                className={`${styles.error}${errorClassname ? ` ${errorClassname}` : ''}`}
+              >{message}</p>
             ))}
           </div>
         ) : <></>
