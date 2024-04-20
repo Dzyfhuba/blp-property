@@ -90,6 +90,47 @@ const Process = (props: Props) => {
       {(productId && selectedModel) ? (
       //   priority, line quality and total
         <>
+          {/* Pairwise Comparison */}
+          <article id="pairwise-comparison-normalized">
+            <h1 className='text-2xl font-bold'>Pairwise Comparison (Normalized)</h1>
+            {/* <Zoom>
+              <img src={PairwiseComparisonImage}
+                alt='pairwise comparison'
+                className='max-h-11 mx-auto'
+              />
+            </Zoom> */}
+            <div className='overflow-x-auto'>
+              <table className='table table-pin-cols'>
+                <thead>
+                  <tr>
+                    <th></th>
+                    {Object.keys(props.data.models[productId].pairwise_comparison_normalized!).map((key, idx) => (
+                      <td key={idx}
+                      >
+                        {key}
+                      </td>
+                    ))}
+                    <td>Line Quality</td>
+                    <td className='font-black'>Priority</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {columns.map((column1, idx) => (
+                    <tr key={idx}>
+                      <th className='whitespace-nowrap'>{column1}</th>
+                      {columns.map((column2, idx) => (
+                        <td key={idx}
+                          className='whitespace-nowrap'
+                        >{props.data.models[productId].pairwise_comparison_normalized![column1][column2]}</td>
+                      ))}
+                      <td className='whitespace-nowrap'>{props.data.models[productId].pairwise_comparison_line_quality![column1]}</td>
+                      <td className='whitespace-nowrap font-black'>{props.data.models[productId].pairwise_comparison_priority![column1]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </article>
           <article id="model">
             <h1 className='text-2xl font-bold'>Priority</h1>
             <div className='flex flex-col gap-3 sm:flex-row justify-center'>

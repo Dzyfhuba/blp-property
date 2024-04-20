@@ -15,7 +15,7 @@ import styles from './Heroes.module.css'
 import type Hero from '@/types/hero'
 import Image from '../Image'
 
-const Heroes = (props: {heroes: Hero[]}) => {
+const Heroes = (props: { heroes: Hero[] }) => {
   const ReactSwal = withReactContent(Swal)
 
   const handleSearchModal = () => {
@@ -42,30 +42,41 @@ const Heroes = (props: {heroes: Hero[]}) => {
         modules={[Pagination]}
         className='bg-base-200'
       >
-        <SwiperSlide>
-          <div className={styles.mainContainer + ' relative'}>
-            <Image
-              src={props.heroes ? props.heroes[0].image : NotFoundImage}
-              alt='main hero'
-              className='h-screen w-full object-cover absolute'
-            />
-            <button className='btn btn-primary z-10'
-              onClick={() => handleSearchModal()}
-            >
-              Cari Rumah Terbaik Untuk Anda
-            </button>
-          </div>
-        </SwiperSlide>
         {/* {[Slider1, Slider2, Slider3].map((item, idx) => ( */}
-        {props.heroes.slice(1).map((item, idx) => (
-          <SwiperSlide key={idx}>
-            <Image
-              src={`/storage/${item.image}`}
-              alt={`${import.meta.env.VITE_APP_NAME} ${item.title}`}
-              className='w-full h-screen object-cover'
-            />
-          </SwiperSlide>
-        ))}
+        {props.heroes ? props.heroes.map((item, idx) => {
+          if (!idx) {
+            return (
+              <SwiperSlide key={idx}>
+                <div className={styles.mainContainer + ' relative'}>
+                  {props.heroes ? (
+                    <Image
+                      src={`/storage/${item.image}`}
+                      alt='main hero'
+                      className='h-screen w-full object-cover absolute'
+                    />
+                  ) : <></>}
+
+                  <button className='btn btn-primary z-10'
+                    onClick={() => handleSearchModal()}
+                  >
+                        Cari Rumah Terbaik Untuk Anda
+                  </button>
+                </div>
+              </SwiperSlide>
+            )
+          }
+          return (
+            (
+              <SwiperSlide key={idx}>
+                <Image
+                  src={`/storage/${item.image}`}
+                  alt={`${import.meta.env.VITE_APP_NAME} ${item.title}`}
+                  className='w-full h-screen object-cover'
+                />
+              </SwiperSlide>
+            )
+          )
+        }) : <></>}
       </Swiper>
     </>
   )

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Category;
+use App\Models\CriterionRating;
 use App\Models\DesignOption;
 use App\Models\FacilityOption;
 use App\Models\LocationOption;
@@ -30,6 +31,11 @@ class ProductResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $facility = collect(CriterionRating::query()->where('criteria', 'facility')->first('rating')->rating)->mapWithKeys(fn($record) => [$record['value'] => "{$record['label']}: {$record['range']}"]);
+        $publicFacility = collect(CriterionRating::query()->where('criteria', 'public_facility')->first('rating')->rating)->mapWithKeys(fn($record) => [$record['value'] => "{$record['label']}: {$record['range']}"]);
+        // dd(collect(CriterionRating::query()->where('criteria', 'public_facility')->first('rating')->rating)->mapWithKeys(fn($record) => [$record['value'] => "{$record['label']}: {$record['range']}"]));
+        $design = collect(CriterionRating::query()->where('criteria', 'design')->first('rating')->rating)->mapWithKeys(fn($record) => [$record['value'] => "{$record['label']}: {$record['range']}"]);
+        $location = collect(CriterionRating::query()->where('criteria', 'location')->first('rating')->rating)->mapWithKeys(fn($record) => [$record['value'] => "{$record['label']}: {$record['range']}"]);
         return $form
             ->schema([
                 TextInput::make('name')->string()->required(),
@@ -41,10 +47,10 @@ class ProductResource extends Resource
                 TextInput::make("bedrooms")->integer(),
                 TextInput::make("bathrooms")->integer(),
                 TextInput::make("land_size")->label('Land Size (m2)')->integer(),
-                Select::make("facility_option_id")->label('Facility')->options(FacilityOption::all()->pluck('label', 'id')),
-                Select::make("public_facility_option_id")->label('Public Facility')->options(PublicFacilityOption::all()->pluck('label', 'id')),
-                Select::make("design_option_id")->label('Design')->options(DesignOption::all()->pluck('label', 'id')),
-                Select::make("location_option_id")->label('Location')->options(LocationOption::all()->pluck('label', 'id')),
+                Select::make("facility_option_id")->label('Facility')->options($facility),
+                Select::make("public_facility_option_id")->label('Public Facility')->options($publicFacility),
+                Select::make("design_option_id")->label('Design')->options($design),
+                Select::make("location_option_id")->label('Location')->options($location),
                 TextInput::make("floors")->integer(),
                 TextInput::make("building_size")->label('Land Size (m2)')->integer(),
                 FileUpload::make('images')->image()->required(),

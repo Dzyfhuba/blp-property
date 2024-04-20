@@ -105,7 +105,7 @@ const Products = (props: Props) => {
             <article key={item.id}
               className='card overflow-hidden shadow-md bg-base-200 hover:cursor-pointer group relative'
             >
-              <Link href={`/categories/${item.category?.name}`}>
+              <Link href={`/categories/${item.category?.slug}`}>
                 <Image src={item.images ? item.images[0] : ImageNotFound}
                   zoomable={false}
                   alt={`${item.name} ${import.meta.env.VITE_APP_NAME}`}
