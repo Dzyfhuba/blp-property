@@ -187,13 +187,13 @@ class Smarter
                     ),
                     'facility' => self::normalizedUtility(
                         $weights['facility'],
-                        $product->facility->value,
+                        $product->facility_option_id,
                         $points['facility']['min'],
                         $points['facility']['max'],
                     ),
                     'public_facility' => self::normalizedUtility(
                         $weights['public_facility'],
-                        $product->publicFacility->value,
+                        $product->public_facility_option_id,
                         $points['public_facility']['min'],
                         $points['public_facility']['max'],
                     ),
@@ -211,13 +211,13 @@ class Smarter
                     ),
                     'location' => self::normalizedUtility(
                         $weights['location'],
-                        $product->location->value,
+                        $product->location_option_id,
                         $points['location']['min'],
                         $points['location']['max'],
                     ),
                     'design' => self::normalizedUtility(
                         $weights['design'],
-                        $product->design->value,
+                        $product->design_option_id,
                         $points['design']['min'],
                         $points['design']['max'],
                     ),

@@ -47,9 +47,10 @@ class AHP
     public static function getLineQuality(Collection $normalized, Collection $priority)
     {
         return collect($normalized)->map(function ($row, $key1) use ($priority) {
-            return collect($row)->map(function ($item) use ($key1, $priority) {
-                return $item * $priority[$key1];
-            })->sum();
+            return collect($row)->sum()*$priority[$key1];
+            // return collect($row)->map(function ($item) use ($key1, $priority) {
+            //     return $item * $priority[$key1];
+            // })->sum();
         });
     }
 
