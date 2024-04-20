@@ -31,7 +31,7 @@ class ProductResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $facility = collect(CriterionRating::query()->where('criteria', 'facility')->first('rating')->first()->rating)->mapWithKeys(fn($record) => [$record['value'] => "{$record['label']}: {$record['range']}"]);
+        $facility = collect(CriterionRating::query()->where('criteria', 'facility')->first('rating')->rating)->mapWithKeys(fn($record) => [$record['value'] => "{$record['label']}: {$record['range']}"]);
         $publicFacility = collect(CriterionRating::query()->where('criteria', 'public_facility')->first('rating')->rating)->mapWithKeys(fn($record) => [$record['value'] => "{$record['label']}: {$record['range']}"]);
         // dd(collect(CriterionRating::query()->where('criteria', 'public_facility')->first('rating')->rating)->mapWithKeys(fn($record) => [$record['value'] => "{$record['label']}: {$record['range']}"]));
         $design = collect(CriterionRating::query()->where('criteria', 'design')->first('rating')->rating)->mapWithKeys(fn($record) => [$record['value'] => "{$record['label']}: {$record['range']}"]);
