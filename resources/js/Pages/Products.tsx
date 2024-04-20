@@ -44,7 +44,7 @@ const Products = (props: Props) => {
     })
   }
 
-  const handleShowProcess = async () => {
+  const handleShowProcess = async (productId: number | undefined = undefined) => {
     const data: SmarterResponse = await axios.get(`/api/smarter/${props.search_id}`)
       .then(res => res.data)
       .catch(() => {
@@ -59,18 +59,21 @@ const Products = (props: Props) => {
     ReactSwal.fire({
       title: 'Proses Perhitungan Pencarian Pengguna',
       showCloseButton: true,
-      html: <Process data={data} />,
-      width: '80vw'
+      html: <Process data={data}
+        productId={productId}
+      />,
+      grow: 'fullscreen',
+      showConfirmButton: false,
     })
   }
 
   return (
-    <Layout>
+    <Layout {...props}>
       <section id="products"
         className='pt-20 max-w-screen-sm mx-auto'
       >
         {/* filter */}
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-3 px-3'>
           <button id='search'
             className='btn btn-primary'
             onClick={() => handleSearchModal()}
@@ -86,12 +89,14 @@ const Products = (props: Props) => {
           >
             <GrPowerReset size={24} />
           </button>
-          <button id='show-progress'
-            className='btn btn-square btn-outline ml-auto'
-            onClick={handleShowProcess}
-          >
-            <FaEye size={24} />
-          </button>
+          {props.search_id ? (
+            <button id='show-progress'
+              className='btn btn-square btn-outline ml-auto'
+              onClick={() => handleShowProcess()}
+            >
+              <FaEye size={24} />
+            </button>
+          ) : <></>}
         </div>
 
         {/* products list */}
@@ -118,6 +123,7 @@ const Products = (props: Props) => {
                   hover:before:content-['lihat_perhitungan'] hover:before:absolute hover:before:bg-base-200
                   hover:before:whitespace-nowrap hover:before:p-1 hover:before:rounded-br-[1rem]
                   hover:before:active:tracking-wide hover:before:transition-all hover:before:duration-100`}
+                  onClick={() => handleShowProcess(item.id)}
                 >
                   <TbDelta />Total: {item.total_delta?.toPrecision(4)}
                 </button>

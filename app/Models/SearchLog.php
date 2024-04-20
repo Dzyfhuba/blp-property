@@ -9,6 +9,8 @@ class SearchLog extends Model
 {
     use HasFactory;
 
+    protected $table = 'search_logs';
+
     protected $fillable = [
         'user_ip',
         'user_agent',

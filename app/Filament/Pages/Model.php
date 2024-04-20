@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Cache;
 
 class Model extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-magnifying-glass';
 
     protected static string $view = 'filament.pages.model';
+
+    protected static ?string $navigationGroup = 'Search Engine';
 
     protected $model = [];
 

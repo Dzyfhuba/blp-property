@@ -20,8 +20,16 @@ class SMARTERController extends Controller
         $setting = Setting::first(['batch', 'pairwise_comparison']);
 
         $models = Model::query()
-            ->where('batch', $setting->batch)
-            ->with('product')
+            ->where([
+                'batch' => $setting->batch,
+            ])
+            ->whereNotNull([
+                'pairwise_comparison_normalized',
+                'pairwise_comparison_priority',
+                'pairwise_comparison_line_quality',
+                'pairwise_comparison_consistency_ratio',
+            ])
+            ->with(['product', 'product.category'])
             ->get();
 
         $search = SearchLog::find($searchId, ['criterion', 'total']);
@@ -29,7 +37,7 @@ class SMARTERController extends Controller
         return response([
             'models' => $models,
             'search' => $search,
-            'pairwise_comparison' => $setting->pairwise_comparison
+            'pairwise_comparison' => $setting->pairwise_comparison,
         ]);
     }
 }

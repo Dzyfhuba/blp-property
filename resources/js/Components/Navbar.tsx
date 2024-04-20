@@ -87,7 +87,7 @@ const Navbar = (props: Props) => {
           >
                         Project Kami
           </Link>
-          <Link href='/posts'
+          <Link href='/blogs'
             className={styles.navItem}
           >
                         Blog
@@ -164,7 +164,7 @@ const Navbar = (props: Props) => {
               </Link>
             </li>
             <li>
-              <Link href='/posts'>
+              <Link href='/blogs'>
                                 Blog
               </Link>
             </li>

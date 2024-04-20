@@ -1,23 +1,25 @@
 import Advantages from '@/Components/Dashboard/Advantages'
 import Categories from '@/Components/Dashboard/Categories'
-import Heros from '@/Components/Dashboard/Heros'
+import Heroes from '@/Components/Dashboard/Heroes'
 import ProductsDisplay from '@/Components/Dashboard/ProductsDisplay'
 import Layout from '@/Layouts/Layout'
 import { PageProps } from '@/types'
 import Category from '@/types/category'
-import Footer from '@/types/setting'
+import type Hero from '@/types/hero'
+import Setting from '@/types/setting'
 
 interface Props extends PageProps {
   categories: Category[]
-  setting: Footer
+  setting: Setting
+  heroes: Hero[]
 }
 
 export default function Dashboard(props: Props) {
   return (
-    <Layout widgets={props.widgets}
-      footer={props.setting}
+    <Layout
+      {...props}
     >
-      <Heros />
+      <Heroes heroes={props.heroes} />
       <div className='container mx-auto'>
         <ProductsDisplay />
         <Advantages />

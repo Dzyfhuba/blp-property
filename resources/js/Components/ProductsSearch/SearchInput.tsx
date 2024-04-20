@@ -15,7 +15,7 @@ const SearchInput = (props: Props) => {
   case 'price':
     return (
       <div className='flex flex-col py-6'>
-        <Input
+        {/* <Input
           tabIndex={-1}
           type='text'
           currency
@@ -29,7 +29,27 @@ const SearchInput = (props: Props) => {
             column: props.column,
             value: e.target.value
           })}
-        />
+        /> */}
+        <select
+          tabIndex={-1}
+          name="price"
+          key={props.column}
+          id="price"
+          className='select grow select-bordered'
+          defaultValue={searchValue[props.column]}
+          onChange={(e) => setSearchValue({
+            column: props.column,
+            value: e.target.value
+          })}
+        >
+          <option value="">Pilih Jumlah Kamar Tidur...</option>
+          {props.options.price?.map(item => (
+            <option
+              value={item.value}
+              key={item.value}
+            >{item.label}</option>
+          ))}
+        </select>
       </div>
     )
   case 'bedrooms':
@@ -83,21 +103,26 @@ const SearchInput = (props: Props) => {
     )
   case 'land_size':
     return (
-      <div className='w-full py-6'>
-        <Input
+      <div className='flex py-6'>
+        <select name="land_size"
           tabIndex={-1}
-          type='number'
-          htmlFor='land_size'
-          id='land_size'
-          name='land_size'
-          label='Luas tanah'
-          placeholder='Luas tanah'
+          key={props.column}
+          id="land_size"
+          className='select grow select-bordered'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
           })}
-        />
+        >
+          <option value="">Pilih Jumlah Kamar Mandi...</option>
+          {props.options.land_size?.map(item => (
+            <option
+              value={item.value}
+              key={item.value}
+            >{item.label}</option>
+          ))}
+        </select>
       </div>
     )
   case 'facility':
@@ -105,9 +130,9 @@ const SearchInput = (props: Props) => {
       <div className='flex flex-col py-6'>
         <select
           tabIndex={-1}
-          name="facility_id"
+          name="facility"
           key={props.column}
-          id="facility_id"
+          id="facility"
           className='select grow select-bordered capitalize'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
@@ -116,7 +141,7 @@ const SearchInput = (props: Props) => {
           })}
         >
           <option value="">Pilih fasilitas...</option>
-          {props.options.facilityOptions?.map(item => (
+          {props.options.facility?.map(item => (
             <option
               value={item.value}
               key={item.value}
@@ -130,9 +155,9 @@ const SearchInput = (props: Props) => {
       <div className='flex flex-col py-6'>
         <select
           tabIndex={-1}
-          name="public_facility_id"
+          name="public_facility"
           key={props.column}
-          id="public_facility_id"
+          id="public_facility"
           className='select grow select-bordered capitalize'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
@@ -141,7 +166,7 @@ const SearchInput = (props: Props) => {
           })}
         >
           <option value="">Pilih fasilitas publik...</option>
-          {props.options.publicFacilityOptions?.map(item => (
+          {props.options.public_facility?.map(item => (
             <option
               value={item.value}
               key={item.value}
@@ -155,9 +180,9 @@ const SearchInput = (props: Props) => {
       <div className='flex flex-col py-6'>
         <select
           tabIndex={-1}
-          name="design_id"
+          name="design"
           key={props.column}
-          id="design_id"
+          id="design"
           className='select grow select-bordered capitalize'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
@@ -166,7 +191,7 @@ const SearchInput = (props: Props) => {
           })}
         >
           <option value="">Pilih desain...</option>
-          {props.options.designOptions?.map(item => (
+          {props.options.design?.map(item => (
             <option
               value={item.value}
               key={item.value}
@@ -180,9 +205,9 @@ const SearchInput = (props: Props) => {
       <div className='flex flex-col py-6'>
         <select
           tabIndex={-1}
-          name="design_id"
+          name="location"
           key={props.column}
-          id="design_id"
+          id="location"
           className='select grow select-bordered capitalize'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
@@ -191,7 +216,7 @@ const SearchInput = (props: Props) => {
           })}
         >
           <option value="">Lokasi Strategis</option>
-          {props.options.locationOptions?.map(item => (
+          {props.options.location?.map(item => (
             <option
               value={item.value}
               key={item.value}
@@ -227,19 +252,27 @@ const SearchInput = (props: Props) => {
     )
   case 'building_size':
     return (
-      <div className='w-full py-6'>
-        <Input
+      <div className='flex py-6'>
+        <select
           tabIndex={-1}
-          type='number'
-          htmlFor='building_size'
-          label='Luas bangunan (m2)'
-          placeholder='Luas bangunan'
+          name="building_size"
+          key={props.column}
+          id="building_size"
+          className='select grow select-bordered'
           defaultValue={searchValue[props.column]}
           onChange={(e) => setSearchValue({
             column: props.column,
             value: e.target.value
           })}
-        />
+        >
+          <option value="">Pilih Jumlah lantai...</option>
+          {props.options.building_size?.map(item => (
+            <option
+              value={item.value}
+              key={item.value}
+            >{item.label}</option>
+          ))}
+        </select>
       </div>
     )
   }

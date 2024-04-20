@@ -19,7 +19,7 @@ const Categories = (props: Props) => {
           {props.categories.filter(c => c.status === 'progress').map(c => (
             <Link key={c.id}
               className={styles.gridItem}
-              href={`/categories/${c.id}`}
+              href={`/categories/${c.slug}`}
               target='_blank'
             >
               <Image
@@ -43,7 +43,7 @@ const Categories = (props: Props) => {
           {props.categories.filter(c => c.status === 'complete').map(c => (
             <Link key={c.id}
               className={styles.gridItem}
-              href={`/categories/${c.id}`}
+              href={`/categories/${c.slug}`}
               target='_blank'
             >
               <Image

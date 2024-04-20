@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
@@ -22,10 +24,14 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [DashboardController::class, 'index']);
+Route::get('/paper', [DashboardController::class, 'paper']);
 Route::get('/projects', [ProjectController::class, 'index']);
-Route::get('/posts', [PostController::class, 'index']);
+Route::get('/blogs', [BlogController::class, 'index']);
+Route::get('/blogs/{blog:slug}', [BlogController::class, 'show']);
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
+
+Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

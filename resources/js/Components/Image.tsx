@@ -196,7 +196,7 @@ const Image = ({ className, zoomable, ...props }: Props) => {
           setShow(true)
         }}
         src={src}
-        className={styles.image + (className ? ` ${className}` : '')}
+        className={styles.image + (className ? ` ${className}` : '') + (zoomable ? ' hover:cursor-pointer hover:brightness-50' : '')}
         onError={() => {
           console.log('asd')
           setError(true)
