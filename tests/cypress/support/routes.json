@@ -1,0 +1,592 @@
+{
+  "filament.exports.download": {
+    "name": "filament.exports.download",
+    "domain": null,
+    "action": "Filament\\Actions\\Exports\\Http\\Controllers\\DownloadExport",
+    "uri": "filament/exports/{export}/download",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.imports.failed-rows.download": {
+    "name": "filament.imports.failed-rows.download",
+    "domain": null,
+    "action": "Filament\\Actions\\Imports\\Http\\Controllers\\DownloadImportFailureCsv",
+    "uri": "filament/imports/{import}/failed-rows/download",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.auth.login": {
+    "name": "filament.admin.auth.login",
+    "domain": null,
+    "action": "Filament\\Pages\\Auth\\Login",
+    "uri": "admin/login",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.auth.logout": {
+    "name": "filament.admin.auth.logout",
+    "domain": null,
+    "action": "Filament\\Http\\Controllers\\Auth\\LogoutController",
+    "uri": "admin/logout",
+    "method": [
+      "POST"
+    ]
+  },
+  "filament.admin.pages.dashboard": {
+    "name": "filament.admin.pages.dashboard",
+    "domain": null,
+    "action": "Filament\\Pages\\Dashboard",
+    "uri": "admin",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.pages.about": {
+    "name": "filament.admin.pages.about",
+    "domain": null,
+    "action": "App\\Filament\\Pages\\About",
+    "uri": "admin/about",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.pages.model": {
+    "name": "filament.admin.pages.model",
+    "domain": null,
+    "action": "App\\Filament\\Pages\\Model",
+    "uri": "admin/model",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.pages.setting": {
+    "name": "filament.admin.pages.setting",
+    "domain": null,
+    "action": "App\\Filament\\Pages\\Setting",
+    "uri": "admin/setting",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.blogs.index": {
+    "name": "filament.admin.resources.blogs.index",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\BlogResource\\Pages\\ListBlogs",
+    "uri": "admin/blogs",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.blogs.create": {
+    "name": "filament.admin.resources.blogs.create",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\BlogResource\\Pages\\CreateBlog",
+    "uri": "admin/blogs/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.blogs.edit": {
+    "name": "filament.admin.resources.blogs.edit",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\BlogResource\\Pages\\EditBlog",
+    "uri": "admin/blogs/{record}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.categories.index": {
+    "name": "filament.admin.resources.categories.index",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\CategoryResource\\Pages\\ListCategories",
+    "uri": "admin/categories",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.categories.create": {
+    "name": "filament.admin.resources.categories.create",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\CategoryResource\\Pages\\CreateCategory",
+    "uri": "admin/categories/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.categories.view": {
+    "name": "filament.admin.resources.categories.view",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\CategoryResource\\Pages\\ViewCategory",
+    "uri": "admin/categories/{record}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.categories.edit": {
+    "name": "filament.admin.resources.categories.edit",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\CategoryResource\\Pages\\EditCategory",
+    "uri": "admin/categories/{record}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.criterion-ratings.index": {
+    "name": "filament.admin.resources.criterion-ratings.index",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\CriterionRatingResource\\Pages\\ListCriterionRatings",
+    "uri": "admin/criterion-ratings",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.criterion-ratings.create": {
+    "name": "filament.admin.resources.criterion-ratings.create",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\CriterionRatingResource\\Pages\\CreateCriterionRating",
+    "uri": "admin/criterion-ratings/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.criterion-ratings.edit": {
+    "name": "filament.admin.resources.criterion-ratings.edit",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\CriterionRatingResource\\Pages\\EditCriterionRating",
+    "uri": "admin/criterion-ratings/{record}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.heroes.index": {
+    "name": "filament.admin.resources.heroes.index",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\HeroResource\\Pages\\ListHeroes",
+    "uri": "admin/heroes",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.heroes.create": {
+    "name": "filament.admin.resources.heroes.create",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\HeroResource\\Pages\\CreateHero",
+    "uri": "admin/heroes/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.heroes.edit": {
+    "name": "filament.admin.resources.heroes.edit",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\HeroResource\\Pages\\EditHero",
+    "uri": "admin/heroes/{record}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.products.index": {
+    "name": "filament.admin.resources.products.index",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\ProductResource\\Pages\\ListProducts",
+    "uri": "admin/products",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.products.create": {
+    "name": "filament.admin.resources.products.create",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\ProductResource\\Pages\\CreateProduct",
+    "uri": "admin/products/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.products.edit": {
+    "name": "filament.admin.resources.products.edit",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\ProductResource\\Pages\\EditProduct",
+    "uri": "admin/products/{record}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.widgets.index": {
+    "name": "filament.admin.resources.widgets.index",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\WidgetResource\\Pages\\ListWidgets",
+    "uri": "admin/widgets",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.widgets.create": {
+    "name": "filament.admin.resources.widgets.create",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\WidgetResource\\Pages\\CreateWidget",
+    "uri": "admin/widgets/create",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "filament.admin.resources.widgets.edit": {
+    "name": "filament.admin.resources.widgets.edit",
+    "domain": null,
+    "action": "App\\Filament\\Resources\\WidgetResource\\Pages\\EditWidget",
+    "uri": "admin/widgets/{record}/edit",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "cypress.factory": {
+    "name": "cypress.factory",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@factory",
+    "uri": "__cypress__/factory",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.login": {
+    "name": "cypress.login",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@login",
+    "uri": "__cypress__/login",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.logout": {
+    "name": "cypress.logout",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@logout",
+    "uri": "__cypress__/logout",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.artisan": {
+    "name": "cypress.artisan",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@artisan",
+    "uri": "__cypress__/artisan",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.run-php": {
+    "name": "cypress.run-php",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@runPhp",
+    "uri": "__cypress__/run-php",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.csrf-token": {
+    "name": "cypress.csrf-token",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@csrfToken",
+    "uri": "__cypress__/csrf_token",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "cypress.routes": {
+    "name": "cypress.routes",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@routes",
+    "uri": "__cypress__/routes",
+    "method": [
+      "POST"
+    ]
+  },
+  "cypress.current-user": {
+    "name": "cypress.current-user",
+    "domain": null,
+    "action": "Laracasts\\Cypress\\Controllers\\CypressController@currentUser",
+    "uri": "__cypress__/current-user",
+    "method": [
+      "POST"
+    ]
+  },
+  "dusk.login": {
+    "name": "dusk.login",
+    "domain": null,
+    "action": "Laravel\\Dusk\\Http\\Controllers\\UserController@login",
+    "uri": "_dusk/login/{userId}/{guard?}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "dusk.logout": {
+    "name": "dusk.logout",
+    "domain": null,
+    "action": "Laravel\\Dusk\\Http\\Controllers\\UserController@logout",
+    "uri": "_dusk/logout/{guard?}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "dusk.user": {
+    "name": "dusk.user",
+    "domain": null,
+    "action": "Laravel\\Dusk\\Http\\Controllers\\UserController@user",
+    "uri": "_dusk/user/{guard?}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "sanctum.csrf-cookie": {
+    "name": "sanctum.csrf-cookie",
+    "domain": null,
+    "action": "Laravel\\Sanctum\\Http\\Controllers\\CsrfCookieController@show",
+    "uri": "sanctum/csrf-cookie",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "livewire.update": {
+    "name": "livewire.update",
+    "domain": null,
+    "action": "Livewire\\Mechanisms\\HandleRequests\\HandleRequests@handleUpdate",
+    "uri": "livewire/update",
+    "method": [
+      "POST"
+    ]
+  },
+  "": {
+    "name": null,
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\ConfirmablePasswordController@store",
+    "uri": "confirm-password",
+    "method": [
+      "POST"
+    ]
+  },
+  "livewire.upload-file": {
+    "name": "livewire.upload-file",
+    "domain": null,
+    "action": "Livewire\\Features\\SupportFileUploads\\FileUploadController@handle",
+    "uri": "livewire/upload-file",
+    "method": [
+      "POST"
+    ]
+  },
+  "livewire.preview-file": {
+    "name": "livewire.preview-file",
+    "domain": null,
+    "action": "Livewire\\Features\\SupportFileUploads\\FilePreviewController@handle",
+    "uri": "livewire/preview-file/{filename}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "ignition.healthCheck": {
+    "name": "ignition.healthCheck",
+    "domain": null,
+    "action": "Spatie\\LaravelIgnition\\Http\\Controllers\\HealthCheckController",
+    "uri": "_ignition/health-check",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "ignition.executeSolution": {
+    "name": "ignition.executeSolution",
+    "domain": null,
+    "action": "Spatie\\LaravelIgnition\\Http\\Controllers\\ExecuteSolutionController",
+    "uri": "_ignition/execute-solution",
+    "method": [
+      "POST"
+    ]
+  },
+  "ignition.updateConfig": {
+    "name": "ignition.updateConfig",
+    "domain": null,
+    "action": "Spatie\\LaravelIgnition\\Http\\Controllers\\UpdateConfigController",
+    "uri": "_ignition/update-config",
+    "method": [
+      "POST"
+    ]
+  },
+  "profile.edit": {
+    "name": "profile.edit",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\ProfileController@edit",
+    "uri": "profile",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "profile.update": {
+    "name": "profile.update",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\ProfileController@update",
+    "uri": "profile",
+    "method": [
+      "PATCH"
+    ]
+  },
+  "profile.destroy": {
+    "name": "profile.destroy",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\ProfileController@destroy",
+    "uri": "profile",
+    "method": [
+      "DELETE"
+    ]
+  },
+  "register": {
+    "name": "register",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\RegisteredUserController@create",
+    "uri": "register",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "login": {
+    "name": "login",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\AuthenticatedSessionController@create",
+    "uri": "login",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "password.request": {
+    "name": "password.request",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\PasswordResetLinkController@create",
+    "uri": "forgot-password",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "password.email": {
+    "name": "password.email",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\PasswordResetLinkController@store",
+    "uri": "forgot-password",
+    "method": [
+      "POST"
+    ]
+  },
+  "password.reset": {
+    "name": "password.reset",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\NewPasswordController@create",
+    "uri": "reset-password/{token}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "password.store": {
+    "name": "password.store",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\NewPasswordController@store",
+    "uri": "reset-password",
+    "method": [
+      "POST"
+    ]
+  },
+  "verification.notice": {
+    "name": "verification.notice",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\EmailVerificationPromptController",
+    "uri": "verify-email",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "verification.verify": {
+    "name": "verification.verify",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\VerifyEmailController",
+    "uri": "verify-email/{id}/{hash}",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "verification.send": {
+    "name": "verification.send",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController@store",
+    "uri": "email/verification-notification",
+    "method": [
+      "POST"
+    ]
+  },
+  "password.confirm": {
+    "name": "password.confirm",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\ConfirmablePasswordController@show",
+    "uri": "confirm-password",
+    "method": [
+      "GET",
+      "HEAD"
+    ]
+  },
+  "password.update": {
+    "name": "password.update",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\PasswordController@update",
+    "uri": "password",
+    "method": [
+      "PUT"
+    ]
+  },
+  "logout": {
+    "name": "logout",
+    "domain": null,
+    "action": "App\\Http\\Controllers\\Auth\\AuthenticatedSessionController@destroy",
+    "uri": "logout",
+    "method": [
+      "POST"
+    ]
+  }
+}

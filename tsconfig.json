@@ -18,14 +18,10 @@
                 "./vendor/tightenco/ziggy"
             ]
         },
-        "typeRoots": [
-            "./resources/js/types",
-            "./node_modules/@types"
-        ]
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "types": ["cypress", "node"]
     },
-    "include": [
-        "resources/js/**/*.ts",
-        "resources/js/**/*.tsx",
-        "resources/js/**/*.d.ts"
-    ]
+    "include": ["test/**/*.{ts,js}", "resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts"],
+    "exclude": ["node_modules"]
 }

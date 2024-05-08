@@ -62,8 +62,26 @@ services:
             - 'host.docker.internal:host-gateway'
         ports:
             - 4444:4444
+            - 9515:9515
         volumes:
             - '/dev/shm:/dev/shm'
+        networks:
+            - sail
+    mysql_test:
+        image: "mysql/mysql-server:8.0"
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        env_file: ./.env.cypress
+        environment:
+            MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+            MYSQL_DATABASE: "${DB_DATABASE}"
+            MYSQL_USER: "${DB_USERNAME}"
+            MYSQL_PASSWORD: "${DB_PASSWORD}"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        volumes:
+            - './docker/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+            - sail-mysql-test:/var/lib/mysql
+            - './backup.sql:/docker-entrypoint-initdb.d/backup.sql'
         networks:
             - sail
 networks:
@@ -71,4 +89,6 @@ networks:
         driver: bridge
 volumes:
     sail-mysql:
+        driver: local
+    sail-mysql-test:
         driver: local
