@@ -61,6 +61,7 @@ const Footer = (props: FooterI) => {
       <div id='marketing-executives'
         className='flex flex-col'
       >
+        <h3 className='text-xl font-black'>Marketing Executives</h3>
         {props.marketing_executives ? props.marketing_executives.map(me => (
           <a href={`https://wa.me/${me.phone?.replace('0', '+62')}`}
             target='_blank'
